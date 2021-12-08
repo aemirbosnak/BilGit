@@ -1,7 +1,6 @@
 package com.example.trybil.view;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -12,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +19,14 @@ import android.widget.Toast;
 
 import com.example.trybil.R;
 import com.example.trybil.databinding.LoginFragmentBinding;
+import com.example.trybil.viewmodel.AuthViewModel;
 import com.example.trybil.viewmodel.LoginViewModel;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginFragment extends Fragment {
     private LoginFragmentBinding loginFragmentBinding;
-    private LoginViewModel mViewModel;
+    private AuthViewModel mViewModel;
+    private NavController navController;
 
 
     @Override
@@ -33,21 +34,36 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         loginFragmentBinding = LoginFragmentBinding.inflate(inflater, container, false);
 
+        mViewModel.getUserData().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
+            @Override
+            public void onChanged(FirebaseUser firebaseUser) {
+                if (firebaseUser != null){
+                    Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(getContext(), MainActivity.class));
+                    //getActivity().finish();
+                }
+            }
+        });
+
+        /*
+        mViewModel.getTestString().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                loginFragmentBinding.editTextEmail.setText("fff");
+            }
+        });
+         */
+
+
         loginFragmentBinding.buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isMatch;
+                String email = loginFragmentBinding.editTextEmail.getText().toString();
+                String pass = loginFragmentBinding.editTextPassword.getText().toString();
 
-                //isMatch = mViewModel.authUser(loginFragmentBinding.editTextEmail.getText().toString(), loginFragmentBinding.editTextPassword.getText().toString());
-                isMatch = true;
-
-                if (isMatch) {
-                    Toast.makeText(getContext(), "Successful", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getContext(), MainActivity.class));
-                    getActivity().finish();
-                }
-                else {
-                    Toast.makeText(getContext(), "User Not Exist", Toast.LENGTH_SHORT).show();
+                //loginFragmentBinding.editTextEmail.setText(mViewModel.getTestString().toString());
+                if (!email.isEmpty() && !pass.isEmpty()){
+                    mViewModel.signIn(email , pass);
                 }
             }
         });
@@ -55,7 +71,7 @@ public class LoginFragment extends Fragment {
         loginFragmentBinding.textSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment);
+                navController.navigate(R.id.action_loginFragment_to_registerFragment);
             }
         });
 
@@ -65,7 +81,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
     }
 
     @Override
@@ -74,4 +90,9 @@ public class LoginFragment extends Fragment {
         loginFragmentBinding = null;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        navController = Navigation.findNavController(view);
+    }
 }

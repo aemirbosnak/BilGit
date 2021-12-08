@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "351555249860",
+    "project_id": "ateshtentemel",
+    "storage_bucket": "ateshtentemel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351555249860:android:04c74c45f18e4355e90b91",
+        "android_client_info": {
+          "package_name": "com.example.trybil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351555249860-96r2mrmhffr8mpc4r2of7mljapp218sk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trybil",
+            "certificate_hash": "46312822638babe4dbbcc22280dd514abd6e6041"
+          }
+        },
+        {
+          "client_id": "351555249860-rdh909bvt2kqfaebn9jl37g82dtu77l7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaW2rH9d0UBTeH_pCoLgaCrwMvjlg3_q8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351555249860-rdh909bvt2kqfaebn9jl37g82dtu77l7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
