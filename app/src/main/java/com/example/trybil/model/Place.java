@@ -2,7 +2,7 @@ package com.example.trybil.model;
 
 import android.media.Image;
 
-public class Place{
+public class Place {
     private String name;
     private String email;
     private String password;
@@ -13,7 +13,19 @@ public class Place{
     private User[] people;
     private String category;
 
-    public Place(String password, String email){
+    //Location data of place object
+    private double latitude;
+    private double longitude;
+    private double radius;
+
+    /*
+        We should have a place array/arraylist on mainactivity
+        and define location when constructing object.
+     */
+    public Place(String password, String email, double lat, double lon, double r){
+        latitude = lat;
+        longitude = lon;
+        radius = r;
         this.password = password;
         this.email = email;
     }
