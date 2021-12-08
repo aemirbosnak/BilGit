@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.trybil.R;
-import com.example.trybil.viewmodel.RegisterViewModel;
+import com.example.trybil.viewmodel.AuthViewModel;
 
 public class RegisterFragment extends Fragment {
 
-    private RegisterViewModel mViewModel;
+    private AuthViewModel mViewModel;
 
     public static RegisterFragment newInstance() {
         return new RegisterFragment();
@@ -32,7 +32,7 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
         // TODO: Use the ViewModel
     }
 

@@ -3,7 +3,6 @@ package com.example.trybil.view;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 import com.example.trybil.R;
 import com.example.trybil.databinding.LoginFragmentBinding;
 import com.example.trybil.viewmodel.AuthViewModel;
-import com.example.trybil.viewmodel.LoginViewModel;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginFragment extends Fragment {
@@ -45,23 +43,12 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        /*
-        mViewModel.getTestString().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                loginFragmentBinding.editTextEmail.setText("fff");
-            }
-        });
-         */
-
-
         loginFragmentBinding.buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = loginFragmentBinding.editTextEmail.getText().toString();
                 String pass = loginFragmentBinding.editTextPassword.getText().toString();
 
-                //loginFragmentBinding.editTextEmail.setText(mViewModel.getTestString().toString());
                 if (!email.isEmpty() && !pass.isEmpty()){
                     mViewModel.signIn(email , pass);
                 }

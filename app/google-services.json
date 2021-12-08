@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "178502881238",
+    "firebase_url": "https://bilgit-cs102-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "bilgit-cs102",
     "storage_bucket": "bilgit-cs102.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "178502881238-5nhh0jeinaqq3ukhee6qkam5vqicq8ev.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trybil",
+            "certificate_hash": "46312822638babe4dbbcc22280dd514abd6e6041"
+          }
+        },
         {
           "client_id": "178502881238-4h08tche07n0nm0ug2hq222vhmcam2cf.apps.googleusercontent.com",
           "client_type": 3

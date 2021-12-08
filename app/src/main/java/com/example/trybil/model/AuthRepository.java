@@ -15,15 +15,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class AuthRepository {
     private Application application;
     private MutableLiveData<FirebaseUser> firebaseUserMutableLiveData;
-    //private MutableLiveData<String> testString;
     private MutableLiveData<Boolean> userLoggedMutableLiveData;
     private FirebaseAuth auth;
-
-    /*
-    public MutableLiveData<String> getTestString() {
-        return testString;
-    }
-     */
 
     public MutableLiveData<FirebaseUser> getFirebaseUserMutableLiveData() {
         return firebaseUserMutableLiveData;
@@ -50,7 +43,8 @@ public class AuthRepository {
             public void onComplete(@NonNull  Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
-                }else{
+                }
+                else{
                     Toast.makeText(application, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -58,19 +52,15 @@ public class AuthRepository {
     }
 
     public void login(String email , String pass){
-        //testString.setValue("neutral");
-        Toast.makeText(application, "success1", Toast.LENGTH_SHORT).show();
         auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    //testString.setValue("success");
                     firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
-                    Toast.makeText(application, "success2", Toast.LENGTH_SHORT).show();
-                }else{
-                    //testString.setValue("fail");
-                    //Toast.makeText(application, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(application, "failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(application, "Successful Login", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(application, "Error:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
