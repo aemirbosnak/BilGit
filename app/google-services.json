@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "351555249860",
-    "project_id": "ateshtentemel",
-    "storage_bucket": "ateshtentemel.appspot.com"
+    "project_number": "178502881238",
+    "project_id": "bilgit-cs102",
+    "storage_bucket": "bilgit-cs102.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:351555249860:android:04c74c45f18e4355e90b91",
+        "mobilesdk_app_id": "1:178502881238:android:3b8812b28bf835f7d8de77",
         "android_client_info": {
           "package_name": "com.example.trybil"
         }
       },
       "oauth_client": [
         {
-          "client_id": "351555249860-96r2mrmhffr8mpc4r2of7mljapp218sk.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.trybil",
-            "certificate_hash": "46312822638babe4dbbcc22280dd514abd6e6041"
-          }
-        },
-        {
-          "client_id": "351555249860-rdh909bvt2kqfaebn9jl37g82dtu77l7.apps.googleusercontent.com",
+          "client_id": "178502881238-4h08tche07n0nm0ug2hq222vhmcam2cf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBaW2rH9d0UBTeH_pCoLgaCrwMvjlg3_q8"
+          "current_key": "AIzaSyDZVb3IKBPVZH9XQjI8kPX85g3jPpjowjU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "351555249860-rdh909bvt2kqfaebn9jl37g82dtu77l7.apps.googleusercontent.com",
+              "client_id": "178502881238-4h08tche07n0nm0ug2hq222vhmcam2cf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
