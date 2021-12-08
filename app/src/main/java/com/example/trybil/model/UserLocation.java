@@ -12,7 +12,13 @@ import android.location.LocationManager;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class UserLocation {
+
+    private DatabaseReference mDatabase;
+
     LocationManager lm;
     Context mContext;
 
@@ -30,17 +36,30 @@ public class UserLocation {
      */
     public UserLocation(LocationManager l, Context c)
     {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         lm = l;
         mContext = c;
         criteria = new Criteria();
         best = lm.getBestProvider(criteria, true);
         userLoc = new Location(best);
-        getLocation();
+        setLocation();
         updateLocation();
     }
 
+    /*
+        Look at all the places in the database
+        If this location is inside some place
+        put ID of this device's user into that place as ID data
+        number of user IDs inside the place class is number of
+        people present at that place
+     */
+    public void compareLocationPlace()
+    {
+
+    }
+
     //Helper method to check permissions and initialize Location object, only use in this class
-    private void getLocation()
+    private void setLocation()
     {
         //Check permission
         if ( checkPermission() ) {
@@ -86,7 +105,7 @@ public class UserLocation {
     private void requestPermissions()
     {
         ActivityCompat.requestPermissions( (Activity)mContext, new String[] {
-                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION}, 44 );
     }
 
@@ -98,8 +117,10 @@ public class UserLocation {
 
     private final LocationListener locationListener = new LocationListener() {
         @Override
-        public void onLocationChanged(@NonNull Location location) {
-            getLocation();
+        public void onLocationChanged(@NonNull Location location)
+        {
+            setLocation();
+            compareLocationPlace();
         }
     };
 

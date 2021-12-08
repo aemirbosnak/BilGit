@@ -1,7 +1,9 @@
 package com.example.trybil.view;
 
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.trybil.R;
 import com.example.trybil.databinding.ActivityMainBinding;
+import com.example.trybil.model.UserLocation;
 import com.example.trybil.viewmodel.MainViewModel;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
+
         /*
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
