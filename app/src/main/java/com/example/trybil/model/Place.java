@@ -13,9 +13,8 @@ public class Place{
     private User[] people;
     private String category;
 
-    public Place(String password, String email){
-        this.password = password;
-        this.email = email;
+    public Place(String name){
+        this.name = name;
     }
 
     public String getCategory() {
