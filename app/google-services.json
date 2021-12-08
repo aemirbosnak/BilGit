@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "178502881238",
+    "project_id": "bilgit-cs102",
+    "storage_bucket": "bilgit-cs102.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178502881238:android:3b8812b28bf835f7d8de77",
+        "android_client_info": {
+          "package_name": "com.example.trybil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178502881238-4h08tche07n0nm0ug2hq222vhmcam2cf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZVb3IKBPVZH9XQjI8kPX85g3jPpjowjU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178502881238-4h08tche07n0nm0ug2hq222vhmcam2cf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
