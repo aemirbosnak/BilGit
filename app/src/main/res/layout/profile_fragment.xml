@@ -5,9 +5,48 @@
     android:layout_height="match_parent"
     tools:context=".view.ProfileFragment">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationX="50dp"
+        android:translationY="50dp"
+        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteY="53dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="a" />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/profile" />
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/profile"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:translationX="250dp"
+        android:translationY="80dp"
+        tools:layout_editor_absoluteX="229dp"
+        tools:layout_editor_absoluteY="76dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="department"
+        android:translationX="250dp"
+        android:translationY="120dp"
+        tools:layout_editor_absoluteX="231dp"
+        tools:layout_editor_absoluteY="113dp" />
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:text="Bio"
+        android:translationX="50dp"
+        android:translationY="200dp" />
 
 </FrameLayout>
