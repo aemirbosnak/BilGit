@@ -18,7 +18,6 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding activityMainBinding;
-    MainViewModel mainViewModel;
     NavHostFragment navHostFragment;
     NavController navController;
 
@@ -27,17 +26,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
-
-        /*
-        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(activityMainBinding.getRoot());
-        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-         */
-
-        // Classes could be passed by implementing Serializable on passed class then cast it into that class
-        //String name = getIntent().getStringExtra("EXTRA");
-        //Toast.makeText(getApplicationContext(),name, Toast.LENGTH_SHORT).show();
-
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerMain);
         navController = navHostFragment.getNavController();
 

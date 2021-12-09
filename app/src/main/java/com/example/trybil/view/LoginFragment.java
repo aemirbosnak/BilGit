@@ -42,7 +42,6 @@ public class LoginFragment extends Fragment {
                     else {
                         Toast.makeText(getContext(), "Logged in:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
                     }
-                    //Toast.makeText(getContext(), "So:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getContext(), MainActivity.class));
                     getActivity().finish();
                 }
@@ -94,7 +93,15 @@ public class LoginFragment extends Fragment {
                 mViewModel.loginAnon();
             }
         });
+
+        loginFragmentBinding.textForgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewModel.loginAnon();
+            }
+        });
     }
+
 
     @Override
     public void onDestroyView() {

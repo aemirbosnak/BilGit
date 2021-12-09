@@ -1,10 +1,10 @@
 package com.example.trybil.model;
 
-public class User {
+public class UserRepository {
     private final String email;
     private final String password;
 
-    public User(String email, String password) {
+    public UserRepository(String email, String password) {
         this.email = email;
         this.password = password;
     }

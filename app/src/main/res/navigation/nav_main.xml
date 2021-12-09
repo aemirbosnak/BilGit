@@ -25,4 +25,8 @@
         android:name="com.example.trybil.view.SettingsFragment"
         android:label="settings_fragment"
         tools:layout="@layout/settings_fragment" />
+    <fragment
+        android:id="@+id/placeFragment"
+        android:name="com.example.trybil.view.PlaceFragment"
+        android:label="PlaceFragment" />
 </navigation>

@@ -7,34 +7,49 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.trybil.databinding.HomeFragmentBinding;
+import com.example.trybil.databinding.PlaceFragmentBinding;
 import com.example.trybil.viewmodel.HomeViewModel;
 import com.example.trybil.R;
 
 public class HomeFragment extends Fragment {
+    private HomeFragmentBinding homeFragmentBinding;
+    private NavController navController;
+    NavHostFragment navHostFragment;
 
-    private HomeViewModel mViewModel;
-
-    public static HomeFragment newInstance() {
-        return new HomeFragment();
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.home_fragment, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        homeFragmentBinding = HomeFragmentBinding.inflate(inflater, container, false);
+        return homeFragmentBinding.getRoot();
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        // TODO: Use the ViewModel
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        navController = Navigation.findNavController(view);
+
+        //
+        homeFragmentBinding.cardView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.placeFragment);
+            }
+        });
+
     }
 
 }

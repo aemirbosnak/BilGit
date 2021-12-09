@@ -16,7 +16,7 @@ public class Place {
     private String address;
     private String phoneNumber;
     private Image placePhoto;
-    private ArrayList<User> friendsInPlace;
+    private ArrayList<UserRepository> friendsInPlace;
     private double radius;
     private double longitude;
     private double latitude;

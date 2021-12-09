@@ -27,10 +27,6 @@ public class SettingsFragment extends Fragment {
     private SettingsViewModel mViewModel;
     private AuthViewModel authViewModel;
 
-    public static SettingsFragment newInstance() {
-        return new SettingsFragment();
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +38,8 @@ public class SettingsFragment extends Fragment {
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean){
                     startActivity(new Intent(getContext(), AuthActivity.class));
-                    getActivity().finish();                }
+                    getActivity().finish();
+                }
             }
         });
     }
