@@ -37,10 +37,10 @@ public class LoginFragment extends Fragment {
             public void onChanged(FirebaseUser firebaseUser) {
                 if (firebaseUser != null){
                     if(firebaseUser.getEmail().isEmpty()) {
-                        Toast.makeText(getContext(), "Anon:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Logged in Anonymously", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        Toast.makeText(getContext(), "not-Anon:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Logged in:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
                     }
                     //Toast.makeText(getContext(), "So:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getContext(), MainActivity.class));

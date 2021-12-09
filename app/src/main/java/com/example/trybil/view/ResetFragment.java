@@ -9,11 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.trybil.databinding.FragmentResetBinding;
+import com.example.trybil.databinding.ResetFragmentBinding;
 import com.example.trybil.viewmodel.AuthViewModel;
 
 public class ResetFragment extends Fragment {
-    private FragmentResetBinding fragmentResetBinding;
+    private ResetFragmentBinding resetFragmentBinding;
     private AuthViewModel mViewModel;
 
     @Override
@@ -26,7 +26,7 @@ public class ResetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        fragmentResetBinding = FragmentResetBinding.inflate(inflater, container, false);
-        return fragmentResetBinding.getRoot();
+        resetFragmentBinding = ResetFragmentBinding.inflate(inflater, container, false);
+        return resetFragmentBinding.getRoot();
     }
 }

@@ -13,14 +13,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.trybil.R;
+import com.example.trybil.databinding.RegisterFragmentBinding;
+import com.example.trybil.databinding.SearchFragmentBinding;
+import com.example.trybil.viewmodel.AuthViewModel;
 import com.example.trybil.viewmodel.SettingsViewModel;
 
 public class SettingsFragment extends Fragment {
-
+    private SearchFragmentBinding searchFragmentBinding;
     private SettingsViewModel mViewModel;
 
     public static SettingsFragment newInstance() {
         return new SettingsFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
     }
 
     @Override
@@ -30,10 +39,14 @@ public class SettingsFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
-        // TODO: Use the ViewModel
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
 
 }
