@@ -47,6 +47,26 @@ public class Place {
         //add listener to reference
     }
 
+    /*
+        Count number of people inside a Place object by counting UIDs
+        inside the database for this Place object
+     */
+    public int countPeople()
+    {
+        //TODO
+        return -1;
+    }
+
+    /*
+        Calculate the percentage by calling countPeople()
+        and dividing by capacity
+     */
+    public double calculateRatio()
+    {
+        //TODO
+        return -1;
+    }
+
     public String getPlaceName() {
         return placeName;
     }
