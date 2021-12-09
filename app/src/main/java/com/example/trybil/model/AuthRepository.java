@@ -1,6 +1,9 @@
 package com.example.trybil.model;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Application;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,9 +35,11 @@ public class AuthRepository {
         userLoggedMutableLiveData = new MutableLiveData<>();
         auth = FirebaseAuth.getInstance();
 
+        /* CURRENT USER
         if (auth.getCurrentUser() != null){
             firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
         }
+         */
     }
 
     public void register(String email , String pass){

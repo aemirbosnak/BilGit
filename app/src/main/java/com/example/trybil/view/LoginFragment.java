@@ -3,6 +3,7 @@ package com.example.trybil.view;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,22 +27,34 @@ public class LoginFragment extends Fragment {
     private AuthViewModel mViewModel;
     private NavController navController;
 
-
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        loginFragmentBinding = LoginFragmentBinding.inflate(inflater, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
-        mViewModel.getUserData().observe(getViewLifecycleOwner(), new Observer<FirebaseUser>() {
+        mViewModel.getUserData().observe(this, new Observer<FirebaseUser>() {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
                 if (firebaseUser != null){
-                    Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "So:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
                     //startActivity(new Intent(getContext(), MainActivity.class));
                     //getActivity().finish();
                 }
             }
         });
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        loginFragmentBinding = LoginFragmentBinding.inflate(inflater, container, false);
+        return loginFragmentBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        navController = Navigation.findNavController(view);
 
         loginFragmentBinding.buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,25 +74,11 @@ public class LoginFragment extends Fragment {
                 navController.navigate(R.id.action_loginFragment_to_registerFragment);
             }
         });
-
-        return loginFragmentBinding.getRoot();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         loginFragmentBinding = null;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        navController = Navigation.findNavController(view);
     }
 }

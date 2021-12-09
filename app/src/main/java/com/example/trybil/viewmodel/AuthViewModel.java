@@ -15,13 +15,6 @@ public class AuthViewModel extends AndroidViewModel {
     AuthRepository authRepository;
     MutableLiveData<FirebaseUser> userData;
     MutableLiveData<Boolean> loggedStatus;
-    //MutableLiveData<String> testString;
-
-    /*
-    public MutableLiveData<String> getTestString() {
-        return authRepository.getTestString();
-    }
-     */
 
     public MutableLiveData<FirebaseUser> getUserData() {
         return userData;
