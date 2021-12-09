@@ -1,6 +1,7 @@
 package com.example.trybil.model;
 
 import android.app.Application;
+import android.widget.Filter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -11,12 +12,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AuthRepository {
     private Application application;
     private MutableLiveData<FirebaseUser> firebaseUserMutableLiveData;
     private MutableLiveData<Boolean> userLoggedMutableLiveData;
     private FirebaseAuth auth;
+    private DatabaseReference dbRef;
 
     public MutableLiveData<FirebaseUser> getFirebaseUserMutableLiveData() {
         return firebaseUserMutableLiveData;
@@ -31,6 +35,7 @@ public class AuthRepository {
         firebaseUserMutableLiveData = new MutableLiveData<>();
         userLoggedMutableLiveData = new MutableLiveData<>();
         auth = FirebaseAuth.getInstance();
+        dbRef = FirebaseDatabase.getInstance().getReference();
 
         if (auth.getCurrentUser() != null){
             firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
@@ -43,6 +48,11 @@ public class AuthRepository {
             public void onComplete(@NonNull  Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
+
+                    // Add user to realtime database
+                    FirebaseUser user = auth.getCurrentUser();
+                    dbRef.child("Users").child(user.getUid()).child("Mail").setValue(user.getEmail());
+                    dbRef.child("Users").child(user.getUid()).child("Password").setValue(pass);
                 }
                 else{
                     Toast.makeText(application, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
