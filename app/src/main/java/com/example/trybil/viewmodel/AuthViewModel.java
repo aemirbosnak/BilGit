@@ -37,6 +37,9 @@ public class AuthViewModel extends AndroidViewModel {
     public void signIn(String email , String pass){
         authRepository.login(email, pass);
     }
+    public void loginAnon(){
+        authRepository.loginAnon();
+    }
     public void signOut(){
         authRepository.signOut();
     }
