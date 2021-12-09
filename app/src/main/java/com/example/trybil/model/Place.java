@@ -18,14 +18,18 @@ public class Place {
     private Image placePhoto;
     private ArrayList<User> friendsInPlace;
     private double radius;
+    private double longitude;
+    private double latitude;
     private DatabaseReference reference;
 
 
     //for test use
-    public Place(String placeName, String category, double radius) {
+    public Place(String placeName, String category, double radius, double longitude, double latitude) {
         this.placeName = placeName;
         this.category = category;
         this.radius = radius;
+        this.longitude = longitude;
+        this.latitude = latitude;
         reference = FirebaseDatabase.getInstance().getReference().child("UserInPlace");
         //add listener to reference
     }
