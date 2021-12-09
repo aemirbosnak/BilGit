@@ -1,9 +1,6 @@
 package com.example.trybil.model;
 
-import static android.content.ContentValues.TAG;
-
 import android.app.Application;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,11 +32,9 @@ public class AuthRepository {
         userLoggedMutableLiveData = new MutableLiveData<>();
         auth = FirebaseAuth.getInstance();
 
-        /* CURRENT USER
         if (auth.getCurrentUser() != null){
             firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
         }
-         */
     }
 
     public void register(String email , String pass){
@@ -74,5 +69,24 @@ public class AuthRepository {
     public void signOut(){
         auth.signOut();
         userLoggedMutableLiveData.postValue(true);
+    }
+
+    public void loginAnon() {
+        auth.signInAnonymously().addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Toast.makeText(application, "Logged in anonymously", Toast.LENGTH_SHORT).show();
+                    FirebaseUser user = auth.getCurrentUser();
+                    firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
+                }
+                else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(application, "Anonymous login failed: " + task.getException(), Toast.LENGTH_SHORT).show();
+                    firebaseUserMutableLiveData.postValue(null);
+                }
+            }
+        });
     }
 }

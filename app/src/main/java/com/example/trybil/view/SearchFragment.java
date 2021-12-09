@@ -20,6 +20,7 @@ public class SearchFragment extends Fragment {
 
     private SearchViewModel mViewModel;
     private SearchFragmentBinding searchFragmentBinding;
+    private MainActivity mainActivity;
 
     public static SearchFragment newInstance() {
         return new SearchFragment();
@@ -30,6 +31,11 @@ public class SearchFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         searchFragmentBinding = SearchFragmentBinding.inflate(inflater, container, false);
         return searchFragmentBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override

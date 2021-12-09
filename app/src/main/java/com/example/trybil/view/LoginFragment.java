@@ -36,7 +36,13 @@ public class LoginFragment extends Fragment {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
                 if (firebaseUser != null){
-                    Toast.makeText(getContext(), "So:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+                    if(firebaseUser.getEmail().isEmpty()) {
+                        Toast.makeText(getContext(), "Anon:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getContext(), "not-Anon:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+                    }
+                    //Toast.makeText(getContext(), "So:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getContext(), MainActivity.class));
                     getActivity().finish();
                 }
@@ -72,6 +78,20 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_loginFragment_to_registerFragment);
+            }
+        });
+
+        loginFragmentBinding.textForgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_loginFragment_to_resetFragment);
+            }
+        });
+
+        loginFragmentBinding.buttonLoginAnon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewModel.loginAnon();
             }
         });
     }

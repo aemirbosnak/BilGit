@@ -20,4 +20,5 @@
     <string name="distance1">Distance 1</string>
     <string name="distance2">Distance 2</string>
     <string name="distance3">Distance 3</string>
+    <string name="already_have_an_account">Already have an account?</string>
 </resources>
