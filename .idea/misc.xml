@@ -25,10 +25,10 @@
         <entry key="..\:/Users/innsolit/Desktop/BilGit/app/src/main/res/layout/search_fragment.xml" value="0.25416666666666665" />
         <entry key="app/src/main/res/drawable/ic_settings.xml" value="0.23333333333333334" />
         <entry key="app/src/main/res/layout/home_fragment.xml" value="0.11956521739130435" />
-        <entry key="app/src/main/res/layout/login_fragment.xml" value="0.11956521739130435" />
+        <entry key="app/src/main/res/layout/login_fragment.xml" value="0.55" />
         <entry key="app/src/main/res/layout/profile_fragment.xml" value="0.11956521739130435" />
         <entry key="app/src/main/res/layout/register_fragment.xml" value="0.11956521739130435" />
-        <entry key="app/src/main/res/layout/settings_fragment.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/settings_fragment.xml" value="0.33112602443661115" />
       </map>
     </option>
   </component>
