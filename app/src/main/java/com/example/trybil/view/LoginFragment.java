@@ -37,8 +37,8 @@ public class LoginFragment extends Fragment {
             public void onChanged(FirebaseUser firebaseUser) {
                 if (firebaseUser != null){
                     Toast.makeText(getContext(), "So:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
-                    //startActivity(new Intent(getContext(), MainActivity.class));
-                    //getActivity().finish();
+                    startActivity(new Intent(getContext(), MainActivity.class));
+                    getActivity().finish();
                 }
             }
         });
