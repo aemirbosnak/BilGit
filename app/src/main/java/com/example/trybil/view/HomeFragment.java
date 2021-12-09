@@ -42,7 +42,9 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
-        //
+        // You may change the "cardView1" part below to any XML view object you want to add them a click listener
+        // Duplicating the code below would be enough to navigate the card views to place fragments
+        // In further we shall consider updating place fragments with corresponding place data from Firebase
         homeFragmentBinding.cardView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
