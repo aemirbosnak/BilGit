@@ -36,7 +36,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
                 if (firebaseUser != null){
-                    if(firebaseUser.getEmail().isEmpty()) {
+                    if(firebaseUser.getEmail() == null || firebaseUser.getEmail().isEmpty()) {
                         Toast.makeText(getContext(), "Logged in Anonymously", Toast.LENGTH_SHORT).show();
                     }
                     else {
