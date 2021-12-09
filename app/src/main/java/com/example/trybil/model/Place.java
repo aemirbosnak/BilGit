@@ -2,118 +2,88 @@ package com.example.trybil.model;
 
 import android.media.Image;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+
+import java.util.ArrayList;
+
 public class Place {
-    private String name;
-    private String email;
-    private String password;
+
+    private String placeName;
+    private String category;
     private int capacity;
     private String address;
-    private String phone;
-    private Image photo;
-    private User[] people;
-    private String category;
-
-    //Location data of place object
-    private double latitude;
-    private double longitude;
+    private String phoneNumber;
+    private Image placePhoto;
+    private ArrayList<User> friendsInPlace;
     private double radius;
+    private DatabaseReference reference;
 
-    /*
-        We should have a place array/arraylist on mainactivity
-        and define location when constructing object.
-     */
-    public Place(String password, String email, double lat, double lon, double r){
-        latitude = lat;
-        longitude = lon;
-        radius = r;
-        this.password = password;
-        this.email = email;
+
+    //for test use
+    public Place(String placeName, String category, double radius) {
+        this.placeName = placeName;
+        this.category = category;
+        this.radius = radius;
+        reference = FirebaseDatabase.getInstance().getReference().child("UserInPlace");
+        //add listener to reference
+    }
+
+    public Place(String placeName, String category,  double radius, int capacity, String phoneNumber, String address, Image placePhoto) {
+        this.placeName = placeName;
+        this.category = category;
+        this.capacity = capacity;
+        this.radius = radius;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.placePhoto = placePhoto;
+        friendsInPlace = new ArrayList<>();
+        reference = FirebaseDatabase.getInstance().getReference().child("UserInPlace");
+        //add listener to reference
+    }
+
+    public String getPlaceName() {
+        return placeName;
     }
 
     public String getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getNumber(){
-        return people.length;
+    public double getRadius() {
+        return radius;
     }
 
     public int getCapacity(){
         return capacity;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public Image getPlacePhoto() {
+        return placePhoto;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Image getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Image photo) {
-        this.photo = photo;
-    }
-
-    public User[] getPeople() {
-        return people;
-    }
-
-    public void setPeople(User[] people) {
-        this.people = people;
-    }
-
-    //add five stars thing to somewhere
+    //the rating stars
 
     /**
-     * Show the graph of crowdedness
+     * Show the graph of the crowdedness
      */
+    public void showCrowdednessGraph() {
+
+    }
 
     /**
-     * Show the friends who there are
+     * Show the friends of a user who are in the place
      */
+    public void showFriends() {
 
-    /**
-     *
-     */
-
-    /**
-     * This method add new person to the array
-     */
-    public void addPeople(){}
+    }
 }
