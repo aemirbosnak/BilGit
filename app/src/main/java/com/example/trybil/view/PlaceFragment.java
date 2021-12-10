@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.trybil.databinding.PlaceFragmentBinding;
-import com.example.trybil.databinding.SettingsFragmentBinding;
 
 
 public class PlaceFragment extends Fragment {

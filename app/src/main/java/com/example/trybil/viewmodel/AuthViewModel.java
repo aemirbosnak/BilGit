@@ -31,8 +31,8 @@ public class AuthViewModel extends AndroidViewModel {
         loggedStatus = authRepository.getUserLoggedMutableLiveData();
     }
 
-    public void register(String email , String pass){
-        authRepository.register(email, pass);
+    public void register(String email , String pass, String username, String department){
+        authRepository.register(email, pass, username, department);
     }
     public void signIn(String email , String pass){
         authRepository.login(email, pass);

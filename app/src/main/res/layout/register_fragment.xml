@@ -18,23 +18,10 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonRegister" />
 
     <EditText
-        android:id="@+id/editTextPasswordReg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
-        app:layout_constraintEnd_toEndOf="@+id/buttonRegister"
-        app:layout_constraintStart_toStartOf="@+id/buttonRegister" />
-
-    <EditText
         android:id="@+id/editTextEmailReg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/hint_email"
         android:inputType="textEmailAddress"
@@ -43,6 +30,33 @@
         app:layout_constraintEnd_toEndOf="@+id/editTextPasswordReg"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/editTextPasswordReg" />
+
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextEmailReg"
+        app:layout_constraintEnd_toEndOf="@+id/editTextEmailReg"
+        app:layout_constraintStart_toStartOf="@+id/editTextEmailReg" />
+
+    <EditText
+        android:id="@+id/editTextPasswordReg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
+        app:layout_constraintEnd_toEndOf="@+id/buttonRegister"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/buttonRegister" />
 
     <Button
         android:id="@+id/buttonRegister"
@@ -54,5 +68,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.660" />
+        app:layout_constraintVertical_bias="0.788" />
+
+    <Spinner
+        android:id="@+id/spinnerDep"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:entries="@array/departments_array"
+        android:spinnerMode="dialog"
+        app:layout_constraintBottom_toTopOf="@+id/editTextUsername"
+        app:layout_constraintEnd_toEndOf="@+id/editTextUsername"
+        app:layout_constraintStart_toStartOf="@+id/editTextUsername" />
+
+    <RadioGroup
+        android:id="@+id/rgReg"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerDep"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerDep"
+        app:layout_constraintStart_toStartOf="@+id/spinnerDep">
+
+        <RadioButton
+            android:id="@+id/rbStudent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="@string/student" />
+
+        <RadioButton
+            android:id="@+id/rbStaff"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/staff" />
+
+    </RadioGroup>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

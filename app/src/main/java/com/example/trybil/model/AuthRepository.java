@@ -42,7 +42,7 @@ public class AuthRepository {
         }
     }
 
-    public void register(String email , String pass){
+    public void register(String email , String pass, String username, String department){
         auth.createUserWithEmailAndPassword(email , pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull  Task<AuthResult> task) {
@@ -51,8 +51,10 @@ public class AuthRepository {
 
                     // Add user to realtime database
                     FirebaseUser user = auth.getCurrentUser();
-                    dbRef.child("Users").child(user.getUid()).child("Mail").setValue(user.getEmail());
-                    dbRef.child("Users").child(user.getUid()).child("Password").setValue(pass);
+                    dbRef.child("Users").child(user.getUid()).child("mail").setValue(email);
+                    dbRef.child("Users").child(user.getUid()).child("password").setValue(pass);
+                    dbRef.child("Users").child(user.getUid()).child("username").setValue(username);
+                    dbRef.child("Users").child(user.getUid()).child("department").setValue(department);
                 }
                 else{
                     Toast.makeText(application, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -88,7 +90,7 @@ public class AuthRepository {
                 if (task.isSuccessful()) {
                     // Sign in success, update UI with the signed-in user's information
                     Toast.makeText(application, "Logged in anonymously", Toast.LENGTH_SHORT).show();
-                    FirebaseUser user = auth.getCurrentUser();
+                    //FirebaseUser user = auth.getCurrentUser();
                     firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
                 }
                 else {

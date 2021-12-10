@@ -22,4 +22,6 @@
     <string name="distance2">Distance 2</string>
     <string name="distance3">Distance 3</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="student">Student</string>
+    <string name="staff">Staff</string>
 </resources>
