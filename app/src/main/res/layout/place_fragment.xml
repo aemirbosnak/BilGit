@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="700dp"
-        tools:context=".view.PlaceFragment">
+        tools:context=".view.PlaceFragment"
+        android:background="@color/white_100">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -24,7 +25,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="Image of the place"/>
 
         <TextView
             android:id="@+id/textView"
@@ -35,7 +37,7 @@
             android:fontFamily="sans-serif-condensed"
             android:text="@string/place_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-            android:textColor="@color/white"
+            android:textColor="@color/white_100"
             app:layout_constraintBottom_toBottomOf="@+id/imageView2"
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
             app:layout_constraintHorizontal_bias="0.262"
@@ -53,7 +55,8 @@
             app:layout_constraintHorizontal_bias="0.173"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:textColor="@color/bone_700"/>
 
         <TextView
             android:id="@+id/textView5"
@@ -64,7 +67,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.158"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            android:textColor="@color/ultramarine_200"/>
 
         <RatingBar
             android:id="@+id/ratingBar"
@@ -72,11 +76,25 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:contentDescription="Rate Bar"
+            android:foregroundTint="@color/peach_700"
+            android:progressTint="@color/green_500"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.292"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"/>
-            <!--Rating android:rating="int num" is used for representing the total rate-->
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Closing time"
+            android:textColor="@color/peach_500"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.678"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <!--Rating android:rating="int num" is used for representing the total rate-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 

@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--original colors
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+    -->
+    <color name="purple_200">#E07A5F</color>
+    <color name="purple_500">#1C4068</color>
+    <color name="purple_700">#163251</color>
+    <color name="teal_200">#802E6047</color>
+    <color name="teal_700">#E62E6047</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_100">#F5F5F5</color>
+
+    <color name="bone_200">#F4F1DE</color>
+    <color name="bone_500">#AAA89B</color>
+    <color name="bone_700">#6C6B64</color>
+    <color name="peach_200">#E07A5F</color>
+    <color name="peach_500">#9F5845</color>
+    <color name="peach_700">#753F31</color>
+    <color name="ultramarine_200">#285C95</color>
+    <color name="ultramarine_500">#1C4068</color>
+    <color name="ultramarine_700">#163251</color>
+    <color name="green_200">#81B29A</color>
+    <color name="green_500">#E62E6047</color>
+    <color name="green_700">#802E6047</color>
+    <color name="yellow_700">#C68211</color>
+    <color name="yellow_500">#F2CC8F</color>
+    <color name="yellow_200">#F3DCB7</color>
 </resources>

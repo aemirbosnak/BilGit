@@ -74,6 +74,19 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        homeFragmentBinding.cardView4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.placeFragment);
+            }
+        });
+
+        homeFragmentBinding.cardView5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.placeFragment);
+            }
+        });
     }
 
 }
