@@ -21,6 +21,16 @@ public class AuthRepository {
     private MutableLiveData<Boolean> userLoggedMutableLiveData;
     private FirebaseAuth auth;
     private DatabaseReference dbRef;
+    private static AuthRepository authRepositorySingleton;
+
+    public static AuthRepository getInstance(Application application) {
+        if(authRepositorySingleton != null) {
+            return authRepositorySingleton;
+        }
+        else {
+            return new AuthRepository(application);
+        }
+    }
 
     public MutableLiveData<FirebaseUser> getFirebaseUserMutableLiveData() {
         return firebaseUserMutableLiveData;
@@ -30,12 +40,13 @@ public class AuthRepository {
         return userLoggedMutableLiveData;
     }
 
-    public AuthRepository(Application application){
+    private AuthRepository(Application application){
         this.application = application;
         firebaseUserMutableLiveData = new MutableLiveData<>();
         userLoggedMutableLiveData = new MutableLiveData<>();
         auth = FirebaseAuth.getInstance();
         dbRef = FirebaseDatabase.getInstance().getReference();
+        //MainRepository.getInstance(application);
 
         if (auth.getCurrentUser() != null){
             firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
@@ -50,11 +61,7 @@ public class AuthRepository {
                     firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
 
                     // Add user to realtime database
-                    FirebaseUser user = auth.getCurrentUser();
-                    dbRef.child("Users").child(user.getUid()).child("mail").setValue(email);
-                    dbRef.child("Users").child(user.getUid()).child("password").setValue(pass);
-                    dbRef.child("Users").child(user.getUid()).child("username").setValue(username);
-                    dbRef.child("Users").child(user.getUid()).child("department").setValue(department);
+                    dbRef.child("Users").child(auth.getCurrentUser().getUid()).setValue(new User(email, username, department));
                 }
                 else{
                     Toast.makeText(application, task.getException().getMessage(), Toast.LENGTH_SHORT).show();

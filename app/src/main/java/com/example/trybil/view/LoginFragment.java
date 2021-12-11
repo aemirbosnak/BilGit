@@ -40,7 +40,7 @@ public class LoginFragment extends Fragment {
                         Toast.makeText(getContext(), "Logged in Anonymously", Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        Toast.makeText(getContext(), "Logged in:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Welcome " + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
                     }
                     startActivity(new Intent(getContext(), MainActivity.class));
                     getActivity().finish();

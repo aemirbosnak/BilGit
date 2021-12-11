@@ -26,7 +26,7 @@ public class AuthViewModel extends AndroidViewModel {
 
     public AuthViewModel(@NonNull Application application) {
         super(application);
-        authRepository = new AuthRepository(application);
+        authRepository = AuthRepository.getInstance(application);
         userData = authRepository.getFirebaseUserMutableLiveData();
         loggedStatus = authRepository.getUserLoggedMutableLiveData();
     }
