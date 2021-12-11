@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.trybil.model.MainRepository;
 import com.example.trybil.model.User;
 
-
 public class MainViewModel extends AndroidViewModel {
     MainRepository mainRepository;
     MutableLiveData<User> user;

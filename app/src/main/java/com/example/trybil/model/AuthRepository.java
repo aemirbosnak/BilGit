@@ -1,7 +1,6 @@
 package com.example.trybil.model;
 
 import android.app.Application;
-import android.widget.Filter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,11 +15,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AuthRepository {
-    private Application application;
-    private MutableLiveData<FirebaseUser> firebaseUserMutableLiveData;
-    private MutableLiveData<Boolean> userLoggedMutableLiveData;
-    private FirebaseAuth auth;
-    private DatabaseReference dbRef;
+    private final Application application;
+    private final FirebaseAuth auth;
+    private final MutableLiveData<FirebaseUser> firebaseUserMutableLiveData;
+    private final MutableLiveData<Boolean> userLoggedMutableLiveData;
+    private final DatabaseReference dbRef;
     private static AuthRepository authRepositorySingleton;
 
     public static AuthRepository getInstance(Application application) {

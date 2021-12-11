@@ -5,11 +5,9 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.trybil.model.AuthRepository;
 import com.google.firebase.auth.FirebaseUser;
-
 
 public class AuthViewModel extends AndroidViewModel {
     AuthRepository authRepository;
