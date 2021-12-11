@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".view.RegisterFragment">
 
+    <ImageView
+        android:id="@+id/imageLogoReg"
+        android:layout_width="195dp"
+        android:layout_height="169dp"
+        android:src="@drawable/bilgit_login"
+        app:layout_constraintBottom_toTopOf="@+id/rgReg"
+        app:layout_constraintEnd_toEndOf="@+id/rgReg"
+        app:layout_constraintStart_toStartOf="@+id/rgReg" />
+
     <TextView
         android:id="@+id/textSignin"
         android:layout_width="wrap_content"
