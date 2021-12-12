@@ -20,6 +20,7 @@ public class MainRepository {
     private final FirebaseAuth auth;
     private final MutableLiveData<User> user;
     private final MutableLiveData<ArrayList<String>> places;
+    private final MutableLiveData<ArrayList<Integer>> location;
     private final DatabaseReference dbRef;
     private static MainRepository mainRepositorySingleton;
 
@@ -38,11 +39,13 @@ public class MainRepository {
         dbRef = FirebaseDatabase.getInstance().getReference();
         user = new MutableLiveData<User>();
         places = new MutableLiveData<ArrayList<String>>();
+        location = new MutableLiveData<ArrayList<Integer>>();
         pullUser();
         pullPlaces();
+        pullLocations();
     }
 
-    public void pullUser() {
+    private void pullUser() {
         dbRef.child("Users").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -57,7 +60,7 @@ public class MainRepository {
         });
     }
 
-    public void pullPlaces() {
+    private void pullPlaces() {
         dbRef.child("Places").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -76,11 +79,39 @@ public class MainRepository {
         });
     }
 
+    private void pullLocations() {
+        /*
+        dbRef.child("Locations").child(auth.getUid()).child("longitude").setValue(1111);
+        dbRef.child("Locations").child(auth.getUid()).child("latitude").setValue(2222);
+         */
+
+        dbRef.child("Locations").child(auth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Integer> pulledLocation = new ArrayList<>();
+                for(DataSnapshot ds: snapshot.getChildren()) {
+                    pulledLocation.add(Integer.valueOf(ds.getValue().toString()));
+                }
+
+                location.postValue(pulledLocation);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(application, "Error_Places: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     public MutableLiveData<User> getUser() {
         return user;
     }
 
     public MutableLiveData<ArrayList<String>> getPlaces() {
         return places;
+    }
+
+    public MutableLiveData<ArrayList<Integer>> getLocation() {
+        return location;
     }
 }

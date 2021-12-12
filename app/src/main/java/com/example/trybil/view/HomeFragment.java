@@ -47,6 +47,14 @@ public class HomeFragment extends Fragment {
                 homeFragmentBinding.text2.setText(strings.get(1));
             }
         });
+
+        mainViewModel.getLocation().observe(this, new Observer<ArrayList<Integer>>() {
+            @Override
+            public void onChanged(ArrayList<Integer> location) {
+                homeFragmentBinding.textDist1.setText("Longitude: " + location.get(0) + " Latitude: " + location.get(1));
+                //homeFragmentBinding.textDist1.setText("Longitude: ");
+            }
+        });
     }
 
     @Override

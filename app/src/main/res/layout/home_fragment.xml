@@ -76,6 +76,7 @@
                 android:scaleY="4" />
 
             <TextView
+                android:id="@+id/textDist1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -83,9 +84,9 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:text="@string/distance1"
+                android:textColor="@color/bone_700"
                 android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/bone_700"/>
+                android:textStyle="bold" />
 
 
         </androidx.cardview.widget.CardView>

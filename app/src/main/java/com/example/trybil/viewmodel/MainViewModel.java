@@ -15,12 +15,14 @@ public class MainViewModel extends AndroidViewModel {
     MainRepository mainRepository;
     MutableLiveData<User> user;
     MutableLiveData<ArrayList<String>> places;
+    MutableLiveData<ArrayList<Integer>> location;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
         mainRepository = MainRepository.getInstance(application);
         user = mainRepository.getUser();
         places = mainRepository.getPlaces();
+        location = mainRepository.getLocation();
     }
 
     public MutableLiveData<User> getUser() {
@@ -29,5 +31,9 @@ public class MainViewModel extends AndroidViewModel {
 
     public MutableLiveData<ArrayList<String>> getPlaces() {
         return places;
+    }
+
+    public MutableLiveData<ArrayList<Integer>> getLocation() {
+        return location;
     }
 }
