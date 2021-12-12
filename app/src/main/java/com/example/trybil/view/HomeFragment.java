@@ -20,6 +20,8 @@ import com.example.trybil.model.User;
 import com.example.trybil.R;
 import com.example.trybil.viewmodel.MainViewModel;
 
+import java.util.ArrayList;
+
 public class HomeFragment extends Fragment {
     private HomeFragmentBinding homeFragmentBinding;
     private NavController navController;
@@ -31,11 +33,18 @@ public class HomeFragment extends Fragment {
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         mainViewModel.getUser().observe(this, new Observer<User>() {
-
             @Override
             public void onChanged(User user) {
                 homeFragmentBinding.titleView.setText("Welcome user: " + user.getUsername());
                 mainViewModel.getUser().removeObservers(getViewLifecycleOwner());
+            }
+        });
+
+        mainViewModel.getPlaces().observe(this, new Observer<ArrayList<String>>() {
+            @Override
+            public void onChanged(ArrayList<String> strings) {
+                homeFragmentBinding.text1.setText(strings.get(0));
+                homeFragmentBinding.text2.setText(strings.get(1));
             }
         });
     }

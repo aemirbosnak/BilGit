@@ -13,10 +13,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class MainRepository {
     private final Application application;
     private final FirebaseAuth auth;
     private final MutableLiveData<User> user;
+    private final MutableLiveData<ArrayList<String>> places;
     private final DatabaseReference dbRef;
     private static MainRepository mainRepositorySingleton;
 
@@ -34,7 +37,9 @@ public class MainRepository {
         auth = FirebaseAuth.getInstance();
         dbRef = FirebaseDatabase.getInstance().getReference();
         user = new MutableLiveData<User>();
+        places = new MutableLiveData<ArrayList<String>>();
         pullUser();
+        pullPlaces();
     }
 
     public void pullUser() {
@@ -47,12 +52,35 @@ public class MainRepository {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(application, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(application, "Error_Users: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void pullPlaces() {
+        dbRef.child("Places").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<String> pulledPlaces = new ArrayList<>();
+                for(DataSnapshot ds: snapshot.getChildren()) {
+                    pulledPlaces.add(ds.child("Name").getValue().toString());
+                }
+
+                places.postValue(pulledPlaces);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(application, "Error_Places: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public MutableLiveData<User> getUser() {
         return user;
+    }
+
+    public MutableLiveData<ArrayList<String>> getPlaces() {
+        return places;
     }
 }
