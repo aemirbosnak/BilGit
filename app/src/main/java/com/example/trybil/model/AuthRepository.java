@@ -1,7 +1,6 @@
 package com.example.trybil.model;
 
 import android.app.Application;
-import android.widget.Filter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,11 +15,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AuthRepository {
-    private Application application;
-    private MutableLiveData<FirebaseUser> firebaseUserMutableLiveData;
-    private MutableLiveData<Boolean> userLoggedMutableLiveData;
-    private FirebaseAuth auth;
-    private DatabaseReference dbRef;
+    private final Application application;
+    private final FirebaseAuth auth;
+    private final MutableLiveData<FirebaseUser> firebaseUserMutableLiveData;
+    private final MutableLiveData<Boolean> userLoggedMutableLiveData;
+    private final DatabaseReference dbRef;
+    private static AuthRepository authRepositorySingleton;
+
+    public static AuthRepository getInstance(Application application) {
+        if(authRepositorySingleton != null) {
+            return authRepositorySingleton;
+        }
+        else {
+            return new AuthRepository(application);
+        }
+    }
 
     public MutableLiveData<FirebaseUser> getFirebaseUserMutableLiveData() {
         return firebaseUserMutableLiveData;
@@ -30,12 +39,13 @@ public class AuthRepository {
         return userLoggedMutableLiveData;
     }
 
-    public AuthRepository(Application application){
+    private AuthRepository(Application application){
         this.application = application;
         firebaseUserMutableLiveData = new MutableLiveData<>();
         userLoggedMutableLiveData = new MutableLiveData<>();
         auth = FirebaseAuth.getInstance();
         dbRef = FirebaseDatabase.getInstance().getReference();
+        //MainRepository.getInstance(application);
 
         if (auth.getCurrentUser() != null){
             firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
@@ -50,11 +60,7 @@ public class AuthRepository {
                     firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
 
                     // Add user to realtime database
-                    FirebaseUser user = auth.getCurrentUser();
-                    dbRef.child("Users").child(user.getUid()).child("mail").setValue(email);
-                    dbRef.child("Users").child(user.getUid()).child("password").setValue(pass);
-                    dbRef.child("Users").child(user.getUid()).child("username").setValue(username);
-                    dbRef.child("Users").child(user.getUid()).child("department").setValue(department);
+                    dbRef.child("Users").child(auth.getCurrentUser().getUid()).setValue(new User(email, username, department));
                 }
                 else{
                     Toast.makeText(application, task.getException().getMessage(), Toast.LENGTH_SHORT).show();

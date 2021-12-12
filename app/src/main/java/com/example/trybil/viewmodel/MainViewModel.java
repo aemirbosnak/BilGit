@@ -1,11 +1,25 @@
 package com.example.trybil.viewmodel;
 
-import androidx.lifecycle.ViewModel;
+import android.app.Application;
 
-public class MainViewModel extends ViewModel {
-    boolean isLoggedIn;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
-    public MainViewModel() {
-        isLoggedIn = false;
+import com.example.trybil.model.MainRepository;
+import com.example.trybil.model.User;
+
+public class MainViewModel extends AndroidViewModel {
+    MainRepository mainRepository;
+    MutableLiveData<User> user;
+
+    public MainViewModel(@NonNull Application application) {
+        super(application);
+        mainRepository = MainRepository.getInstance(application);
+        user = mainRepository.getUser();
+    }
+
+    public MutableLiveData<User> getUser() {
+        return user;
     }
 }
