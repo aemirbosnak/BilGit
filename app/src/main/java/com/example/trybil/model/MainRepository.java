@@ -40,24 +40,26 @@ public class MainRepository {
         user = new MutableLiveData<User>();
         places = new MutableLiveData<ArrayList<String>>();
         location = new MutableLiveData<ArrayList<Integer>>();
-        pullUser();
         pullPlaces();
-        pullLocations();
+        if(!auth.getCurrentUser().getEmail().isEmpty()) {
+            pullUser();
+            pullLocations();
+        }
     }
 
     private void pullUser() {
-        dbRef.child("Users").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Toast.makeText(application, "USER PULLED: " + snapshot.getValue(User.class).getUsername(), Toast.LENGTH_SHORT).show();
-                user.postValue(snapshot.getValue(User.class));
-            }
+            dbRef.child("Users").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Toast.makeText(application, "USER PULLED: " + snapshot.getValue(User.class).getUsername(), Toast.LENGTH_SHORT).show();
+                    user.postValue(snapshot.getValue(User.class));
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(application, "Error_Users: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(application, "Error_Users: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
     }
 
     private void pullPlaces() {
