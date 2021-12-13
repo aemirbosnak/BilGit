@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ProfileFragment">
+    tools:context=".view.ProfileFragment"
+    android:background="@color/white_100">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:contentDescription="a"
         android:translationX="50dp"
         android:translationY="50dp"
-        tools:layout_editor_absoluteX="61dp"
-        tools:layout_editor_absoluteY="53dp"
-        tools:srcCompat="@tools:sample/avatars"
-        android:contentDescription="a" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/textView3"
@@ -26,7 +31,11 @@
         android:translationX="250dp"
         android:translationY="80dp"
         tools:layout_editor_absoluteX="229dp"
-        tools:layout_editor_absoluteY="76dp" />
+        tools:layout_editor_absoluteY="76dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
@@ -36,17 +45,24 @@
         android:translationX="250dp"
         android:translationY="120dp"
         tools:layout_editor_absoluteX="231dp"
-        tools:layout_editor_absoluteY="113dp" />
+        tools:layout_editor_absoluteY="113dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <EditText
+    <TextView
         android:id="@+id/editTextTextMultiLine"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
+        android:layout_width="294dp"
+        android:layout_height="382dp"
         android:ems="10"
         android:gravity="start|top"
-        android:inputType="textMultiLine"
         android:text="Bio"
         android:translationX="50dp"
-        android:translationY="200dp" />
+        android:translationY="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ResetFragment">
+    tools:context=".view.ResetFragment"
+    android:background="@color/white_100">
 
     <Button
         android:id="@+id/button"
