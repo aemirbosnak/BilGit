@@ -26,6 +26,9 @@ public class UserLocation {
     Criteria criteria;
     String best;
 
+    PlaceManager placeManager;
+    boolean inPlace;
+
     Location userLoc;
     double longitude;
     double latitude;
@@ -36,14 +39,14 @@ public class UserLocation {
      */
     public UserLocation(LocationManager l, Context c)
     {
+        placeManager = new PlaceManager();
+        inPlace = false;
         mDatabase = FirebaseDatabase.getInstance().getReference();
         lm = l;
         mContext = c;
         criteria = new Criteria();
         best = lm.getBestProvider(criteria, true);
         userLoc = new Location(best);
-        setLocation();
-        updateLocation();
     }
 
     /*
@@ -55,11 +58,11 @@ public class UserLocation {
      */
     public void compareLocationPlace()
     {
-
+        if(!inPlace)
+            placeManager.checkInLoc(userLoc);
     }
 
-    //Helper method to check permissions and initialize Location object, only use in this class
-    private void setLocation()
+    public void setLocation()
     {
         //Check permission
         if ( checkPermission() ) {
@@ -134,5 +137,8 @@ public class UserLocation {
     {
         latitude = userLoc.getLatitude();
         return latitude;
+    }
+    public Location getUserLoc() {
+        return userLoc;
     }
 }
