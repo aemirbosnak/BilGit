@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                         navController.navigate(R.id.profileFragment);
                         break;
                     case R.id.menuItemSettings:
-                        navController.navigate(R.id.settingsFragment);
+                        navController.navigate(R.id.settingsActivity);
                         break;
                 }
                 return true;
@@ -57,5 +57,4 @@ public class MainActivity extends AppCompatActivity {
         navController.navigate(R.id.homeFragment);
         activityMainBinding.bottomNavigation.setSelectedItemId(R.id.menuItemHome);
     }
-
 }

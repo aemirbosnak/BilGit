@@ -66,7 +66,8 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = SettingsFragmentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        picture.findViewById(R.id.profilePic);
+        if( picture != null )
+            picture.findViewById(R.id.profilePic);
 
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
@@ -112,7 +113,7 @@ public class SettingsActivity extends AppCompatActivity {
             binding.profilePic.setImageURI(imageUri);
         }
     }
-
+    
     public void uploadImage(){
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading file...");

@@ -30,6 +30,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".view.SettingsActivity"
+            android:label="Settings">
+        </activity>
+
 
     </application>
 
