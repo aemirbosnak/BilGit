@@ -4,9 +4,12 @@ import android.app.Application;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,8 +22,11 @@ public class MainRepository {
     private final Application application;
     private final FirebaseAuth auth;
     private final MutableLiveData<User> user;
+    private final MutableLiveData<User> searchUser;
     private final MutableLiveData<ArrayList<String>> places;
     private final MutableLiveData<ArrayList<Integer>> location;
+    private final MutableLiveData<ArrayList<String>> friends;
+    private final MutableLiveData<ArrayList<String>> requests;
     private final DatabaseReference dbRef;
     private static MainRepository mainRepositorySingleton;
 
@@ -38,12 +44,16 @@ public class MainRepository {
         auth = FirebaseAuth.getInstance();
         dbRef = FirebaseDatabase.getInstance().getReference();
         user = new MutableLiveData<User>();
+        searchUser = new MutableLiveData<User>();
         places = new MutableLiveData<ArrayList<String>>();
         location = new MutableLiveData<ArrayList<Integer>>();
+        friends = new MutableLiveData<ArrayList<String>>();
+        requests = new MutableLiveData<ArrayList<String>>();
         pullPlaces();
         if(!auth.getCurrentUser().getEmail().isEmpty()) {
             pullUser();
-            pullLocations();
+            pullFriends();
+            //pullLocations();
         }
     }
 
@@ -105,8 +115,75 @@ public class MainRepository {
         });
     }
 
+    private void pullFriends() {
+        //dbRef.child("Friends").child(auth.getUid()).child("friends").child("5alEHG8cYQaml79o8gzMbGGD0aq2").setValue("5alEHG8cYQaml79o8gzMbGGD0aq2");
+        //dbRef.child("Friends").child(auth.getUid()).child("requests").child("YSojbv7dA1cDcP404uixMdwDeSq2").setValue("YSojbv7dA1cDcP404uixMdwDeSq2");
+
+        dbRef.child("Friends").child(auth.getUid()).child("friends").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<String> pulledFriends = new ArrayList<>();
+
+                for(DataSnapshot ds: snapshot.getChildren()) {
+                    pulledFriends.add(ds.getValue().toString());
+                }
+
+                friends.postValue(pulledFriends);
+                Toast.makeText(application, "SUCCESS_Friends: ", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(application, "Error_Friends: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dbRef.child("Friends").child(auth.getUid()).child("requests").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<String> pulledRequests = new ArrayList<>();
+
+                for(DataSnapshot ds: snapshot.getChildren()) {
+                    pulledRequests.add(ds.getValue().toString());
+                }
+
+                requests.postValue(pulledRequests);
+                Toast.makeText(application, "SUCCESS_Requests: ", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(application, "Error_Requests: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void searchUser(String username) {
+        dbRef.child("Usernames").child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dbRef.child("Users").child(snapshot.getValue(String.class)).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                    @Override
+                    public void onSuccess(DataSnapshot dataSnapshot) {
+                        Toast.makeText(application, "SEARCH PULLED: " + dataSnapshot.getValue(User.class).getUsername(), Toast.LENGTH_SHORT).show();
+                        searchUser.postValue(dataSnapshot.getValue(User.class));
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(application, "Error_Search: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     public MutableLiveData<User> getUser() {
         return user;
+    }
+
+    public MutableLiveData<User> getSearchUser() {
+        return searchUser;
     }
 
     public MutableLiveData<ArrayList<String>> getPlaces() {
@@ -115,5 +192,13 @@ public class MainRepository {
 
     public MutableLiveData<ArrayList<Integer>> getLocation() {
         return location;
+    }
+
+    public MutableLiveData<ArrayList<String>> getFriends() {
+        return friends;
+    }
+
+    public MutableLiveData<ArrayList<String>> getRequests() {
+        return requests;
     }
 }

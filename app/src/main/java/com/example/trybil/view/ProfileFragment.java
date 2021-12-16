@@ -1,5 +1,6 @@
 package com.example.trybil.view;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -12,28 +13,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.trybil.databinding.ProfileFragmentBinding;
+import com.example.trybil.model.User;
+import com.example.trybil.viewmodel.MainViewModel;
 import com.example.trybil.viewmodel.ProfileViewModel;
 import com.example.trybil.R;
 
+import java.util.ArrayList;
+
 public class ProfileFragment extends Fragment {
+    private ProfileFragmentBinding profileFragmentBinding;
+    private MainViewModel mainViewModel;
 
-    private ProfileViewModel mViewModel;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-    public static ProfileFragment newInstance() {
-        return new ProfileFragment();
+        mainViewModel.getFriends().observe(this, new Observer<ArrayList<String>>() {
+            @Override
+            public void onChanged(ArrayList<String> friends) {
+                profileFragmentBinding.editTextTextMultiLine.setText("Friends: " + friends.size());
+            }
+        });
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.profile_fragment, container, false);
+        profileFragmentBinding = ProfileFragmentBinding.inflate(inflater, container, false);
+        return profileFragmentBinding.getRoot();
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-        // TODO: Use the ViewModel
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
-
 }

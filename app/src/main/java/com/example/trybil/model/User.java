@@ -1,5 +1,7 @@
 package com.example.trybil.model;
 
+import java.util.ArrayList;
+
 public class User {
     private String email;
     private String username;
