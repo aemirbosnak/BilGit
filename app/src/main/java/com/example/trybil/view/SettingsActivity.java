@@ -1,6 +1,7 @@
 package com.example.trybil.view;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +23,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.trybil.R;
+import com.example.trybil.databinding.ActivityMainBinding;
+import com.example.trybil.databinding.ActivitySettingsBinding;
+import com.example.trybil.databinding.SettingsFragmentBinding;
+import com.example.trybil.viewmodel.AuthViewModel;
+import com.example.trybil.viewmodel.SettingsViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -30,14 +36,111 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 public class SettingsActivity extends AppCompatActivity {
+
+    private SettingsViewModel mViewModel;
+    private AuthViewModel authViewModel;
+    private SettingsFragmentBinding binding;
+    Uri imageUri;
+    StorageReference storageReference;
+    ProgressDialog progressDialog;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = SettingsFragmentBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        binding.selectImageBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
+    }
+
+    private void selectImage(){
+        /*
+        val getImage= registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                ActivityResultCallback{
+
+                    binding.imageView5
+
+                }
+        )*/
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 100);
+        //registerForActivityResult();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 100 && data != null && data.getData() != null){
+            imageUri = data.getData();
+            binding.imageView5.setImageURI(imageUri);
+        }
+    }
+
+    public void uploadImage(){
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Uploading file...");
+        progressDialog.show();
+
+        //It will upload the images according to US date, it might be changed later
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_MM_mm_ss", Locale.US);
+        Date now = new Date();
+        String filename = formatter.format(now);
+        storageReference = FirebaseStorage.getInstance().getReference("images/" + filename);
+
+        storageReference.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        binding.imageView5.setImageURI(null);
+                        Toast.makeText(SettingsActivity.this, "Successfully uploaded", Toast.LENGTH_SHORT);
+                        if(progressDialog.isShowing())
+                            progressDialog.dismiss();
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
+                Toast.makeText(SettingsActivity.this, "Failed to upload", Toast.LENGTH_SHORT);
+
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * bu class'ı kullandığım siteden hareketle oluşturmuştum (https://www.geeksforgeeks.org/android-how-to-upload-an-image-on-firebase-storage/)
      * ama gerek kalmamış olabilir, ne olur ne olmaz diye silmedim
      */
-
+/*
     // views for button
     private Button btnSelect, btnUpload;
 
@@ -227,5 +330,5 @@ public class SettingsActivity extends AppCompatActivity {
                 navController.navigate(R.id.placeFragment);
             }
         });
-    }
+    }*/
 }

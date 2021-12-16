@@ -7,11 +7,11 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     -->
-    <color name="purple_200">#E07A5F</color>
-    <color name="purple_500">#1C4068</color>
-    <color name="purple_700">#163251</color>
-    <color name="teal_200">#802E6047</color>
-    <color name="teal_700">#E62E6047</color>
+    <color name="purple_200">#FF9800</color>
+    <color name="purple_500">#2196F3</color>
+    <color name="purple_700">#3F51B5</color>
+    <color name="teal_200">#8BC34A</color>
+    <color name="teal_700">#4CAF50</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_100">#F5F5F5</color>
@@ -19,16 +19,16 @@
     <color name="bone_200">#F4F1DE</color>
     <color name="bone_500">#AAA89B</color>
     <color name="bone_700">#6C6B64</color>
-    <color name="peach_200">#E07A5F</color>
-    <color name="peach_500">#9F5845</color>
-    <color name="peach_700">#753F31</color>
-    <color name="ultramarine_200">#285C95</color>
-    <color name="ultramarine_500">#1C4068</color>
-    <color name="ultramarine_700">#163251</color>
-    <color name="green_200">#81B29A</color>
-    <color name="green_500">#E62E6047</color>
-    <color name="green_700">#802E6047</color>
-    <color name="yellow_700">#C68211</color>
-    <color name="yellow_500">#F2CC8F</color>
-    <color name="yellow_200">#F3DCB7</color>
+    <color name="peach_200">#FF9800</color>
+    <color name="peach_500">#FF5722</color>
+    <color name="peach_700">#F44336</color>
+    <color name="ultramarine_200">#00BCD4</color>
+    <color name="ultramarine_500">#2196F3</color>
+    <color name="ultramarine_700">#3F51B5</color>
+    <color name="green_200">#009688</color>
+    <color name="green_500">#8BC34A</color>
+    <color name="green_700">#4CAF50</color>
+    <color name="yellow_700">#FF5722</color>
+    <color name="yellow_500">#FF9800</color>
+    <color name="yellow_200">#FFC107</color>
 </resources>

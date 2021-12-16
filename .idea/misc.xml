@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Atika/Desktop/CS102/BilGit/app/src/main/res/layout/activity_auth.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Atika/Desktop/CS102/BilGit/app/src/main/res/layout/activity_main.xml" value="0.10666666666666667" />
+        <entry key="..\:/Users/Atika/Desktop/CS102/BilGit/app/src/main/res/layout/activity_settings.xml" value="0.13043478260869565" />
         <entry key="..\:/Users/Atika/Desktop/CS102/BilGit/app/src/main/res/layout/activity_storage.xml" value="0.1" />
         <entry key="..\:/Users/Atika/Desktop/CS102/BilGit/app/src/main/res/layout/home_fragment.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/Atika/Desktop/CS102/BilGit/app/src/main/res/layout/login_fragment.xml" value="0.11458333333333333" />
@@ -13,7 +14,7 @@
         <entry key="..\:/Users/Atika/Desktop/CS102/BilGit/app/src/main/res/layout/register_fragment.xml" value="0.22" />
         <entry key="..\:/Users/Atika/Desktop/CS102/BilGit/app/src/main/res/layout/reset_fragment.xml" value="0.12590579710144928" />
         <entry key="..\:/Users/Atika/Desktop/CS102/BilGit/app/src/main/res/layout/search_fragment.xml" value="0.12590579710144928" />
-        <entry key="..\:/Users/Atika/Desktop/CS102/BilGit/app/src/main/res/layout/settings_fragment.xml" value="0.22" />
+        <entry key="..\:/Users/Atika/Desktop/CS102/BilGit/app/src/main/res/layout/settings_fragment.xml" value="0.3096947935368043" />
         <entry key="..\:/Users/Atika/Desktop/CS102/BilGit/app/src/main/res/menu/menu_bottom_nav.xml" value="0.1640625" />
         <entry key="..\:/Users/Atika/Desktop/CS102/BilGit/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/Atika/Desktop/CS102/BilGit/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.18020833333333333" />
