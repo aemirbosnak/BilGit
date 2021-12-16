@@ -1,5 +1,6 @@
 package com.example.trybil.view;
 
+import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.trybil.R;
 import com.example.trybil.databinding.ActivityMainBinding;
+import com.example.trybil.model.LocationService;
 import com.example.trybil.model.UserLocation;
 import com.example.trybil.viewmodel.MainViewModel;
 import com.google.android.material.navigation.NavigationBarView;

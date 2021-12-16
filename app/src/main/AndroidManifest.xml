@@ -3,7 +3,6 @@
     package="com.example.trybil">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <application
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,28 +10,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TryBil">
-        <activity
-            android:name=".view.SettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.StorageActivity"
-            android:exported="false" />
+
         <activity
             android:name=".view.MainActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false">
+        </activity>
+
         <activity
             android:name=".view.AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <intent-filter>
-                <data android:mimeType="text/plain" />
+                <data android:mimeType="text/plain"/>
             </intent-filter>
         </activity>
+
+
     </application>
 
 </manifest>
