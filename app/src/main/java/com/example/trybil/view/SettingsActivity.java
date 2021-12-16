@@ -1,10 +1,15 @@
 package com.example.trybil.view;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -30,6 +35,7 @@ import com.example.trybil.viewmodel.AuthViewModel;
 import com.example.trybil.viewmodel.SettingsViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -46,15 +52,35 @@ public class SettingsActivity extends AppCompatActivity {
     private SettingsViewModel mViewModel;
     private AuthViewModel authViewModel;
     private SettingsFragmentBinding binding;
+    private ImageView picture;
     Uri imageUri;
-    StorageReference storageReference;
+    private StorageReference storageReference;
     ProgressDialog progressDialog;
+    ActivityResultLauncher<Intent> activityResultLauncher;
+    private FirebaseStorage firebaseStorage;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = SettingsFragmentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        picture.findViewById(R.id.profilePic);
+
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
+
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if(result.getResultCode() == RESULT_OK && result.getData() != null){
+                    imageUri = result.getData().getData();
+                    binding.profilePic.setImageURI(imageUri);
+                    uploadImage();
+                }
+            }
+        });
 
         binding.selectImageBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -66,21 +92,15 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void selectImage(){
-        /*
-        val getImage= registerForActivityResult(
-                new ActivityResultContracts.GetContent(),
-                ActivityResultCallback{
-
-                    binding.imageView5
-
-                }
-        )*/
-
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
+        activityResultLauncher.launch(intent);
+        /*
         startActivityForResult(intent, 100);
-        //registerForActivityResult();
+        registerForActivityResult(ActivityResultContracts, ActivityResultCallback{
+            binding.imageView5;
+        });*/
     }
 
     @Override
@@ -89,11 +109,40 @@ public class SettingsActivity extends AppCompatActivity {
 
         if(requestCode == 100 && data != null && data.getData() != null){
             imageUri = data.getData();
-            binding.imageView5.setImageURI(imageUri);
+            binding.profilePic.setImageURI(imageUri);
         }
     }
 
     public void uploadImage(){
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Uploading file...");
+        progressDialog.show();
+        final String randomKey = UUID.randomUUID().toString();
+        StorageReference reference = storageReference.child("images/" + randomKey);
+
+        reference.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        progressDialog.dismiss();
+                        Snackbar.make(findViewById(android.R.id.content), "Image uploaded", Snackbar.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(),"Failed to upload", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                        double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                        progressDialog.setMessage("Percentage: " + (int) progressPercent + "%");
+                    }
+                });
+        /*
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Uploading file...");
         progressDialog.show();
@@ -108,7 +157,7 @@ public class SettingsActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        binding.imageView5.setImageURI(null);
+                        binding.profilePic.setImageURI(null);
                         Toast.makeText(SettingsActivity.this, "Successfully uploaded", Toast.LENGTH_SHORT);
                         if(progressDialog.isShowing())
                             progressDialog.dismiss();
@@ -122,18 +171,8 @@ public class SettingsActivity extends AppCompatActivity {
                 Toast.makeText(SettingsActivity.this, "Failed to upload", Toast.LENGTH_SHORT);
 
             }
-        });
+        });*/
     }
-
-
-
-
-
-
-
-
-
-
 
 
     /**
