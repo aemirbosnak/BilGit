@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.trybil.databinding.ActivityAuthBinding;
+import com.example.trybil.model.LocationService;
 import com.example.trybil.viewmodel.AuthViewModel;
 import com.google.firebase.auth.FirebaseUser;
 

@@ -8,16 +8,30 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class UserLocation {
 
-    private DatabaseReference mDatabase;
+    private DatabaseReference userPlace;
+    private FirebaseUser user;
+    private Place currentPlace;
 
     LocationManager lm;
     Context mContext;
@@ -27,7 +41,6 @@ public class UserLocation {
     String best;
 
     PlaceManager placeManager;
-    boolean inPlace;
 
     Location userLoc;
     double longitude;
@@ -37,17 +50,21 @@ public class UserLocation {
      * @param l initialized LocationManger object passed from MainActivity
      * @param c Context object from MainActivity
      */
+
     public UserLocation(LocationManager l, Context c)
     {
+        currentPlace = null;
         placeManager = new PlaceManager();
-        inPlace = false;
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        userPlace = FirebaseDatabase.getInstance().getReference().child("Locations")
+                .child(user.getUid()).child("Place");
         lm = l;
         mContext = c;
         criteria = new Criteria();
         best = lm.getBestProvider(criteria, true);
         userLoc = new Location(best);
     }
+
 
     /*
         Look at all the places in the database
@@ -56,13 +73,18 @@ public class UserLocation {
         number of user IDs inside the place class is number of
         people present at that place
      */
+
     public void compareLocationPlace()
     {
-        if(!inPlace)
-            placeManager.checkInLoc(userLoc);
+        if(currentPlace == null)
+            currentPlace = placeManager.checkInLoc(userLoc);
+        else {
+            if (Place.outPlaceCheck(userLoc, currentPlace))
+                currentPlace = null;
+        }
     }
 
-    public void setLocation()
+    private void setLocation()
     {
         //Check permission
         if ( checkPermission() ) {
@@ -86,7 +108,7 @@ public class UserLocation {
         }
     }
 
-    private void updateLocation()
+    public void updateLocation()
     {
         //Check permission
         if ( checkPermission() )

@@ -1,8 +1,16 @@
 package com.example.trybil.view;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,32 +27,62 @@ import com.example.trybil.viewmodel.MainViewModel;
 import com.example.trybil.viewmodel.ProfileViewModel;
 import com.example.trybil.R;
 
+import java.util.ArrayList;
+
 public class ProfileFragment extends Fragment {
     private ProfileFragmentBinding profileFragmentBinding;
-    private ProfileViewModel mViewModel;
     private MainViewModel mainViewModel;
-
-    public static ProfileFragment newInstance() { return new ProfileFragment(); }
+    ActivityResultLauncher<String> pickImage;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+        mainViewModel.getFriends().observe(this, new Observer<ArrayList<String>>() {
+            @Override
+            public void onChanged(ArrayList<String> friends) {
+                profileFragmentBinding.bio.setText("Friends: " + friends.size());
+            }
+        });
+
+        mainViewModel.getUser().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                profileFragmentBinding.userName.setText(user.getUsername());
+                profileFragmentBinding.department.setText(user.getDepartment());
+            }
+        });
+
+        mainViewModel.getPicture().observe(this, new Observer<Bitmap>() {
+            @Override
+            public void onChanged(Bitmap bitmap) {
+                profileFragmentBinding.imageView.setImageBitmap(bitmap);
+            }
+        });
+
+        pickImage = registerForActivityResult(new ActivityResultContracts.GetContent(),
+                new ActivityResultCallback<Uri>() {
+                    @Override
+                    public void onActivityResult(Uri result) {
+                        if (result != null) {
+                            mainViewModel.uploadPic(result);
+                        }
+                    }
+                });
+
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         profileFragmentBinding = ProfileFragmentBinding.inflate(inflater, container, false);
-
-        mainViewModel.getUser().observe(getViewLifecycleOwner(), new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                profileFragmentBinding.userName.setText(user.getUsername());
-                profileFragmentBinding.department.setText(user.getDepartment());
-                mainViewModel.getUser().removeObservers(getViewLifecycleOwner());
-            }
-        });
         return profileFragmentBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        profileFragmentBinding.btnUp.setOnClickListener(v -> pickImage.launch("image/"));
     }
 }

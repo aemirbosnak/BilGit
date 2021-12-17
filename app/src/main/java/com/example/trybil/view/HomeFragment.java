@@ -32,14 +32,6 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        mainViewModel.getUser().observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                homeFragmentBinding.titleView.setText("Welcome user: " + user.getUsername());
-                mainViewModel.getUser().removeObservers(getViewLifecycleOwner());
-            }
-        });
-
         mainViewModel.getPlaces().observe(this, new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> strings) {
@@ -51,8 +43,7 @@ public class HomeFragment extends Fragment {
         mainViewModel.getLocation().observe(this, new Observer<ArrayList<Integer>>() {
             @Override
             public void onChanged(ArrayList<Integer> location) {
-                //homeFragmentBinding.textDist1.setText("Longitude: " + location.get(0) + " Latitude: " + location.get(1));
-                //homeFragmentBinding.textDist1.setText("Longitude: ");
+                //homeFragmentBinding.textDist1.setText("Longitude: " + location.get(0) + "size: " + location.size());
             }
         });
     }

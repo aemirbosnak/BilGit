@@ -36,8 +36,6 @@ apply plugin: 'com.google.gms.google-services'
 dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:29.0.1')
-    implementation 'com.google.firebase:firebase-firestore:24.0.0'
-    implementation 'com.google.firebase:firebase-storage:20.0.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
@@ -54,6 +52,5 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-database'
-    implementation 'com.google.firebase:firebase-firestore' //I did that
-    implementation 'com.google.firebase:firebase-storage' //I did that
+    implementation 'com.google.firebase:firebase-storage'
 }
