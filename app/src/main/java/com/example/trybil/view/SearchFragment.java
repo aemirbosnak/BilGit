@@ -26,20 +26,20 @@ public class SearchFragment extends Fragment {
 
     private MainViewModel mViewModel;
     private SearchFragmentBinding searchFragmentBinding;
-    private MainActivity mainActivity;
+    private User searchedUser;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        mViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
 
         mViewModel.getSearchUser().observe(this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
+                searchedUser = user;
                 searchFragmentBinding.cardv.setVisibility(View.VISIBLE);
                 searchFragmentBinding.txtUsername.setText(user.getUsername());
                 searchFragmentBinding.txtDepartment.setText(user.getDepartment());
-                Toast.makeText(getContext(), "YUUUH", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -72,6 +72,13 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+
+        searchFragmentBinding.btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewModel.addFriend();
             }
         });
     }

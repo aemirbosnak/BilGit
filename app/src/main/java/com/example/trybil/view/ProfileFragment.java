@@ -16,12 +16,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.trybil.databinding.ProfileFragmentBinding;
+import com.example.trybil.model.FriendAdapter;
 import com.example.trybil.model.User;
 import com.example.trybil.viewmodel.MainViewModel;
 import com.example.trybil.viewmodel.ProfileViewModel;
@@ -33,16 +37,32 @@ public class ProfileFragment extends Fragment {
     private ProfileFragmentBinding profileFragmentBinding;
     private MainViewModel mainViewModel;
     ActivityResultLauncher<String> pickImage;
+    ArrayList<User> userFriend;
+    ArrayList<User> userRequest;
+    FriendAdapter friendAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        mainViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
+
+
 
         mainViewModel.getFriends().observe(this, new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> friends) {
                 profileFragmentBinding.bio.setText("Friends: " + friends.size());
+            }
+        });
+
+        mainViewModel.getUserRequest().observe(this, new Observer<ArrayList<User>>() {
+            @Override
+            public void onChanged(ArrayList<User> users) {
+                if (users.size() == 3) {
+                    friendAdapter = new FriendAdapter(getContext(), getActivity().getApplication(), users);
+                    profileFragmentBinding.recylerFriends.setAdapter(friendAdapter);
+                    profileFragmentBinding.recylerFriends.setLayoutManager(new LinearLayoutManager(getContext()));
+                }
             }
         });
 

@@ -30,7 +30,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
+        mViewModel = new ViewModelProvider(getActivity()).get(SettingsViewModel.class);
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
         authViewModel.getLoggedStatus().observe(this, new Observer<Boolean>() {

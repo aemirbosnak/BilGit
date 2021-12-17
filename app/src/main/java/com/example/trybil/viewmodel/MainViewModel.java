@@ -9,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.trybil.model.MainRepository;
+import com.example.trybil.model.Place;
 import com.example.trybil.model.User;
 
 import java.util.ArrayList;
@@ -17,9 +18,11 @@ public class MainViewModel extends AndroidViewModel {
     MainRepository mainRepository;
     MutableLiveData<User> user;
     MutableLiveData<User> searchUser;
+    MutableLiveData<ArrayList<User>> userRequest;
     MutableLiveData<Bitmap> picture;
     MutableLiveData<Bitmap> searchPic;
     MutableLiveData<ArrayList<String>> places;
+    MutableLiveData<String> place;
     MutableLiveData<ArrayList<Integer>> location;
     MutableLiveData<ArrayList<String>> friends;
     MutableLiveData<ArrayList<String>> requests;
@@ -29,9 +32,11 @@ public class MainViewModel extends AndroidViewModel {
         mainRepository = MainRepository.getInstance(application);
         user = mainRepository.getUser();
         searchUser = mainRepository.getSearchUser();
+        userRequest = mainRepository.getUserRequest();
         picture = mainRepository.getPicture();
         searchPic = mainRepository.getSearchPicture();
         places = mainRepository.getPlaces();
+        place = mainRepository.getPlace();
         location = mainRepository.getLocation();
         friends = mainRepository.getFriends();
         requests = mainRepository.getRequests();
@@ -45,12 +50,24 @@ public class MainViewModel extends AndroidViewModel {
         mainRepository.uploadPic(image);
     }
 
+    public void addFriend() {
+        mainRepository.addFriend();
+    }
+
+    public void changePlace(String name) {
+        mainRepository.changePlace(name);
+    }
+
     public MutableLiveData<User> getUser() {
         return user;
     }
 
     public MutableLiveData<User> getSearchUser() {
         return searchUser;
+    }
+
+    public MutableLiveData<ArrayList<User>> getUserRequest() {
+        return userRequest;
     }
 
     public MutableLiveData<Bitmap> getPicture() {
@@ -63,6 +80,10 @@ public class MainViewModel extends AndroidViewModel {
 
     public MutableLiveData<ArrayList<String>> getPlaces() {
         return places;
+    }
+
+    public MutableLiveData<String> getPlace() {
+        return place;
     }
 
     public MutableLiveData<ArrayList<Integer>> getLocation() {

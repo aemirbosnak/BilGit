@@ -19,6 +19,7 @@ public class Place {
     private double radius;
     private double longitude;
     private double latitude;
+    private double rating;
 
     //for test use
     public Place(String placeName, double radius, double longitude, double latitude) {

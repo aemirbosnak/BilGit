@@ -3,18 +3,16 @@ package com.example.trybil.model;
 import android.app.Application;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,14 +32,17 @@ public class MainRepository {
     private final FirebaseStorage storage;
     private final MutableLiveData<User> user;
     private final MutableLiveData<User> searchUser;
+    private final MutableLiveData<ArrayList<User>> userRequest;
     private final MutableLiveData<Bitmap> picture;
     private final MutableLiveData<Bitmap> searchPicture;
     private final MutableLiveData<ArrayList<String>> places;
     private final MutableLiveData<ArrayList<Integer>> location;
     private final MutableLiveData<ArrayList<String>> friends;
     private final MutableLiveData<ArrayList<String>> requests;
+    private final MutableLiveData<String> place;
     private final DatabaseReference dbRef;
     private static MainRepository mainRepositorySingleton;
+    private String searchedUid;
 
     public static MainRepository getInstance(Application application) {
         if(mainRepositorySingleton != null) {
@@ -59,12 +60,14 @@ public class MainRepository {
         dbRef = FirebaseDatabase.getInstance().getReference();
         user = new MutableLiveData<User>();
         searchUser = new MutableLiveData<User>();
+        userRequest = new MutableLiveData<ArrayList<User>>();
         picture = new MutableLiveData<Bitmap>();
         searchPicture = new MutableLiveData<Bitmap>();
         places = new MutableLiveData<ArrayList<String>>();
         location = new MutableLiveData<ArrayList<Integer>>();
         friends = new MutableLiveData<ArrayList<String>>();
         requests = new MutableLiveData<ArrayList<String>>();
+        place = new MutableLiveData<>();
 
         pullPlaces();
         if(!auth.getCurrentUser().getEmail().isEmpty()) {
@@ -160,9 +163,17 @@ public class MainRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> pulledRequests = new ArrayList<>();
+                ArrayList<User> usersRequest = new ArrayList<>();
 
                 for(DataSnapshot ds: snapshot.getChildren()) {
                     pulledRequests.add(ds.getValue().toString());
+                    dbRef.child("Users").child(ds.getKey()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                        @Override
+                        public void onSuccess(DataSnapshot dataSnapshot) {
+                            usersRequest.add(dataSnapshot.getValue(User.class));
+                            userRequest.postValue(usersRequest);
+                        }
+                    });
                 }
 
                 requests.postValue(pulledRequests);
@@ -187,6 +198,7 @@ public class MainRepository {
                             Toast.makeText(application, "SEARCH PULLED: " + dataSnapshot.getValue(User.class).getUsername(), Toast.LENGTH_SHORT).show();
                             searchUser.postValue(dataSnapshot.getValue(User.class));
                             pullSearchPic(dataSnapshot.getKey());
+                            searchedUid = (dataSnapshot.getKey());
                         }
                     });
                 }
@@ -246,12 +258,35 @@ public class MainRepository {
         }
     }
 
+    public void addFriend() {
+        dbRef.child("Friends").child(searchedUid).child("requests").child(auth.getUid()).setValue(user.getValue().getUsername());
+    }
+
+    public void changePlace(String name) {
+        dbRef.child("Places").child("BCC").child("Name").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                place.postValue(snapshot.getValue(String.class));
+                Toast.makeText(application, "PLACE11111" + snapshot.getValue(String.class), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(application, "Error_Place: "+ error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     public MutableLiveData<User> getUser() {
         return user;
     }
 
     public MutableLiveData<User> getSearchUser() {
         return searchUser;
+    }
+
+    public MutableLiveData<ArrayList<User>> getUserRequest() {
+        return userRequest;
     }
 
     public MutableLiveData<Bitmap> getPicture() {
@@ -264,6 +299,10 @@ public class MainRepository {
 
     public MutableLiveData<ArrayList<String>> getPlaces() {
         return places;
+    }
+
+    public MutableLiveData<String> getPlace() {
+        return place;
     }
 
     public MutableLiveData<ArrayList<Integer>> getLocation() {

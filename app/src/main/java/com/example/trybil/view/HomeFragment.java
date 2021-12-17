@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        mainViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
 
         mainViewModel.getPlaces().observe(this, new Observer<ArrayList<String>>() {
             @Override
@@ -64,6 +64,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.placeFragment);
+                mainViewModel.changePlace("BCC");
             }
         });
 
