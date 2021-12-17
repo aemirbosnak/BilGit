@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -34,6 +35,7 @@ public class MainRepository {
     private final MutableLiveData<User> user;
     private final MutableLiveData<User> searchUser;
     private final MutableLiveData<Bitmap> picture;
+    private final MutableLiveData<Bitmap> searchPicture;
     private final MutableLiveData<ArrayList<String>> places;
     private final MutableLiveData<ArrayList<Integer>> location;
     private final MutableLiveData<ArrayList<String>> friends;
@@ -58,10 +60,12 @@ public class MainRepository {
         user = new MutableLiveData<User>();
         searchUser = new MutableLiveData<User>();
         picture = new MutableLiveData<Bitmap>();
+        searchPicture = new MutableLiveData<Bitmap>();
         places = new MutableLiveData<ArrayList<String>>();
         location = new MutableLiveData<ArrayList<Integer>>();
         friends = new MutableLiveData<ArrayList<String>>();
         requests = new MutableLiveData<ArrayList<String>>();
+
         pullPlaces();
         if(!auth.getCurrentUser().getEmail().isEmpty()) {
             pullUser();
@@ -176,13 +180,19 @@ public class MainRepository {
         dbRef.child("Usernames").child(username).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                dbRef.child("Users").child(snapshot.getValue(String.class)).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
-                    @Override
-                    public void onSuccess(DataSnapshot dataSnapshot) {
-                        Toast.makeText(application, "SEARCH PULLED: " + dataSnapshot.getValue(User.class).getUsername(), Toast.LENGTH_SHORT).show();
-                        searchUser.postValue(dataSnapshot.getValue(User.class));
-                    }
-                });
+                try {
+                    dbRef.child("Users").child(snapshot.getValue(String.class)).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                        @Override
+                        public void onSuccess(DataSnapshot dataSnapshot) {
+                            Toast.makeText(application, "SEARCH PULLED: " + dataSnapshot.getValue(User.class).getUsername(), Toast.LENGTH_SHORT).show();
+                            searchUser.postValue(dataSnapshot.getValue(User.class));
+                            pullSearchPic(dataSnapshot.getKey());
+                        }
+                    });
+                }
+                catch (NullPointerException exception) {
+                    Toast.makeText(application, "User Not Exists!", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -219,6 +229,23 @@ public class MainRepository {
         }
     }
 
+    public void pullSearchPic(String uid) {
+        try {
+            final File tmpFile = File.createTempFile(uid, "jpg");
+
+            storage.getReference("images/" + uid).getFile(tmpFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(application, "IMAGE PULLED", Toast.LENGTH_SHORT).show();
+                    Bitmap bitmap = BitmapFactory.decodeFile(tmpFile.getAbsolutePath());
+                    searchPicture.postValue(bitmap);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public MutableLiveData<User> getUser() {
         return user;
     }
@@ -229,6 +256,10 @@ public class MainRepository {
 
     public MutableLiveData<Bitmap> getPicture() {
         return picture;
+    }
+
+    public MutableLiveData<Bitmap> getSearchPicture() {
+        return searchPicture;
     }
 
     public MutableLiveData<ArrayList<String>> getPlaces() {

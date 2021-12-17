@@ -3,6 +3,7 @@ package com.example.trybil.view;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,8 +37,16 @@ public class SearchFragment extends Fragment {
             @Override
             public void onChanged(User user) {
                 searchFragmentBinding.cardv.setVisibility(View.VISIBLE);
-                searchFragmentBinding.textView7.setText(user.getUsername());
+                searchFragmentBinding.txtUsername.setText(user.getUsername());
+                searchFragmentBinding.txtDepartment.setText(user.getDepartment());
                 Toast.makeText(getContext(), "YUUUH", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mViewModel.getSearchPic().observe(this, new Observer<Bitmap>() {
+            @Override
+            public void onChanged(Bitmap bitmap) {
+                searchFragmentBinding.imgSearch.setImageBitmap(bitmap);
             }
         });
     }
