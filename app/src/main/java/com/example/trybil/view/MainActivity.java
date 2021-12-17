@@ -1,5 +1,6 @@
 package com.example.trybil.view;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -23,9 +24,20 @@ public class MainActivity extends AppCompatActivity {
     NavHostFragment navHostFragment;
     NavController navController;
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Thread thread = new Thread(){
+            @Override
+            public void run(){
+                Intent intent = new Intent(getApplicationContext(), LocationService.class);
+                startService(intent);
+            }
+        };
+        thread.start();
+
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerMain);
