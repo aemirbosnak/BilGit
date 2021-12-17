@@ -1,7 +1,6 @@
 package com.example.trybil.model;
 
 import android.app.Notification;
-import androidx.core.app.NotificationCompat;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
 
 import com.example.trybil.R;
 import com.example.trybil.view.MainActivity;
@@ -47,7 +47,7 @@ public class LocationService extends Service {
 
         Notification notification =
                 new NotificationCompat.Builder(this, App.CHANNEL_ID)
-                        .setContentTitle("Bilgit")
+                        .setContentTitle("BilGit")
                         .setContentText("Location is open")
                         .setSmallIcon(R.drawable.bilgit_logo)
                         .setContentIntent(pendingIntent)

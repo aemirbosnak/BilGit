@@ -54,13 +54,14 @@ public class MainActivity extends AppCompatActivity {
                         navController.navigate(R.id.profileFragment);
                         break;
                     case R.id.menuItemSettings:
-                        navController.navigate(R.id.settingsActivity);
+                        navController.navigate(R.id.settingsFragment);
                         break;
                 }
                 return true;
             }
         });
     }
+
     @Override
     public void onBackPressed() {
         navController.navigate(R.id.homeFragment);

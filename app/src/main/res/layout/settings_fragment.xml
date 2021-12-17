@@ -291,7 +291,7 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <Switch
-            android:id="@+id/switch3"
+            android:id="@+id/locationServices"
             android:layout_width="347dp"
             android:layout_height="53dp"
             android:backgroundTint="@color/teal_700"
@@ -309,11 +309,11 @@
             android:layout_marginTop="49dp"
             android:text="Turn on for enabling location services"
             android:textColor="@android:color/darker_gray"
-            app:layout_constraintBottom_toBottomOf="@+id/switch3"
-            app:layout_constraintEnd_toEndOf="@+id/switch3"
+            app:layout_constraintBottom_toBottomOf="@+id/locationServices"
+            app:layout_constraintEnd_toEndOf="@+id/locationServices"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/switch3"
-            app:layout_constraintTop_toTopOf="@+id/switch3"
+            app:layout_constraintStart_toStartOf="@+id/locationServices"
+            app:layout_constraintTop_toTopOf="@+id/locationServices"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView

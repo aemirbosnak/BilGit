@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.trybil.databinding.SettingsFragmentBinding;
+import com.example.trybil.model.LocationService;
 import com.example.trybil.viewmodel.AuthViewModel;
 import com.example.trybil.viewmodel.SettingsViewModel;
 
@@ -53,6 +55,17 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 authViewModel.signOut();
+            }
+        });
+
+        settingsFragmentBinding.locationServices.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // stop location service, the isChecked will be
+                // true if the switch is in the On position
+                if( !isChecked )
+                    getActivity().stopService(new Intent(getActivity(), LocationService.class));
+                else
+                    getActivity().startService(new Intent(getActivity(), LocationService.class));
             }
         });
     }
