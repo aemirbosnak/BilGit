@@ -11,17 +11,23 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.RatingBar;
 
 import com.example.trybil.databinding.PlaceFragmentBinding;
 import com.example.trybil.databinding.ProfileFragmentBinding;
-import com.example.trybil.model.Place;
 import com.example.trybil.viewmodel.MainViewModel;
 
 
 public class PlaceFragment extends Fragment {
     private PlaceFragmentBinding placeFragmentBinding;
     private MainViewModel mViewModel;
+    Button button;
+    RatingBar ratingStars;
+    int myRating = 0;
+    //I'm not sure about these values
+    int totalRate = 0;
+    int rateNum = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +40,6 @@ public class PlaceFragment extends Fragment {
                 placeFragmentBinding.textView.setText(s);
             }
         });
-
     }
 
     @Override
@@ -48,12 +53,6 @@ public class PlaceFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        placeFragmentBinding.textView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewModel.changePlace("BCC");
-            }
-        });
         /*
         placeFragmentBinding.ratingBar.setOnRatingBarChangeListener(new View.OnClickListener() {
             @Override

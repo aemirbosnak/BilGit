@@ -76,12 +76,28 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:contentDescription="Rate Bar"
+            android:stepSize="1.0"
+            android:isIndicator="false"
             android:foregroundTint="@color/peach_700"
             android:progressTint="@color/green_500"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.292"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        <RatingBar
+            android:id="@+id/ratingBar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:contentDescription="Rate Bar"
+            android:stepSize="1.0"
+            android:isIndicator="true"
+            android:foregroundTint="@color/peach_700"
+            android:progressTint="@color/green_500"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.292"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
         <TextView
             android:id="@+id/textView6"
