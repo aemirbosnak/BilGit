@@ -66,18 +66,4 @@ public class MainActivity extends AppCompatActivity {
         navController.navigate(R.id.homeFragment);
         activityMainBinding.bottomNavigation.setSelectedItemId(R.id.menuItemHome);
     }
-
-    @Override
-    public void onRestart() {
-        super.onRestart();
-        intent  = new Intent(getApplicationContext(), LocationService.class);
-        startService(intent);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        intent  = new Intent(getApplicationContext(), LocationService.class);
-        stopService(intent);
-    }
 }
