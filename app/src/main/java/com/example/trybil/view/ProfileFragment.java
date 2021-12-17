@@ -46,6 +46,14 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        mainViewModel.getUser().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                profileFragmentBinding.userName.setText(user.getUsername());
+                profileFragmentBinding.department.setText(user.getDepartment());
+            }
+        });
+
         mainViewModel.getPicture().observe(this, new Observer<Bitmap>() {
             @Override
             public void onChanged(Bitmap bitmap) {
