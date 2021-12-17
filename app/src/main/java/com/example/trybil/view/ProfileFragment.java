@@ -42,7 +42,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        mainViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
 
         mainViewModel.getFriends().observe(this, new Observer<ArrayList<String>>() {
             @Override
@@ -56,8 +56,8 @@ public class ProfileFragment extends Fragment {
             public void onChanged(ArrayList<User> users) {
                 if (users.size() == 3) {
                     friendAdapter = new FriendAdapter(getContext(), getActivity().getApplication(), users);
-                    //profileFragmentBinding.recylerFriends.setAdapter(friendAdapter);
-                    //profileFragmentBinding.recylerFriends.setLayoutManager(new LinearLayoutManager(getContext()));
+                    profileFragmentBinding.recylclerFriends.setAdapter(friendAdapter);
+                    profileFragmentBinding.recylclerFriends.setLayoutManager(new LinearLayoutManager(getContext()));
                 }
             }
         });
