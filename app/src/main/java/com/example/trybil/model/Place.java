@@ -44,7 +44,7 @@ public class Place {
         return radius;
     }
 
-    public boolean inPlace( Location userLoc ) {
+    public Place inPlaceCheck( Location userLoc ) {
         if( (latitude - userLoc.getLatitude()) * (latitude - userLoc.getLatitude())
                 + (longitude - userLoc.getLongitude()) * (longitude - userLoc.getLongitude())
                 <= radius * radius ) {
@@ -74,15 +74,62 @@ public class Place {
                 }
             });
 
-           ref.child("Users in location").push().setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+           ref.child("Users in location").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                   .setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-           FirebaseDatabase.getInstance().getReference().child("Users")
-                   .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("InPlace")
-                   .setValue(true);
+           FirebaseDatabase.getInstance().getReference().child("Locations")
+                   .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Place")
+                   .setValue(placeName);
 
-           return true;
+           return this;
+        }
+
+        return null;
+    }
+
+
+    public static boolean outPlaceCheck( Location userLoc, Place place ) {
+        if( (place.latitude - userLoc.getLatitude()) * (place.latitude - userLoc.getLatitude())
+                + (place.longitude - userLoc.getLongitude()) * (place.longitude - userLoc.getLongitude())
+                > place.radius * place.radius ) {
+
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Places")
+                    .child(place.placeName);
+
+            //transaction to prevent data loss in simultaneous incrementation
+            ref.child("People number").runTransaction(new Transaction.Handler() {
+                @NonNull
+                @Override
+                public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                    Integer current = currentData.getValue(Integer.class);
+                    if(current == null || current == 0) {
+                        currentData.setValue(0);
+                    }
+                    else {
+                        currentData.setValue(current - 1);
+                    }
+
+                    return Transaction.success(currentData);
+                }
+
+                @Override
+                public void onComplete(@Nullable DatabaseError error, boolean committed,
+                                       @Nullable DataSnapshot currentData) {
+                }
+            });
+
+
+            ref.child("Users in location").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+            .removeValue();
+
+            FirebaseDatabase.getInstance().getReference().child("Locations")
+                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Place")
+                    .setValue("none");
+
+            return true;
         }
 
         return false;
     }
+
 }
