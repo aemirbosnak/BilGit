@@ -30,8 +30,14 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+    }
 
-        mainViewModel.getUser().observe(this, new Observer<User>() {
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        profileFragmentBinding = ProfileFragmentBinding.inflate(inflater, container, false);
+
+        mainViewModel.getUser().observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
             public void onChanged(User user) {
                 profileFragmentBinding.userName.setText(user.getUsername());
@@ -39,12 +45,6 @@ public class ProfileFragment extends Fragment {
                 mainViewModel.getUser().removeObservers(getViewLifecycleOwner());
             }
         });
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        profileFragmentBinding = ProfileFragmentBinding.inflate(inflater, container, false);
         return profileFragmentBinding.getRoot();
     }
 }
