@@ -1,8 +1,15 @@
 package com.example.trybil.view;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +31,7 @@ import java.util.ArrayList;
 public class ProfileFragment extends Fragment {
     private ProfileFragmentBinding profileFragmentBinding;
     private MainViewModel mainViewModel;
+    ActivityResultLauncher<String> pickImage;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,9 +41,20 @@ public class ProfileFragment extends Fragment {
         mainViewModel.getFriends().observe(this, new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> friends) {
-                profileFragmentBinding.editTextTextMultiLine.setText("Friends: " + friends.size());
+                profileFragmentBinding.bio.setText("Friends: " + friends.size());
             }
         });
+
+        pickImage = registerForActivityResult(new ActivityResultContracts.GetContent(),
+                new ActivityResultCallback<Uri>() {
+                    @Override
+                    public void onActivityResult(Uri result) {
+                        if (result != null) {
+                            mainViewModel.uploadPic(result);
+                        }
+                    }
+                });
+
     }
 
     @Override
@@ -48,5 +67,10 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        profileFragmentBinding.btnUp.setOnClickListener(v -> pickImage.launch("image/"));
     }
+
+    public void act() {
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.trybil.viewmodel;
 
 import android.app.Application;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -33,6 +34,10 @@ public class MainViewModel extends AndroidViewModel {
 
     public void searchUser(String username) {
         mainRepository.searchUser(username);
+    }
+
+    public void uploadPic(Uri image) {
+        mainRepository.uploadPic(image);
     }
 
     public MutableLiveData<User> getUser() {

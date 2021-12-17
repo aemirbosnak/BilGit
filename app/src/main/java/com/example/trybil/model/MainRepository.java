@@ -1,6 +1,8 @@
 package com.example.trybil.model;
 
 import android.app.Application;
+import android.media.Image;
+import android.net.Uri;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,12 +17,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 
 public class MainRepository {
     private final Application application;
     private final FirebaseAuth auth;
+    private final FirebaseStorage storage;
     private final MutableLiveData<User> user;
     private final MutableLiveData<User> searchUser;
     private final MutableLiveData<ArrayList<String>> places;
@@ -42,6 +47,7 @@ public class MainRepository {
     private MainRepository(Application application) {
         this.application = application;
         auth = FirebaseAuth.getInstance();
+        storage = FirebaseStorage.getInstance();
         dbRef = FirebaseDatabase.getInstance().getReference();
         user = new MutableLiveData<User>();
         searchUser = new MutableLiveData<User>();
@@ -174,6 +180,15 @@ public class MainRepository {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(application, "Error_Search: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void uploadPic(Uri image) {
+        storage.getReference("images/" + auth.getUid()).putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(application, "IMAGE UPLOADED", Toast.LENGTH_SHORT).show();
             }
         });
     }
