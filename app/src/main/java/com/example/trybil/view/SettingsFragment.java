@@ -1,23 +1,17 @@
 package com.example.trybil.view;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.trybil.R;
-import com.example.trybil.databinding.LoginFragmentBinding;
-import com.example.trybil.databinding.RegisterFragmentBinding;
-import com.example.trybil.databinding.SearchFragmentBinding;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.trybil.databinding.SettingsFragmentBinding;
 import com.example.trybil.viewmodel.AuthViewModel;
 import com.example.trybil.viewmodel.SettingsViewModel;
