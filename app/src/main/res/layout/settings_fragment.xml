@@ -25,10 +25,10 @@
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.951"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.975" />
+            app:layout_constraintVertical_bias="0.682" />
 
         <Button
             android:id="@+id/buttonLogout"
@@ -111,7 +111,7 @@
             app:layout_constraintHorizontal_bias="0.047"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.552" />
+            app:layout_constraintVertical_bias="0.247" />
 
         <Switch
             android:id="@+id/enableNotifications"
@@ -121,9 +121,10 @@
             android:text="Notifications"
             app:layout_constraintBottom_toTopOf="@+id/locationServices"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.328"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView9"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.834" />
 
         <TextView
             android:id="@+id/textView10"
@@ -164,63 +165,10 @@
             app:layout_constraintTop_toBottomOf="@+id/privateProfile"
             app:layout_constraintVertical_bias="0.714" />
 
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="347dp"
-            android:layout_height="47dp"
-            android:text="Profile Photo"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.328"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView15"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Change profile photo"
-            android:textColor="@android:color/darker_gray"
-            app:layout_constraintBottom_toBottomOf="@+id/textView13"
-            app:layout_constraintEnd_toEndOf="@+id/textView13"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView13"
-            app:layout_constraintTop_toTopOf="@+id/textView13"
-            app:layout_constraintVertical_bias="0.607" />
         <!--Linear Layout with horizontal orientation
          and other properties-->
-        <LinearLayout
-            android:id="@+id/layout_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="50dp"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            app:layout_constraintEnd_toEndOf="@+id/textView14"
-            app:layout_constraintStart_toStartOf="@+id/textView14"
-            app:layout_constraintTop_toBottomOf="@+id/textView14">
 
-            <!--Button for choosing image from gallery-->
-            <Button
-                android:id="@+id/selectImageBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Choose" />
 
-            <!--Button for uploading image-->
-            <Button
-                android:id="@+id/uploadImagebtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Upload" />
-        </LinearLayout>
 
         <TextView
             android:id="@+id/textView15"
@@ -239,56 +187,28 @@
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Change password"
             android:textColor="@android:color/darker_gray"
-            app:layout_constraintBottom_toTopOf="@+id/textView13"
             app:layout_constraintEnd_toEndOf="@+id/textView15"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView15"
-            app:layout_constraintTop_toBottomOf="@+id/changeEmail"
-            app:layout_constraintVertical_bias="0.642" />
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="347dp"
-            android:layout_height="47dp"
-            android:layout_marginTop="8dp"
-            android:text="Bio"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_button"
-            app:layout_constraintVertical_bias="0.224" />
-
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit bio"
-            android:textColor="@android:color/darker_gray"
-            app:layout_constraintBottom_toBottomOf="@+id/textView17"
-            app:layout_constraintEnd_toEndOf="@+id/textView17"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView17"
-            app:layout_constraintTop_toBottomOf="@+id/textView13"
-            app:layout_constraintVertical_bias="0.746" />
+            app:layout_constraintTop_toBottomOf="@+id/changeEmail" />
 
         <TextView
             android:id="@+id/textView19"
             android:layout_width="199dp"
             android:layout_height="33dp"
-            android:layout_marginBottom="83dp"
             android:text="Location Services"
             android:textColor="@color/purple_700"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textView21"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.047"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.529" />
 
         <Switch
             android:id="@+id/locationServices"
@@ -298,9 +218,10 @@
             android:text="Location"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView19"
-            app:layout_constraintVertical_bias="0.029" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.389" />
 
         <TextView
             android:id="@+id/textView20"
@@ -326,10 +247,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/textView22"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.047"
+            app:layout_constraintHorizontal_bias="0.075"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.957" />
+            app:layout_constraintVertical_bias="0.954" />
 
         <TextView
             android:id="@+id/textView22"
@@ -341,10 +262,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.047"
+            app:layout_constraintHorizontal_bias="0.075"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.841" />
+            app:layout_constraintVertical_bias="0.561" />
 
         <TextView
             android:id="@+id/textView23"
@@ -358,17 +279,6 @@
             app:layout_constraintStart_toStartOf="@+id/textView22"
             app:layout_constraintTop_toTopOf="@+id/textView22"
             app:layout_constraintVertical_bias="1.0" />
-
-        <ImageView
-            android:id="@+id/profilePic"
-            android:layout_width="84dp"
-            android:layout_height="72dp"
-            android:layout_marginTop="14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_button"
-            app:srcCompat="@android:mipmap/sym_def_app_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
