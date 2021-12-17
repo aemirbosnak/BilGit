@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -45,6 +46,13 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        mainViewModel.getPicture().observe(this, new Observer<Bitmap>() {
+            @Override
+            public void onChanged(Bitmap bitmap) {
+                profileFragmentBinding.imageView.setImageBitmap(bitmap);
+            }
+        });
+
         pickImage = registerForActivityResult(new ActivityResultContracts.GetContent(),
                 new ActivityResultCallback<Uri>() {
                     @Override
@@ -69,8 +77,4 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         profileFragmentBinding.btnUp.setOnClickListener(v -> pickImage.launch("image/"));
     }
-
-    public void act() {
-    }
-
 }

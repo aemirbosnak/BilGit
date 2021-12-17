@@ -1,6 +1,8 @@
 package com.example.trybil.model;
 
 import android.app.Application;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.widget.Toast;
@@ -17,9 +19,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainRepository {
@@ -28,6 +33,7 @@ public class MainRepository {
     private final FirebaseStorage storage;
     private final MutableLiveData<User> user;
     private final MutableLiveData<User> searchUser;
+    private final MutableLiveData<Bitmap> picture;
     private final MutableLiveData<ArrayList<String>> places;
     private final MutableLiveData<ArrayList<Integer>> location;
     private final MutableLiveData<ArrayList<String>> friends;
@@ -51,6 +57,7 @@ public class MainRepository {
         dbRef = FirebaseDatabase.getInstance().getReference();
         user = new MutableLiveData<User>();
         searchUser = new MutableLiveData<User>();
+        picture = new MutableLiveData<Bitmap>();
         places = new MutableLiveData<ArrayList<String>>();
         location = new MutableLiveData<ArrayList<Integer>>();
         friends = new MutableLiveData<ArrayList<String>>();
@@ -59,6 +66,7 @@ public class MainRepository {
         if(!auth.getCurrentUser().getEmail().isEmpty()) {
             pullUser();
             pullFriends();
+            pullPic();
             //pullLocations();
         }
     }
@@ -189,8 +197,26 @@ public class MainRepository {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(application, "IMAGE UPLOADED", Toast.LENGTH_SHORT).show();
+                pullPic();
             }
         });
+    }
+
+    public void pullPic() {
+        try {
+            final File tmpFile = File.createTempFile(auth.getUid(), "jpg");
+
+            storage.getReference("images/" + auth.getUid()).getFile(tmpFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(application, "IMAGE PULLED", Toast.LENGTH_SHORT).show();
+                    Bitmap bitmap = BitmapFactory.decodeFile(tmpFile.getAbsolutePath());
+                    picture.postValue(bitmap);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public MutableLiveData<User> getUser() {
@@ -199,6 +225,10 @@ public class MainRepository {
 
     public MutableLiveData<User> getSearchUser() {
         return searchUser;
+    }
+
+    public MutableLiveData<Bitmap> getPicture() {
+        return picture;
     }
 
     public MutableLiveData<ArrayList<String>> getPlaces() {

@@ -1,6 +1,7 @@
 package com.example.trybil.viewmodel;
 
 import android.app.Application;
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ public class MainViewModel extends AndroidViewModel {
     MainRepository mainRepository;
     MutableLiveData<User> user;
     MutableLiveData<User> searchUser;
+    MutableLiveData<Bitmap> picture;
     MutableLiveData<ArrayList<String>> places;
     MutableLiveData<ArrayList<Integer>> location;
     MutableLiveData<ArrayList<String>> friends;
@@ -26,6 +28,7 @@ public class MainViewModel extends AndroidViewModel {
         mainRepository = MainRepository.getInstance(application);
         user = mainRepository.getUser();
         searchUser = mainRepository.getSearchUser();
+        picture = mainRepository.getPicture();
         places = mainRepository.getPlaces();
         location = mainRepository.getLocation();
         friends = mainRepository.getFriends();
@@ -46,6 +49,10 @@ public class MainViewModel extends AndroidViewModel {
 
     public MutableLiveData<User> getSearchUser() {
         return searchUser;
+    }
+
+    public MutableLiveData<Bitmap> getPicture() {
+        return picture;
     }
 
     public MutableLiveData<ArrayList<String>> getPlaces() {
