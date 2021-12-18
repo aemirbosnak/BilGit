@@ -1,15 +1,25 @@
 package com.example.trybil.model;
 
+import static com.example.trybil.model.App.CHANNEL_ID1;
+
 import android.app.Application;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Log;
+import android.os.Build;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.trybil.R;
+import com.example.trybil.view.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -195,6 +205,7 @@ public class MainRepository {
 
                     if (usersRequest.size() == uids.size()) {
                         userRequest.postValue(usersRequest);
+                        notifyUser(usersRequest);
                     }
                 }
             });
@@ -329,5 +340,27 @@ public class MainRepository {
 
     public MutableLiveData<ArrayList<String>> getRequests() {
         return requests;
+    }
+
+    private void notifyUser(ArrayList<User> userRequest) {
+        String text = userRequest.size() > 1 ? "friend requests" : "friend request";
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                application.getApplicationContext(), CHANNEL_ID1)
+                .setSmallIcon(R.drawable.bilgit_logo)
+                .setContentTitle("BilGit")
+                .setContentText("You have " + userRequest.size() + " " + text)
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        Intent intent = new Intent(application.getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(application.getApplicationContext(),
+                1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        builder.setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) application.getApplicationContext()
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(2, builder.build());
     }
 }
