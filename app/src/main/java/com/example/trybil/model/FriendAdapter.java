@@ -1,5 +1,6 @@
 package com.example.trybil.model;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -39,16 +40,24 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.txtUsernameCard.setText(users.get(position).getUsername());
         holder.txtDepartmentCard.setText(users.get(position).getDepartment());
+
         holder.btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                repository.addFriend();
+                repository.acceptReq(users.get(position).getUsername());
             }
         });
-        //holder.btnReject.setOnClickListener();
+        holder.btnReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                repository.rejectReq(users.get(position).getUsername());
+            }
+        });
+
+
         //holder.imgCard.setImageBitmap(images.get(position));
     }
 

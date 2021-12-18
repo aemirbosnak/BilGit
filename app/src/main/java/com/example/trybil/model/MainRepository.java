@@ -110,7 +110,7 @@ public class MainRepository {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> pulledPlaces = new ArrayList<>();
                 for(DataSnapshot ds: snapshot.getChildren()) {
-                    pulledPlaces.add(ds.child("Name").getValue().toString());
+                    //pulledPlaces.add(ds.child("Name").getValue().toString());
                 }
 
                 places.postValue(pulledPlaces);
@@ -195,7 +195,6 @@ public class MainRepository {
 
     public void reqUserArray(ArrayList<String> uids) {
         ArrayList<User> usersRequest = new ArrayList<>();
-        Log.i("1111111", "LOOOOOOG: " + uids.get(0));
 
         for(String uid : uids) {
             dbRef.child("Users").child(uid).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
@@ -285,6 +284,38 @@ public class MainRepository {
 
     public void addFriend() {
         dbRef.child("Friends").child(searchedUid).child("requests").child(auth.getUid()).setValue(user.getValue().getUsername());
+    }
+
+    public void acceptReq(String username) {
+        dbRef.child("Usernames").child(username).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                String uid = dataSnapshot.getValue(String.class);
+                dbRef.child("Friends").child(auth.getUid()).child("friends").child(uid).setValue("added");
+                dbRef.child("Friends").child(auth.getUid()).child("requests").child(uid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.i("OOOOOOOOOO:  ", "FRIEND ACCEPTED");
+                    }
+                });
+            }
+        });
+    }
+
+    public void rejectReq(String username) {
+        dbRef.child("Usernames").child(username).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                String uid = dataSnapshot.getValue(String.class);
+
+                dbRef.child("Friends").child(auth.getUid()).child("requests").child(uid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.i("OOOOOOOOOO:  ", "FRIEND REJECTED");
+                    }
+                });
+            }
+        });
     }
 
     public void changePlace(String name) {
