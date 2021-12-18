@@ -42,6 +42,18 @@ public class FriendProfileFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        friendProfileFragmentBinding.friendRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainViewModel.addFriend();
+            }
+        });
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         friendProfileFragmentBinding = FriendProfileFragmentBinding.inflate(inflater, container, false);
         return friendProfileFragmentBinding.getRoot();
