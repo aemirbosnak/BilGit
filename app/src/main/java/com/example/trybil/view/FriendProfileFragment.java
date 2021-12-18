@@ -16,6 +16,8 @@ import com.example.trybil.databinding.FriendProfileFragmentBinding;
 import com.example.trybil.model.User;
 import com.example.trybil.viewmodel.MainViewModel;
 
+import java.util.ArrayList;
+
 public class FriendProfileFragment extends Fragment {
     private FriendProfileFragmentBinding friendProfileFragmentBinding;
     private MainViewModel mainViewModel;
@@ -37,6 +39,25 @@ public class FriendProfileFragment extends Fragment {
             @Override
             public void onChanged(Bitmap bitmap) {
                 friendProfileFragmentBinding.imageView.setImageBitmap(bitmap);
+            }
+        });
+
+        mainViewModel.getFriends().observe(this, new Observer<ArrayList<String>>() {
+            @Override
+            public void onChanged(ArrayList<String> friends) {
+                friendProfileFragmentBinding.friendCount.setText("Friends: " + friends.size());
+            }
+        });
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        friendProfileFragmentBinding.friendRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainViewModel.addFriend();
             }
         });
     }
