@@ -69,6 +69,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.placeFragment);
+                //mainViewModel.changePlace("MozartCafe");
             }
         });
 

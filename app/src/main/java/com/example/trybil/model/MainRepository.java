@@ -292,7 +292,7 @@ public class MainRepository {
             public void onSuccess(DataSnapshot dataSnapshot) {
                 String uid = dataSnapshot.getValue(String.class);
                 dbRef.child("Friends").child(auth.getUid()).child("friends").child(uid).setValue(username);
-                dbRef.child("Friends").child(uid).child("friends").child(auth.getUid()).setValue(auth.getUid());
+                dbRef.child("Friends").child(uid).child("friends").child(auth.getUid()).setValue(user.getValue().getUsername());
                 dbRef.child("Friends").child(auth.getUid()).child("requests").child(uid).removeValue();
             }
         });
@@ -327,16 +327,10 @@ public class MainRepository {
     }
 
     public void changePlace(String name) {
-        dbRef.child("Places").child("BCC").child("Name").addValueEventListener(new ValueEventListener() {
+        dbRef.child("Places").child(name).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                place.postValue(snapshot.getValue(String.class));
-                Toast.makeText(application, "PLACE11111" + snapshot.getValue(String.class), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(application, "Error_Place: "+ error.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                place.postValue(dataSnapshot.getValue(String.class));
             }
         });
     }

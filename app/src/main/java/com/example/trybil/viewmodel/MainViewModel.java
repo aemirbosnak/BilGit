@@ -81,9 +81,7 @@ public class MainViewModel extends AndroidViewModel {
         return places;
     }
 
-    public MutableLiveData<String> getPlace() {
-        return place;
-    }
+    public MutableLiveData<String> getPlace() { return place; }
 
     public MutableLiveData<ArrayList<Integer>> getLocation() {
         return location;
