@@ -84,9 +84,7 @@ public class MainViewModel extends AndroidViewModel {
         return places;
     }
 
-    public MutableLiveData<Place> getPlace() {
-        return place;
-    }
+    public MutableLiveData<Place> getPlace() { return place; }
 
     public MutableLiveData<ArrayList<Integer>> getLocation() {
         return location;
@@ -103,4 +101,6 @@ public class MainViewModel extends AndroidViewModel {
     public MutableLiveData<ArrayList<String>> getRequests() {
         return requests;
     }
+
+    public boolean isFriend(String username) { return mainRepository.isFriend(username); }
 }
