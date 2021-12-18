@@ -58,9 +58,11 @@ public class AuthRepository {
             public void onComplete(@NonNull  Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
+                    User user = new User(email, username, department);
 
                     // Add user to realtime database
-                    dbRef.child("Users").child(auth.getCurrentUser().getUid()).setValue(new User(email, username, department));
+                    dbRef.child("Users").child(auth.getCurrentUser().getUid()).setValue(user);
+                    dbRef.child("Usernames").child(username).setValue(auth.getUid());
                 }
                 else{
                     Toast.makeText(application, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
