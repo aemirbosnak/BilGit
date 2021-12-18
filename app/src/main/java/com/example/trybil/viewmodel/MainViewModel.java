@@ -9,7 +9,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.trybil.model.MainRepository;
-import com.example.trybil.model.Place;
 import com.example.trybil.model.User;
 
 import java.util.ArrayList;
@@ -97,4 +96,6 @@ public class MainViewModel extends AndroidViewModel {
     public MutableLiveData<ArrayList<String>> getRequests() {
         return requests;
     }
+
+    public boolean isFriend(String username) { return mainRepository.isFriend(username); }
 }

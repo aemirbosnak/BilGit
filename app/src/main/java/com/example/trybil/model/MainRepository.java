@@ -51,6 +51,7 @@ public class MainRepository {
     private final DatabaseReference dbRef;
     private static MainRepository mainRepositorySingleton;
     private String searchedUid;
+    private boolean isFriend;
 
     public static MainRepository getInstance(Application application) {
         if(mainRepositorySingleton != null) {
@@ -287,7 +288,7 @@ public class MainRepository {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
                 String uid = dataSnapshot.getValue(String.class);
-                dbRef.child("Friends").child(auth.getUid()).child("friends").child(uid).setValue("added");
+                dbRef.child("Friends").child(auth.getUid()).child("friends").child(uid).setValue(username);
                 dbRef.child("Friends").child(auth.getUid()).child("requests").child(uid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -314,6 +315,23 @@ public class MainRepository {
         });
     }
 
+    public boolean isFriend(String username) {
+        dbRef.child("Friends").child(auth.getUid()).child("friends").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren() ) {
+                    if( ds.getValue(String.class).equals(username) )
+                        isFriend = true;
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return isFriend;
+    }
+
     public void changePlace(String name) {
         dbRef.child("Places").child("BCC").child("Name").addValueEventListener(new ValueEventListener() {
             @Override
@@ -327,46 +345,6 @@ public class MainRepository {
                 Toast.makeText(application, "Error_Place: "+ error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    public MutableLiveData<User> getUser() {
-        return user;
-    }
-
-    public MutableLiveData<User> getSearchUser() {
-        return searchUser;
-    }
-
-    public MutableLiveData<ArrayList<User>> getUserRequest() {
-        return userRequest;
-    }
-
-    public MutableLiveData<Bitmap> getPicture() {
-        return picture;
-    }
-
-    public MutableLiveData<Bitmap> getSearchPicture() {
-        return searchPicture;
-    }
-
-    public MutableLiveData<ArrayList<String>> getPlaces() {
-        return places;
-    }
-
-    public MutableLiveData<String> getPlace() {
-        return place;
-    }
-
-    public MutableLiveData<ArrayList<Integer>> getLocation() {
-        return location;
-    }
-
-    public MutableLiveData<ArrayList<String>> getFriends() {
-        return friends;
-    }
-
-    public MutableLiveData<ArrayList<String>> getRequests() {
-        return requests;
     }
 
     private void notifyUser(ArrayList<User> userRequest) {
@@ -390,4 +368,24 @@ public class MainRepository {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(2, builder.build());
     }
+
+    public MutableLiveData<User> getUser() { return user; }
+
+    public MutableLiveData<User> getSearchUser() { return searchUser; }
+
+    public MutableLiveData<ArrayList<User>> getUserRequest() { return userRequest; }
+
+    public MutableLiveData<Bitmap> getPicture() { return picture; }
+
+    public MutableLiveData<Bitmap> getSearchPicture() { return searchPicture; }
+
+    public MutableLiveData<ArrayList<String>> getPlaces() { return places; }
+
+    public MutableLiveData<String> getPlace() { return place; }
+
+    public MutableLiveData<ArrayList<Integer>> getLocation() { return location; }
+
+    public MutableLiveData<ArrayList<String>> getFriends() { return friends; }
+
+    public MutableLiveData<ArrayList<String>> getRequests() { return requests; }
 }
