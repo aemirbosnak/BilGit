@@ -43,7 +43,12 @@ public class SearchFragment extends Fragment {
         mViewModel.getSearchPic().observe(this, new Observer<Bitmap>() {
             @Override
             public void onChanged(Bitmap bitmap) {
-                searchFragmentBinding.imgSearch.setImageBitmap(bitmap);
+                if(bitmap != null) {
+                    searchFragmentBinding.imgSearch.setImageBitmap(bitmap);
+                }
+                else {
+                    searchFragmentBinding.imgSearch.setImageDrawable(getResources().getDrawable(R.drawable.avatar));
+                }
             }
         });
     }

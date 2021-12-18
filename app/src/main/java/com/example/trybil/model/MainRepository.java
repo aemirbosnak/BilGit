@@ -262,6 +262,11 @@ public class MainRepository {
                     Bitmap bitmap = BitmapFactory.decodeFile(tmpFile.getAbsolutePath());
                     picture.postValue(bitmap);
                 }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    picture.postValue(null);
+                }
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -278,6 +283,11 @@ public class MainRepository {
                     Toast.makeText(application, "IMAGE PULLED", Toast.LENGTH_SHORT).show();
                     Bitmap bitmap = BitmapFactory.decodeFile(tmpFile.getAbsolutePath());
                     searchPicture.postValue(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    searchPicture.postValue(null);
                 }
             });
         } catch (IOException e) {
