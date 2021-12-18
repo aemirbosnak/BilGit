@@ -29,10 +29,10 @@
             android:contentDescription="Image of the place"/>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/placeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="60dp"
             android:background="#00FFFFFF"
             android:fontFamily="sans-serif-condensed"
             android:text="@string/place_name"
@@ -40,76 +40,81 @@
             android:textColor="@color/white_100"
             app:layout_constraintBottom_toBottomOf="@+id/imageView2"
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
-            app:layout_constraintHorizontal_bias="0.262"
             app:layout_constraintStart_toStartOf="@+id/imageView2" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/openOrClosed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:text="Open/closed"
+            android:textColor="@color/bone_700"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.173"
+            app:layout_constraintHorizontal_bias="0.284"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.0"
-            android:textColor="@color/bone_700"/>
+            app:layout_constraintTop_toBottomOf="@+id/placeName"
+            app:layout_constraintVertical_bias="0.212" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/rateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="20dp"
             android:text="Rate this place"
+            android:textColor="@color/ultramarine_200"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.158"
+            app:layout_constraintHorizontal_bias="0.517"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            android:textColor="@color/ultramarine_200"/>
+            app:layout_constraintTop_toBottomOf="@+id/openOrClosed" />
 
         <RatingBar
             android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:contentDescription="Rate Bar"
-            android:stepSize="1.0"
+            android:foregroundTint="@color/purple_200"
             android:isIndicator="false"
-            android:foregroundTint="@color/peach_700"
-            android:progressTint="@color/green_500"
+            android:progressTint="@color/yellow"
+            android:stepSize="1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.292"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintTop_toBottomOf="@+id/rateText" />
+
         <RatingBar
-            android:id="@+id/ratingBar2"
+            android:id="@+id/averageRate"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="360dp"
+            android:clickable="false"
             android:contentDescription="Rate Bar"
-            android:stepSize="1.0"
+            android:foregroundTint="@color/purple_200"
             android:isIndicator="true"
-            android:foregroundTint="@color/peach_700"
-            android:progressTint="@color/green_500"
+            android:progressBackgroundTint="#FFFFFF"
+            android:progressTint="@color/yellow"
+            android:stepSize="0.1"
+            android:theme="@android:style/Widget.DeviceDefault.RatingBar.Indicator"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.292"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/closingTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="92dp"
+            android:layout_marginEnd="84dp"
             android:text="Closing time"
             android:textColor="@color/peach_500"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.678"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/placeName" />
         <!--Rating android:rating="int num" is used for representing the total rate-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
