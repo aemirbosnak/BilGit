@@ -54,7 +54,7 @@ public class ProfileFragment extends Fragment {
         mainViewModel.getUserRequest().observe(this, new Observer<ArrayList<User>>() {
             @Override
             public void onChanged(ArrayList<User> users) {
-                if (users.size() == 3) {
+                if (users != null) {
                     friendAdapter = new FriendAdapter(getContext(), getActivity().getApplication(), users);
                     profileFragmentBinding.recylclerFriends.setAdapter(friendAdapter);
                     profileFragmentBinding.recylclerFriends.setLayoutManager(new LinearLayoutManager(getContext()));
