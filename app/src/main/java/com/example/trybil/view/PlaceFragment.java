@@ -42,7 +42,7 @@ public class PlaceFragment extends Fragment {
             @Override
             public void onChanged(String s) {
                 placeFragmentBinding.placeName.setText(s);
-                placeFragmentBinding.averageRate.setRating();
+                //placeFragmentBinding.averageRate.setRating(s);
             }
         });
 
