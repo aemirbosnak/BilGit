@@ -107,9 +107,8 @@ public class MainRepository {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> pulledPlaces = new ArrayList<>();
                 for(DataSnapshot ds: snapshot.getChildren()) {
-                    //pulledPlaces.add(ds.child("Name").getValue().toString());
+                    pulledPlaces.add(ds.child("placeName").getValue().toString());
                 }
-
                 places.postValue(pulledPlaces);
             }
 
