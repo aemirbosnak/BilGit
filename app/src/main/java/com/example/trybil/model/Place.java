@@ -19,7 +19,7 @@ public class Place {
     private double radius;
     private double longitude;
     private double latitude;
-    private double rating;
+    private float rating;
 
     //for test use
     public Place(String placeName, double radius, double longitude, double latitude) {
@@ -27,6 +27,14 @@ public class Place {
         this.radius = radius;
         this.longitude = longitude;
         this.latitude = latitude;
+    }
+
+    public float getRating(){
+        return rating;
+    }
+
+    public void setRating(float newRate){
+        rating = newRate;
     }
 
     public double getLatitude() {
