@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.MutableLiveData;
+import androidx.navigation.NavDeepLinkBuilder;
 
 import com.example.trybil.R;
 import com.example.trybil.view.MainActivity;
@@ -383,8 +384,11 @@ public class MainRepository {
 
         Intent intent = new Intent(application.getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(application.getApplicationContext(),
-                1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = new NavDeepLinkBuilder(application.getApplicationContext())
+                .setComponentName(MainActivity.class)
+                .setGraph(R.navigation.nav_main)
+                .setDestination(R.id.profileFragment)
+                .createPendingIntent();
 
         builder.setContentIntent(pendingIntent);
 
