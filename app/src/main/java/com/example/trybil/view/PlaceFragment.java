@@ -35,6 +35,7 @@ public class PlaceFragment extends Fragment {
         mViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
         ratingBar = placeFragmentBinding.ratingBar;
         averageRate = placeFragmentBinding.averageRate;
+
         cardView = homeFragmentBinding.cardView1;
 
         mViewModel.getPlace().observe(this, new Observer<String>() {
