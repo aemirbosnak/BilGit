@@ -132,7 +132,6 @@ public class MainRepository {
                 for(DataSnapshot ds: snapshot.getChildren()) {
                     pulledLocation.add(Integer.valueOf(ds.getValue().toString()));
                 }
-
                 location.postValue(pulledLocation);
             }
 
