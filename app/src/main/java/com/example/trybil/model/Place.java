@@ -13,13 +13,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 
+import java.util.ArrayList;
+
 public class Place {
 
     private String placeName;
     private double radius;
     private double longitude;
     private double latitude;
-    private double rating;
+    private int totalRating;
+    private int voteNumber;
+    private  int peopleNumber;
+    private ArrayList<String> userInLocation;
 
     //for test use
     public Place(String placeName, double radius, double longitude, double latitude) {
@@ -27,7 +32,13 @@ public class Place {
         this.radius = radius;
         this.longitude = longitude;
         this.latitude = latitude;
+        totalRating = 0;
+        voteNumber = 0;
+        peopleNumber = 0;
+        userInLocation = new ArrayList<>();
     }
+
+    public Place() {}
 
     public double getLatitude() {
         return latitude;
@@ -45,6 +56,23 @@ public class Place {
         return radius;
     }
 
+    public int getPeopleNumber() {
+        return  peopleNumber;
+    }
+
+    public ArrayList<String> getUserInLocation() {
+        return userInLocation;
+    }
+
+    public int getTotalRating() {
+        return totalRating;
+    }
+
+    public int getVoteNumber() {
+        return voteNumber;
+    }
+
+
     public Place inPlaceCheck( Location userLoc ) {
         if( (latitude - userLoc.getLatitude()) * (latitude - userLoc.getLatitude())
                 + (longitude - userLoc.getLongitude()) * (longitude - userLoc.getLongitude())
@@ -54,7 +82,7 @@ public class Place {
                     .child(placeName);
 
             //transaction to prevent data loss in simultaneous incrementation
-            ref.child("People number").runTransaction(new Transaction.Handler() {
+            ref.child("peopleNumber").runTransaction(new Transaction.Handler() {
                 @NonNull
                 @Override
                 public Transaction.Result doTransaction(@NonNull MutableData currentData) {
@@ -75,7 +103,7 @@ public class Place {
                 }
             });
 
-           ref.child("Users in location").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+           ref.child("userInLocation").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                    .setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
            FirebaseDatabase.getInstance().getReference().child("Locations")
@@ -88,6 +116,9 @@ public class Place {
         return null;
     }
 
+    public void za () {
+        FirebaseDatabase.getInstance().getReference().child("Places").child(placeName).setValue(this);
+    }
 
     public static boolean outPlaceCheck( Location userLoc, Place place ) {
         if( (place.latitude - userLoc.getLatitude()) * (place.latitude - userLoc.getLatitude())
@@ -98,7 +129,7 @@ public class Place {
                     .child(place.placeName);
 
             //transaction to prevent data loss in simultaneous incrementation
-            ref.child("People number").runTransaction(new Transaction.Handler() {
+            ref.child("peopleNumber").runTransaction(new Transaction.Handler() {
                 @NonNull
                 @Override
                 public Transaction.Result doTransaction(@NonNull MutableData currentData) {
@@ -120,7 +151,7 @@ public class Place {
             });
 
 
-            ref.child("Users in location").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+            ref.child("userInLocation").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
             .removeValue();
 
             FirebaseDatabase.getInstance().getReference().child("Locations")

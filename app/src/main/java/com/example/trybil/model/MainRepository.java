@@ -110,7 +110,7 @@ public class MainRepository {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> pulledPlaces = new ArrayList<>();
                 for(DataSnapshot ds: snapshot.getChildren()) {
-                    pulledPlaces.add(ds.child("Name").getValue().toString());
+                    pulledPlaces.add(ds.child("placeName").getValue().toString());
                 }
 
                 places.postValue(pulledPlaces);
@@ -288,7 +288,7 @@ public class MainRepository {
     }
 
     public void changePlace(String name) {
-        dbRef.child("Places").child("BCC").child("Name").addValueEventListener(new ValueEventListener() {
+        dbRef.child("Places").child("MozartCafe").child("placeName").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 place.postValue(snapshot.getValue(String.class));

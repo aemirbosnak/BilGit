@@ -34,6 +34,9 @@ public class LocationService extends Service {
         FirebaseApp.initializeApp(getApplicationContext());
         userLocation = new UserLocation( (LocationManager) getSystemService(LOCATION_SERVICE),
                 this);
+
+        Place za = new Place( "BCC", 5, 37.747971, 39.868728);
+        za.za();
         Toast.makeText(this, "service starting ",
                 Toast.LENGTH_SHORT).show();
     }

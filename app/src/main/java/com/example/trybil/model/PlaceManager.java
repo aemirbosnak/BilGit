@@ -9,6 +9,7 @@ public class PlaceManager {
 
     Place a = new Place( "MozartCafe", 10, 32.747971, 39.868728);
 
+
     public PlaceManager() {
         //TODO: mutable data arraylist of all places
         places.add(a);
