@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.trybil.databinding.HomeFragmentBinding;
 import com.example.trybil.databinding.PlaceFragmentBinding;
 import com.example.trybil.viewmodel.MainViewModel;
 
@@ -19,7 +18,6 @@ import com.example.trybil.viewmodel.MainViewModel;
 public class PlaceFragment extends Fragment {
     private PlaceFragmentBinding placeFragmentBinding;
     private MainViewModel mViewModel;
-    HomeFragmentBinding homeFragmentBinding;
     //CardView cardView;
     //RatingBar ratingBar;
     //RatingBar averageRate;
