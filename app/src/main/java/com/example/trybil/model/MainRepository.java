@@ -19,6 +19,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.trybil.R;
 import com.example.trybil.view.MainActivity;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +47,7 @@ public class MainRepository {
     private final MutableLiveData<Bitmap> searchPicture;
     private final MutableLiveData<ArrayList<String>> places;
     private final MutableLiveData<ArrayList<Integer>> location;
+    private final MutableLiveData<Integer> rating;
     private final MutableLiveData<ArrayList<String>> friends;
     private final MutableLiveData<ArrayList<String>> requests;
     private final MutableLiveData<Place> place;
@@ -73,6 +76,7 @@ public class MainRepository {
         searchPicture = new MutableLiveData<Bitmap>();
         places = new MutableLiveData<ArrayList<String>>();
         location = new MutableLiveData<ArrayList<Integer>>();
+        rating = new MutableLiveData<Integer>();
         friends = new MutableLiveData<ArrayList<String>>();
         requests = new MutableLiveData<ArrayList<String>>();
         place = new MutableLiveData<>();
@@ -316,6 +320,23 @@ public class MainRepository {
                 place.postValue(dataSnapshot.getValue(Place.class));
             }
         });
+
+        dbRef.child("Ratings").child(auth.getUid()).child(name).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() != null) {
+                    rating.postValue(snapshot.getValue(Integer.class));
+                }
+                else {
+                    rating.postValue(0);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(application, "ERROR_Rating: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public MutableLiveData<User> getUser() {
@@ -348,6 +369,10 @@ public class MainRepository {
 
     public MutableLiveData<ArrayList<Integer>> getLocation() {
         return location;
+    }
+
+    public MutableLiveData<Integer> getRating() {
+        return rating;
     }
 
     public MutableLiveData<ArrayList<String>> getFriends() {
