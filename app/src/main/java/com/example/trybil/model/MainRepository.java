@@ -47,7 +47,7 @@ public class MainRepository {
     private final MutableLiveData<ArrayList<Integer>> location;
     private final MutableLiveData<ArrayList<String>> friends;
     private final MutableLiveData<ArrayList<String>> requests;
-    private final MutableLiveData<String> place;
+    private final MutableLiveData<Place> place;
     private final DatabaseReference dbRef;
     private static MainRepository mainRepositorySingleton;
     private String searchedUid;
@@ -310,16 +310,10 @@ public class MainRepository {
     }
 
     public void changePlace(String name) {
-        dbRef.child("Places").child("BCC").child("Name").addValueEventListener(new ValueEventListener() {
+        dbRef.child("Places").child(name).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                place.postValue(snapshot.getValue(String.class));
-                Toast.makeText(application, "PLACE11111" + snapshot.getValue(String.class), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(application, "Error_Place: "+ error.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                place.postValue(dataSnapshot.getValue(Place.class));
             }
         });
     }
@@ -348,7 +342,7 @@ public class MainRepository {
         return places;
     }
 
-    public MutableLiveData<String> getPlace() {
+    public MutableLiveData<Place> getPlace() {
         return place;
     }
 

@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.trybil.databinding.PlaceFragmentBinding;
+import com.example.trybil.model.Place;
 import com.example.trybil.viewmodel.MainViewModel;
 
 
@@ -30,11 +31,12 @@ public class PlaceFragment extends Fragment {
         //averageRate = placeFragmentBinding.averageRate;
         //cardView = homeFragmentBinding.cardView1;
 
-        mViewModel.getPlace().observe(this, new Observer<String>() {
+        mViewModel.getPlace().observe(this, new Observer<Place>() {
             @Override
-            public void onChanged(String s) {
-                placeFragmentBinding.placeName.setText(s);
-                placeFragmentBinding.averageRate.setRating(1);
+            public void onChanged(Place place) {
+                placeFragmentBinding.placeName.setText(place.getPlaceName());
+                placeFragmentBinding.ratingBar.setRating(3.1f);
+                placeFragmentBinding.averageRate.setRating(1.1f);
             }
         });
 

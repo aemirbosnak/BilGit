@@ -22,7 +22,7 @@ public class MainViewModel extends AndroidViewModel {
     MutableLiveData<Bitmap> picture;
     MutableLiveData<Bitmap> searchPic;
     MutableLiveData<ArrayList<String>> places;
-    MutableLiveData<String> place;
+    MutableLiveData<Place> place;
     MutableLiveData<ArrayList<Integer>> location;
     MutableLiveData<ArrayList<String>> friends;
     MutableLiveData<ArrayList<String>> requests;
@@ -82,7 +82,7 @@ public class MainViewModel extends AndroidViewModel {
         return places;
     }
 
-    public MutableLiveData<String> getPlace() {
+    public MutableLiveData<Place> getPlace() {
         return place;
     }
 
