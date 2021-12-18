@@ -32,8 +32,8 @@ public class HomeFragment extends Fragment {
         mainViewModel.getPlaces().observe(this, new Observer<ArrayList<String>>() {
             @Override
             public void onChanged(ArrayList<String> strings) {
-                //homeFragmentBinding.text1.setText(strings.get(0));
-                //homeFragmentBinding.text2.setText(strings.get(1));
+                homeFragmentBinding.text1.setText(strings.get(0));
+                homeFragmentBinding.text2.setText(strings.get(1));
             }
         });
 
@@ -69,6 +69,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.placeFragment);
+                //mainViewModel.changePlace("MozartCafe");
             }
         });
 

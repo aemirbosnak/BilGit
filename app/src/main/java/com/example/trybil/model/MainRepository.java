@@ -20,6 +20,8 @@ import androidx.navigation.NavDeepLinkBuilder;
 
 import com.example.trybil.R;
 import com.example.trybil.view.MainActivity;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -46,9 +48,10 @@ public class MainRepository {
     private final MutableLiveData<Bitmap> searchPicture;
     private final MutableLiveData<ArrayList<String>> places;
     private final MutableLiveData<ArrayList<Integer>> location;
+    private final MutableLiveData<Integer> rating;
     private final MutableLiveData<ArrayList<String>> friends;
     private final MutableLiveData<ArrayList<String>> requests;
-    private final MutableLiveData<String> place;
+    private final MutableLiveData<Place> place;
     private final DatabaseReference dbRef;
     private static MainRepository mainRepositorySingleton;
     private String searchedUid;
@@ -74,6 +77,7 @@ public class MainRepository {
         searchPicture = new MutableLiveData<Bitmap>();
         places = new MutableLiveData<ArrayList<String>>();
         location = new MutableLiveData<ArrayList<Integer>>();
+        rating = new MutableLiveData<Integer>();
         friends = new MutableLiveData<ArrayList<String>>();
         requests = new MutableLiveData<ArrayList<String>>();
         place = new MutableLiveData<>();
@@ -108,9 +112,8 @@ public class MainRepository {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> pulledPlaces = new ArrayList<>();
                 for(DataSnapshot ds: snapshot.getChildren()) {
-                    //pulledPlaces.add(ds.child("Name").getValue().toString());
+                    pulledPlaces.add(ds.child("placeName").getValue().toString());
                 }
-
                 places.postValue(pulledPlaces);
             }
 
@@ -134,7 +137,6 @@ public class MainRepository {
                 for(DataSnapshot ds: snapshot.getChildren()) {
                     pulledLocation.add(Integer.valueOf(ds.getValue().toString()));
                 }
-
                 location.postValue(pulledLocation);
             }
 
@@ -193,6 +195,10 @@ public class MainRepository {
 
     public void reqUserArray(ArrayList<String> uids) {
         ArrayList<User> usersRequest = new ArrayList<>();
+
+        if (uids.size() == 0) {
+            userRequest.postValue(usersRequest);
+        }
 
         for(String uid : uids) {
             dbRef.child("Users").child(uid).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
@@ -290,13 +296,9 @@ public class MainRepository {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
                 String uid = dataSnapshot.getValue(String.class);
-                dbRef.child("Friends").child(auth.getUid()).child("friends").child(uid).setValue("added");
-                dbRef.child("Friends").child(auth.getUid()).child("requests").child(uid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.i("OOOOOOOOOO:  ", "FRIEND ACCEPTED");
-                    }
-                });
+                dbRef.child("Friends").child(auth.getUid()).child("friends").child(uid).setValue(username);
+                dbRef.child("Friends").child(uid).child("friends").child(auth.getUid()).setValue(user.getValue().getUsername());
+                dbRef.child("Friends").child(auth.getUid()).child("requests").child(uid).removeValue();
             }
         });
     }
@@ -307,27 +309,33 @@ public class MainRepository {
             public void onSuccess(DataSnapshot dataSnapshot) {
                 String uid = dataSnapshot.getValue(String.class);
 
-                dbRef.child("Friends").child(auth.getUid()).child("requests").child(uid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.i("OOOOOOOOOO:  ", "FRIEND REJECTED");
-                    }
-                });
+                dbRef.child("Friends").child(auth.getUid()).child("requests").child(uid).removeValue();
             }
         });
     }
 
     public void changePlace(String name) {
-        dbRef.child("Places").child("BCC").child("Name").addValueEventListener(new ValueEventListener() {
+        dbRef.child("Places").child(name).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                place.postValue(dataSnapshot.getValue(Place.class));
+            }
+        });
+
+        dbRef.child("Ratings").child(auth.getUid()).child(name).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                place.postValue(snapshot.getValue(String.class));
-                Toast.makeText(application, "PLACE11111" + snapshot.getValue(String.class), Toast.LENGTH_SHORT).show();
+                if (snapshot.getValue() != null) {
+                    rating.postValue(snapshot.getValue(Integer.class));
+                }
+                else {
+                    rating.postValue(0);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(application, "Error_Place: "+ error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(application, "ERROR_Rating: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -356,12 +364,16 @@ public class MainRepository {
         return places;
     }
 
-    public MutableLiveData<String> getPlace() {
+    public MutableLiveData<Place> getPlace() {
         return place;
     }
 
     public MutableLiveData<ArrayList<Integer>> getLocation() {
         return location;
+    }
+
+    public MutableLiveData<Integer> getRating() {
+        return rating;
     }
 
     public MutableLiveData<ArrayList<String>> getFriends() {

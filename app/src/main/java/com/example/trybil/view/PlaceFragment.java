@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,46 +13,34 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.trybil.databinding.PlaceFragmentBinding;
+import com.example.trybil.model.Place;
 import com.example.trybil.viewmodel.MainViewModel;
 
 
 public class PlaceFragment extends Fragment {
     private PlaceFragmentBinding placeFragmentBinding;
     private MainViewModel mViewModel;
-    //CardView cardView;
-    //RatingBar ratingBar;
-    //RatingBar averageRate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
-        //ratingBar = placeFragmentBinding.ratingBar;
-        //averageRate = placeFragmentBinding.averageRate;
-        //cardView = homeFragmentBinding.cardView1;
 
-        mViewModel.getPlace().observe(this, new Observer<String>() {
+
+        mViewModel.getPlace().observe(this, new Observer<Place>() {
             @Override
-            public void onChanged(String s) {
-                placeFragmentBinding.placeName.setText(s);
-                placeFragmentBinding.averageRate.setRating(1);
+            public void onChanged(Place place) {
+                placeFragmentBinding.placeName.setText(place.getPlaceName());
+                placeFragmentBinding.averageRate.setRating(2);
             }
         });
 
-        /*
-        placeFragmentBinding.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        mViewModel.getRating().observe(this, new Observer<Integer>() {
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                float newRate = Float.parseFloat(mViewModel.getPlace().getValue()) + rating;
-                mViewModel.getPlace().observe(getViewLifecycleOwner(), new Observer<String>() {
-                    @Override
-                    public void onChanged(String s) {
-
-                        placeFragmentBinding.placeName.setText(s);
-                    }
-                });
+            public void onChanged(Integer integer) {
+                placeFragmentBinding.ratingBar.setRating(integer);
             }
-        });*/
+        });
     }
 
     @Override
@@ -64,5 +53,12 @@ public class PlaceFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        placeFragmentBinding.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+
+            }
+        });
     }
 }

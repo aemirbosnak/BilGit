@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,11 +55,9 @@ public class ProfileFragment extends Fragment {
         mainViewModel.getUserRequest().observe(this, new Observer<ArrayList<User>>() {
             @Override
             public void onChanged(ArrayList<User> users) {
-                if (users != null) {
-                    friendAdapter = new FriendAdapter(getContext(), getActivity().getApplication(), users);
-                    profileFragmentBinding.recylclerFriends.setAdapter(friendAdapter);
-                    profileFragmentBinding.recylclerFriends.setLayoutManager(new LinearLayoutManager(getContext()));
-                }
+                friendAdapter = new FriendAdapter(getContext(), getActivity().getApplication(), users);
+                profileFragmentBinding.recylclerFriends.setAdapter(friendAdapter);
+                profileFragmentBinding.recylclerFriends.setLayoutManager(new LinearLayoutManager(getContext()));
             }
         });
 

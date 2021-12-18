@@ -22,8 +22,9 @@ public class MainViewModel extends AndroidViewModel {
     MutableLiveData<Bitmap> picture;
     MutableLiveData<Bitmap> searchPic;
     MutableLiveData<ArrayList<String>> places;
-    MutableLiveData<String> place;
+    MutableLiveData<Place> place;
     MutableLiveData<ArrayList<Integer>> location;
+    MutableLiveData<Integer> rating;
     MutableLiveData<ArrayList<String>> friends;
     MutableLiveData<ArrayList<String>> requests;
 
@@ -38,6 +39,7 @@ public class MainViewModel extends AndroidViewModel {
         places = mainRepository.getPlaces();
         place = mainRepository.getPlace();
         location = mainRepository.getLocation();
+        rating = mainRepository.getRating();
         friends = mainRepository.getFriends();
         requests = mainRepository.getRequests();
     }
@@ -82,12 +84,16 @@ public class MainViewModel extends AndroidViewModel {
         return places;
     }
 
-    public MutableLiveData<String> getPlace() {
+    public MutableLiveData<Place> getPlace() {
         return place;
     }
 
     public MutableLiveData<ArrayList<Integer>> getLocation() {
         return location;
+    }
+
+    public MutableLiveData<Integer> getRating() {
+        return rating;
     }
 
     public MutableLiveData<ArrayList<String>> getFriends() {
