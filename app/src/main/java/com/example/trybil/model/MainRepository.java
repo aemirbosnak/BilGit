@@ -289,12 +289,8 @@ public class MainRepository {
             public void onSuccess(DataSnapshot dataSnapshot) {
                 String uid = dataSnapshot.getValue(String.class);
                 dbRef.child("Friends").child(auth.getUid()).child("friends").child(uid).setValue(username);
-                dbRef.child("Friends").child(auth.getUid()).child("requests").child(uid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.i("OOOOOOOOOO:  ", "FRIEND ACCEPTED");
-                    }
-                });
+                dbRef.child("Friends").child(uid).child("friends").child(auth.getUid()).setValue(auth.getUid());
+                dbRef.child("Friends").child(auth.getUid()).child("requests").child(uid).removeValue();
             }
         });
     }
@@ -305,12 +301,7 @@ public class MainRepository {
             public void onSuccess(DataSnapshot dataSnapshot) {
                 String uid = dataSnapshot.getValue(String.class);
 
-                dbRef.child("Friends").child(auth.getUid()).child("requests").child(uid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.i("OOOOOOOOOO:  ", "FRIEND REJECTED");
-                    }
-                });
+                dbRef.child("Friends").child(auth.getUid()).child("requests").child(uid).removeValue();
             }
         });
     }
