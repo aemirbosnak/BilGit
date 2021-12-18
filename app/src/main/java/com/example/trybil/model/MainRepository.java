@@ -292,6 +292,7 @@ public class MainRepository {
             public void onSuccess(DataSnapshot dataSnapshot) {
                 String uid = dataSnapshot.getValue(String.class);
                 dbRef.child("Friends").child(auth.getUid()).child("friends").child(uid).setValue("added");
+                dbRef.child("Friends").child(uid).child("friends").child(auth.getUid()).setValue("added");
                 dbRef.child("Friends").child(auth.getUid()).child("requests").child(uid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
