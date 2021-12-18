@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -191,6 +190,10 @@ public class MainRepository {
 
     public void reqUserArray(ArrayList<String> uids) {
         ArrayList<User> usersRequest = new ArrayList<>();
+
+        if (uids.size() == 0) {
+            userRequest.postValue(usersRequest);
+        }
 
         for(String uid : uids) {
             dbRef.child("Users").child(uid).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
