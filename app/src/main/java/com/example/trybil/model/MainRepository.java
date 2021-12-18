@@ -292,7 +292,7 @@ public class MainRepository {
             public void onSuccess(DataSnapshot dataSnapshot) {
                 String uid = dataSnapshot.getValue(String.class);
                 dbRef.child("Friends").child(auth.getUid()).child("friends").child(uid).setValue(username);
-                dbRef.child("Friends").child(uid).child("friends").child(auth.getUid()).setValue(auth.getUid());
+                dbRef.child("Friends").child(uid).child("friends").child(auth.getUid()).setValue(user.getValue().getUsername());
                 dbRef.child("Friends").child(auth.getUid()).child("requests").child(uid).removeValue();
             }
         });
