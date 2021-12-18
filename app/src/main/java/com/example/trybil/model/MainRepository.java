@@ -395,4 +395,6 @@ public class MainRepository {
     public MutableLiveData<ArrayList<String>> getFriends() { return friends; }
 
     public MutableLiveData<ArrayList<String>> getRequests() { return requests; }
+
+    public MutableLiveData<Integer> getRating() { return rating; }
 }
