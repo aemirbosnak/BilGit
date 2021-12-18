@@ -21,6 +21,11 @@
         android:label="profile_fragment"
         tools:layout="@layout/profile_fragment" />
     <fragment
+        android:id="@+id/friendProfileFragment"
+        android:name="com.example.trybil.view.FriendProfileFragment"
+        android:label="friend_profile_fragment"
+        tools:layout="@layout/friend_profile_fragment" />
+    <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.trybil.view.SettingsFragment"
         android:label="settings_fragment"
@@ -29,8 +34,4 @@
         android:id="@+id/placeFragment"
         android:name="com.example.trybil.view.PlaceFragment"
         android:label="PlaceFragment" />
-    <activity
-        android:id="@+id/settingsActivity"
-        android:name="com.example.trybil.view.SettingsActivity"
-        android:label="SettingsActivity" />
 </navigation>
