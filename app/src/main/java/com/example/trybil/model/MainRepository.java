@@ -44,9 +44,10 @@ public class MainRepository {
     private final MutableLiveData<Bitmap> searchPicture;
     private final MutableLiveData<ArrayList<String>> places;
     private final MutableLiveData<ArrayList<Integer>> location;
+    private final MutableLiveData<Integer> rating;
     private final MutableLiveData<ArrayList<String>> friends;
     private final MutableLiveData<ArrayList<String>> requests;
-    private final MutableLiveData<String> place;
+    private final MutableLiveData<Place> place;
     private final DatabaseReference dbRef;
     private static MainRepository mainRepositorySingleton;
     private String searchedUid;
@@ -73,6 +74,7 @@ public class MainRepository {
         searchPicture = new MutableLiveData<Bitmap>();
         places = new MutableLiveData<ArrayList<String>>();
         location = new MutableLiveData<ArrayList<Integer>>();
+        rating = new MutableLiveData<Integer>();
         friends = new MutableLiveData<ArrayList<String>>();
         requests = new MutableLiveData<ArrayList<String>>();
         place = new MutableLiveData<>();
@@ -330,7 +332,24 @@ public class MainRepository {
         dbRef.child("Places").child(name).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
-                place.postValue(dataSnapshot.getValue(String.class));
+                place.postValue(dataSnapshot.getValue(Place.class));
+            }
+        });
+
+        dbRef.child("Ratings").child(auth.getUid()).child(name).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() != null) {
+                    rating.postValue(snapshot.getValue(Integer.class));
+                }
+                else {
+                    rating.postValue(0);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(application, "ERROR_Rating: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -369,7 +388,7 @@ public class MainRepository {
 
     public MutableLiveData<ArrayList<String>> getPlaces() { return places; }
 
-    public MutableLiveData<String> getPlace() { return place; }
+    public MutableLiveData<Place> getPlace() { return place; }
 
     public MutableLiveData<ArrayList<Integer>> getLocation() { return location; }
 
