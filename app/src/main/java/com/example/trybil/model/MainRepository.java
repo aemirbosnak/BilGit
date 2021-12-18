@@ -4,6 +4,7 @@ import android.app.Application;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -163,20 +164,15 @@ public class MainRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> pulledRequests = new ArrayList<>();
-                ArrayList<User> usersRequest = new ArrayList<>();
+                ArrayList<String> uids = new ArrayList<>();
 
                 for(DataSnapshot ds: snapshot.getChildren()) {
                     pulledRequests.add(ds.getValue().toString());
-                    dbRef.child("Users").child(ds.getKey()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
-                        @Override
-                        public void onSuccess(DataSnapshot dataSnapshot) {
-                            usersRequest.add(dataSnapshot.getValue(User.class));
-                            userRequest.postValue(usersRequest);
-                        }
-                    });
+                    uids.add(ds.getKey());
                 }
 
                 requests.postValue(pulledRequests);
+                reqUserArray(uids);
                 Toast.makeText(application, "SUCCESS_Requests: ", Toast.LENGTH_SHORT).show();
             }
 
@@ -185,6 +181,24 @@ public class MainRepository {
                 Toast.makeText(application, "Error_Requests: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void reqUserArray(ArrayList<String> uids) {
+        ArrayList<User> usersRequest = new ArrayList<>();
+        Log.i("1111111", "LOOOOOOG: " + uids.get(0));
+
+        for(String uid : uids) {
+            dbRef.child("Users").child(uid).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                @Override
+                public void onSuccess(DataSnapshot dataSnapshot) {
+                    usersRequest.add(dataSnapshot.getValue(User.class));
+
+                    if (usersRequest.size() == uids.size()) {
+                        userRequest.postValue(usersRequest);
+                    }
+                }
+            });
+        }
     }
 
     public void searchUser(String username) {
