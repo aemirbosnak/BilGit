@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,8 +19,7 @@ import androidx.navigation.NavDeepLinkBuilder;
 
 import com.example.trybil.R;
 import com.example.trybil.view.MainActivity;
-import com.google.android.gms.tasks.OnCanceledListener;
-import com.google.android.gms.tasks.OnFailureListener;
+import com.example.trybil.view.ProfileFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -55,6 +53,7 @@ public class MainRepository {
     private final DatabaseReference dbRef;
     private static MainRepository mainRepositorySingleton;
     private String searchedUid;
+    private boolean isFriend;
 
     public static MainRepository getInstance(Application application) {
         if(mainRepositorySingleton != null) {
@@ -314,6 +313,23 @@ public class MainRepository {
         });
     }
 
+    public boolean isFriend(String username) {
+        dbRef.child("Friends").child(auth.getUid()).child("friends").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds : snapshot.getChildren() ) {
+                    if( ds.getValue(String.class).equals(username) )
+                        isFriend = true;
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return isFriend;
+    }
+
     public void changePlace(String name) {
         dbRef.child("Places").child(name).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
             @Override
@@ -340,50 +356,6 @@ public class MainRepository {
         });
     }
 
-    public MutableLiveData<User> getUser() {
-        return user;
-    }
-
-    public MutableLiveData<User> getSearchUser() {
-        return searchUser;
-    }
-
-    public MutableLiveData<ArrayList<User>> getUserRequest() {
-        return userRequest;
-    }
-
-    public MutableLiveData<Bitmap> getPicture() {
-        return picture;
-    }
-
-    public MutableLiveData<Bitmap> getSearchPicture() {
-        return searchPicture;
-    }
-
-    public MutableLiveData<ArrayList<String>> getPlaces() {
-        return places;
-    }
-
-    public MutableLiveData<Place> getPlace() {
-        return place;
-    }
-
-    public MutableLiveData<ArrayList<Integer>> getLocation() {
-        return location;
-    }
-
-    public MutableLiveData<Integer> getRating() {
-        return rating;
-    }
-
-    public MutableLiveData<ArrayList<String>> getFriends() {
-        return friends;
-    }
-
-    public MutableLiveData<ArrayList<String>> getRequests() {
-        return requests;
-    }
-
     private void notifyUser(ArrayList<User> userRequest) {
         String text = userRequest.size() > 1 ? "friend requests" : "friend request";
 
@@ -392,10 +364,12 @@ public class MainRepository {
                 .setSmallIcon(R.drawable.bilgit_logo)
                 .setContentTitle("BilGit")
                 .setContentText("You have " + userRequest.size() + " " + text)
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true);
 
         Intent intent = new Intent(application.getApplicationContext(), MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
         PendingIntent pendingIntent = new NavDeepLinkBuilder(application.getApplicationContext())
                 .setComponentName(MainActivity.class)
                 .setGraph(R.navigation.nav_main)
@@ -408,4 +382,26 @@ public class MainRepository {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(2, builder.build());
     }
+
+    public MutableLiveData<User> getUser() { return user; }
+
+    public MutableLiveData<User> getSearchUser() { return searchUser; }
+
+    public MutableLiveData<ArrayList<User>> getUserRequest() { return userRequest; }
+
+    public MutableLiveData<Bitmap> getPicture() { return picture; }
+
+    public MutableLiveData<Bitmap> getSearchPicture() { return searchPicture; }
+
+    public MutableLiveData<ArrayList<String>> getPlaces() { return places; }
+
+    public MutableLiveData<Place> getPlace() { return place; }
+
+    public MutableLiveData<ArrayList<Integer>> getLocation() { return location; }
+
+    public MutableLiveData<ArrayList<String>> getFriends() { return friends; }
+
+    public MutableLiveData<ArrayList<String>> getRequests() { return requests; }
+
+    public MutableLiveData<Integer> getRating() { return rating; }
 }
