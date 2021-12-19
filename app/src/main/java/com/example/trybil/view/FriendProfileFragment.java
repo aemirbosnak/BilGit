@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.trybil.R;
 import com.example.trybil.databinding.FriendProfileFragmentBinding;
 import com.example.trybil.model.User;
 import com.example.trybil.viewmodel.MainViewModel;
@@ -33,10 +34,19 @@ public class FriendProfileFragment extends Fragment {
             public void onChanged(User user) {
                 friendProfileFragmentBinding.userName.setText(user.getUsername());
                 friendProfileFragmentBinding.department.setText(user.getDepartment());
-                if(mainViewModel.isFriend(user.getUsername()))
+
+            }
+        });
+
+        mainViewModel.getIsFriend().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean)
                 {
-                    friendProfileFragmentBinding.friendRequest.setBackgroundColor(Color.GRAY);
-                    friendProfileFragmentBinding.friendRequest.setClickable(false);
+                    friendProfileFragmentBinding.friendRequest.setText("Remove Friend");
+                }
+                else {
+                    friendProfileFragmentBinding.friendRequest.setText("Add Friend");
                 }
             }
         });
@@ -44,7 +54,12 @@ public class FriendProfileFragment extends Fragment {
         mainViewModel.getSearchPic().observe(this, new Observer<Bitmap>() {
             @Override
             public void onChanged(Bitmap bitmap) {
-                friendProfileFragmentBinding.imageView.setImageBitmap(bitmap);
+                if(bitmap != null) {
+                    friendProfileFragmentBinding.imageView.setImageBitmap(bitmap);
+                }
+                else {
+                    friendProfileFragmentBinding.imageView.setImageDrawable(getResources().getDrawable(R.drawable.avatar));
+                }
             }
         });
 

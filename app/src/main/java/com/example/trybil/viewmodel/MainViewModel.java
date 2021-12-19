@@ -18,6 +18,7 @@ public class MainViewModel extends AndroidViewModel {
     MainRepository mainRepository;
     MutableLiveData<User> user;
     MutableLiveData<User> searchUser;
+    MutableLiveData<Boolean> isFriend;
     MutableLiveData<ArrayList<User>> userRequest;
     MutableLiveData<Bitmap> picture;
     MutableLiveData<Bitmap> searchPic;
@@ -33,6 +34,7 @@ public class MainViewModel extends AndroidViewModel {
         mainRepository = MainRepository.getInstance(application);
         user = mainRepository.getUser();
         searchUser = mainRepository.getSearchUser();
+        isFriend = mainRepository.getIsFriend();
         userRequest = mainRepository.getUserRequest();
         picture = mainRepository.getPicture();
         searchPic = mainRepository.getSearchPicture();
@@ -66,6 +68,10 @@ public class MainViewModel extends AndroidViewModel {
 
     public MutableLiveData<User> getSearchUser() {
         return searchUser;
+    }
+
+    public MutableLiveData<Boolean> getIsFriend() {
+        return isFriend;
     }
 
     public MutableLiveData<ArrayList<User>> getUserRequest() {
@@ -102,5 +108,4 @@ public class MainViewModel extends AndroidViewModel {
         return requests;
     }
 
-    public boolean isFriend(String username) { return mainRepository.isFriend(username); }
 }
