@@ -353,10 +353,15 @@ public class MainRepository {
     }
 
     public void changePlace(String name) {
-        dbRef.child("Places").child(name).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+        dbRef.child("Places").child(name).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onSuccess(DataSnapshot dataSnapshot) {
-                place.postValue(dataSnapshot.getValue(Place.class));
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                place.postValue(snapshot.getValue(Place.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
@@ -376,6 +381,10 @@ public class MainRepository {
                 Toast.makeText(application, "ERROR_Rating: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void setRating(Integer rating) {
+        dbRef.child("Ratings").child(auth.getUid()).child(place.getValue().getPlaceName()).setValue(rating);
     }
 
     private void notifyUser(ArrayList<User> userRequest) {

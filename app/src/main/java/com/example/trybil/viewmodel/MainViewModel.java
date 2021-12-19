@@ -66,6 +66,10 @@ public class MainViewModel extends AndroidViewModel {
         mainRepository.changePlace(name);
     }
 
+    public void setRating(Integer rating) {
+        mainRepository.setRating(rating);
+    }
+
     public MutableLiveData<User> getUser() {
         return user;
     }
