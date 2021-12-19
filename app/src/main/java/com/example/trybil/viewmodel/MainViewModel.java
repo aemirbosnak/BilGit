@@ -111,5 +111,4 @@ public class MainViewModel extends AndroidViewModel {
     public MutableLiveData<ArrayList<String>> getRequests() {
         return requests;
     }
-
 }
