@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,11 +24,15 @@ import java.util.ArrayList;
 public class FriendProfileFragment extends Fragment {
     private FriendProfileFragmentBinding friendProfileFragmentBinding;
     private MainViewModel mainViewModel;
+    private AddListener addListener;
+    private RemoveListener removeListener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
+        addListener = new AddListener();
+        removeListener = new RemoveListener();
 
         mainViewModel.getSearchUser().observe(this, new Observer<User>() {
             @Override
@@ -43,10 +48,16 @@ public class FriendProfileFragment extends Fragment {
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean)
                 {
+                    Toast.makeText(getContext(), "FR:TRUE", Toast.LENGTH_SHORT).show();
                     friendProfileFragmentBinding.friendRequest.setText("Remove Friend");
+                    friendProfileFragmentBinding.friendRequest.setOnClickListener(removeListener);
+
+
                 }
                 else {
+                    Toast.makeText(getContext(), "FR:FALSE", Toast.LENGTH_SHORT).show();
                     friendProfileFragmentBinding.friendRequest.setText("Add Friend");
+                    friendProfileFragmentBinding.friendRequest.setOnClickListener(addListener);
                 }
             }
         });
@@ -74,18 +85,26 @@ public class FriendProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        friendProfileFragmentBinding.friendRequest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainViewModel.addFriend();
-            }
-        });
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         friendProfileFragmentBinding = FriendProfileFragmentBinding.inflate(inflater, container, false);
         return friendProfileFragmentBinding.getRoot();
+    }
+
+    class AddListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(getContext(), "ZAAAAAAAA", Toast.LENGTH_SHORT).show();
+            mainViewModel.addFriend();
+        }
+    }
+
+    class RemoveListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            // Remove Methodu Buraya
+        }
     }
 }

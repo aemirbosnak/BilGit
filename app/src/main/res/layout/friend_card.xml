@@ -12,26 +12,15 @@
         android:layout_width="290dp"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imgCard"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="28dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.056"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
-
         <TextView
             android:id="@+id/txtUsernameCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="28dp"
             android:text="TextView"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/imgCard"
+            app:layout_constraintEnd_toStartOf="@+id/btnAccept"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
