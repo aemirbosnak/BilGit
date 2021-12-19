@@ -8,29 +8,18 @@
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="286dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/imgCard"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="28dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.056"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/txtUsernameCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
             android:text="TextView"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/imgCard"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -45,23 +34,23 @@
 
         <Button
             android:id="@+id/btnAccept"
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="48dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
             android:backgroundTint="@android:color/holo_green_dark"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnReject"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/btnReject"
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="48dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:backgroundTint="@android:color/holo_red_dark"
-            app:layout_constraintEnd_toEndOf="@+id/btnAccept"
-            app:layout_constraintStart_toStartOf="@+id/btnAccept"
-            app:layout_constraintTop_toBottomOf="@+id/btnAccept" />
+            app:layout_constraintBottom_toBottomOf="@+id/btnAccept"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnAccept" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

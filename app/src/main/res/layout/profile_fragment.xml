@@ -66,8 +66,8 @@
 
     <EditText
         android:id="@+id/bio"
-        android:layout_width="294dp"
-        android:layout_height="100dp"
+        android:layout_width="301dp"
+        android:layout_height="53dp"
         android:layout_marginTop="32dp"
         android:ems="10"
         android:gravity="start|top"
@@ -94,7 +94,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recylclerFriends"
-        android:layout_width="409dp"
+        android:layout_width="wrap_content"
         android:layout_height="305dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
