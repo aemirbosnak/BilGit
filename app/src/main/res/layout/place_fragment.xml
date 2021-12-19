@@ -116,7 +116,18 @@
             android:textColor="@color/peach_500"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/placeName" />
-        <!--Rating android:rating="int num" is used for representing the total rate-->
+
+        <TextView
+            android:id="@+id/averageRateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="368dp"
+
+            android:text="average rate"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/averageRate"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 
