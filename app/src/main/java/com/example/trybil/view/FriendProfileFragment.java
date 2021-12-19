@@ -39,7 +39,6 @@ public class FriendProfileFragment extends Fragment {
             public void onChanged(User user) {
                 friendProfileFragmentBinding.userName.setText(user.getUsername());
                 friendProfileFragmentBinding.department.setText(user.getDepartment());
-
             }
         });
 
@@ -51,8 +50,6 @@ public class FriendProfileFragment extends Fragment {
                     Toast.makeText(getContext(), "FR:TRUE", Toast.LENGTH_SHORT).show();
                     friendProfileFragmentBinding.friendRequest.setText("Remove Friend");
                     friendProfileFragmentBinding.friendRequest.setOnClickListener(removeListener);
-
-
                 }
                 else {
                     Toast.makeText(getContext(), "FR:FALSE", Toast.LENGTH_SHORT).show();
@@ -104,7 +101,8 @@ public class FriendProfileFragment extends Fragment {
     class RemoveListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            // Remove Methodu Buraya
+            Toast.makeText(getContext(), "removed", Toast.LENGTH_SHORT).show();
+            mainViewModel.removeFriend();
         }
     }
 }

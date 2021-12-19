@@ -19,8 +19,10 @@ import androidx.navigation.NavDeepLinkBuilder;
 
 import com.example.trybil.R;
 import com.example.trybil.view.MainActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -300,6 +302,11 @@ public class MainRepository {
     public void addFriend() {
         dbRef.child("Friends").child(searchedUid).child("requests").child(auth.getUid()).setValue(user.getValue().getUsername());
         Toast.makeText(application, "FRIEND REQUEST SENT", Toast.LENGTH_SHORT).show();
+    }
+
+    public void removeFriend() {
+        dbRef.child("Friends").child(searchedUid).child("friends").child(auth.getUid()).removeValue();
+        dbRef.child("Friends").child(auth.getUid()).child("friends").child(searchedUid).removeValue();
     }
 
     public void acceptReq(String username) {
