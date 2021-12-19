@@ -116,7 +116,7 @@ public class Place {
         return null;
     }
 
-    public void za () {
+    public void sendPlaceToDatabase () {
         FirebaseDatabase.getInstance().getReference().child("Places").child(placeName).setValue(this);
     }
 
