@@ -37,6 +37,10 @@ public class SearchFragment extends Fragment {
                 searchFragmentBinding.cardv.setVisibility(View.VISIBLE);
                 searchFragmentBinding.txtUsername.setText(user.getUsername());
                 searchFragmentBinding.txtDepartment.setText(user.getDepartment());
+                if( mViewModel.isFriend(user.getUsername()) )
+                    searchFragmentBinding.txtFriend.setText( "Friends" );
+                else
+                    searchFragmentBinding.txtFriend.setText( "Not Friends");
             }
         });
 
