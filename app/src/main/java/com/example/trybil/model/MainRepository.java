@@ -19,7 +19,7 @@ import androidx.navigation.NavDeepLinkBuilder;
 
 import com.example.trybil.R;
 import com.example.trybil.view.MainActivity;
-import com.example.trybil.view.ProfileFragment;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +41,7 @@ public class MainRepository {
     private final FirebaseStorage storage;
     private final MutableLiveData<User> user;
     private final MutableLiveData<User> searchUser;
+    private final MutableLiveData<Boolean> isFriend;
     private final MutableLiveData<ArrayList<User>> userRequest;
     private final MutableLiveData<Bitmap> picture;
     private final MutableLiveData<Bitmap> searchPicture;
@@ -53,7 +54,6 @@ public class MainRepository {
     private final DatabaseReference dbRef;
     private static MainRepository mainRepositorySingleton;
     private String searchedUid;
-    private boolean isFriend;
 
     public static MainRepository getInstance(Application application) {
         if(mainRepositorySingleton != null) {
@@ -71,6 +71,7 @@ public class MainRepository {
         dbRef = FirebaseDatabase.getInstance().getReference();
         user = new MutableLiveData<User>();
         searchUser = new MutableLiveData<User>();
+        isFriend = new MutableLiveData<>();
         userRequest = new MutableLiveData<ArrayList<User>>();
         picture = new MutableLiveData<Bitmap>();
         searchPicture = new MutableLiveData<Bitmap>();
@@ -226,6 +227,7 @@ public class MainRepository {
                             searchUser.postValue(dataSnapshot.getValue(User.class));
                             pullSearchPic(dataSnapshot.getKey());
                             searchedUid = (dataSnapshot.getKey());
+                            isFriend();
                         }
                     });
                 }
@@ -262,6 +264,11 @@ public class MainRepository {
                     Bitmap bitmap = BitmapFactory.decodeFile(tmpFile.getAbsolutePath());
                     picture.postValue(bitmap);
                 }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    picture.postValue(null);
+                }
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -278,6 +285,11 @@ public class MainRepository {
                     Toast.makeText(application, "IMAGE PULLED", Toast.LENGTH_SHORT).show();
                     Bitmap bitmap = BitmapFactory.decodeFile(tmpFile.getAbsolutePath());
                     searchPicture.postValue(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    searchPicture.postValue(null);
                 }
             });
         } catch (IOException e) {
@@ -313,13 +325,15 @@ public class MainRepository {
         });
     }
 
-    public boolean isFriend(String username) {
+    public void isFriend() {
         dbRef.child("Friends").child(auth.getUid()).child("friends").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds : snapshot.getChildren() ) {
-                    if( ds.getValue(String.class).equals(username) )
-                        isFriend = true;
+                    if(ds.getKey().equals(searchedUid))
+                        isFriend.postValue(true);
+                    else
+                        isFriend.postValue(false);
                 }
             }
             @Override
@@ -327,7 +341,6 @@ public class MainRepository {
 
             }
         });
-        return isFriend;
     }
 
     public void changePlace(String name) {
@@ -386,6 +399,10 @@ public class MainRepository {
     public MutableLiveData<User> getUser() { return user; }
 
     public MutableLiveData<User> getSearchUser() { return searchUser; }
+
+    public MutableLiveData<Boolean> getIsFriend() {
+        return isFriend;
+    }
 
     public MutableLiveData<ArrayList<User>> getUserRequest() { return userRequest; }
 

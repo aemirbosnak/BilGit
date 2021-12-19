@@ -72,7 +72,13 @@ public class ProfileFragment extends Fragment {
         mainViewModel.getPicture().observe(this, new Observer<Bitmap>() {
             @Override
             public void onChanged(Bitmap bitmap) {
-                profileFragmentBinding.imageView.setImageBitmap(bitmap);
+                if (bitmap != null) {
+                    profileFragmentBinding.imageView.setImageBitmap(bitmap);
+                }
+                else {
+                    profileFragmentBinding.imageView.setImageDrawable(getResources().getDrawable(R.drawable.avatar));
+
+                }
             }
         });
 

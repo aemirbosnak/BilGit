@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHolder> {
     ArrayList<User> users;
-    //ArrayList<Bitmap> images;
     Context context;
     MainRepository repository;
     private FriendAdapter adapter;
@@ -56,9 +55,6 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
                 repository.rejectReq(users.get(position).getUsername());
             }
         });
-
-
-        //holder.imgCard.setImageBitmap(images.get(position));
     }
 
     @Override
@@ -71,7 +67,6 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
         TextView txtDepartmentCard;
         Button btnAccept;
         Button btnReject;
-        ImageView imgCard;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,7 +74,6 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
             txtDepartmentCard = itemView.findViewById(R.id.txtDepartmentCard);
             btnAccept = itemView.findViewById(R.id.btnAccept);
             btnReject = itemView.findViewById(R.id.btnReject);
-            imgCard = itemView.findViewById(R.id.imgCard);
         }
     }
 }

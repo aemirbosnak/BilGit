@@ -116,9 +116,10 @@ public class Place {
         return null;
     }
 
-    public void za () {
+    /*
+    public void sendPlaceToDatabase () {
         FirebaseDatabase.getInstance().getReference().child("Places").child(placeName).setValue(this);
-    }
+    }*/
 
     public static boolean outPlaceCheck( Location userLoc, Place place ) {
         if( (place.latitude - userLoc.getLatitude()) * (place.latitude - userLoc.getLatitude())
