@@ -303,6 +303,12 @@ public class MainRepository {
         Toast.makeText(application, "FRIEND REQUEST SENT", Toast.LENGTH_SHORT).show();
     }
 
+    public void removeFriend() {
+        dbRef.child("Friends").child(searchedUid).child("friends").child(auth.getUid()).removeValue();
+        dbRef.child("Friends").child(auth.getUid()).child("friends").child(searchedUid).removeValue();
+        Toast.makeText(application, "friend is removed", Toast.LENGTH_SHORT).show();
+    }
+
     public void acceptReq(String username) {
         dbRef.child("Usernames").child(username).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
             @Override

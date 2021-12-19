@@ -58,6 +58,10 @@ public class MainViewModel extends AndroidViewModel {
         mainRepository.addFriend();
     }
 
+    public void removeFriend() {
+        mainRepository.removeFriend();
+    }
+
     public void changePlace(String name) {
         mainRepository.changePlace(name);
     }
@@ -107,5 +111,4 @@ public class MainViewModel extends AndroidViewModel {
     public MutableLiveData<ArrayList<String>> getRequests() {
         return requests;
     }
-
 }

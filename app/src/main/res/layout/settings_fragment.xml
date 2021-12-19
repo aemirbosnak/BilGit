@@ -17,7 +17,7 @@
         tools:context=".view.PlaceFragment">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/company"
             android:layout_width="99dp"
             android:layout_height="16dp"
             android:text="Ucuz Yazılım A.Ş. ®"
@@ -37,25 +37,25 @@
             android:layout_height="48dp"
             android:text="Logout"
             android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView21"
+            app:layout_constraintBottom_toBottomOf="@+id/logoutLabel"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.868"
-            app:layout_constraintStart_toEndOf="@+id/textView21"
-            app:layout_constraintTop_toTopOf="@+id/textView21"
+            app:layout_constraintHorizontal_bias="0.860"
+            app:layout_constraintStart_toEndOf="@+id/logoutLabel"
+            app:layout_constraintTop_toTopOf="@+id/logoutLabel"
             app:layout_constraintVertical_bias="0.533" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/registerButton"
+            android:text="Register"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="88dp"
             android:layout_height="48dp"
-            android:text="Delete"
             android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView22"
+            app:layout_constraintBottom_toBottomOf="@+id/registerLabel"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.859"
-            app:layout_constraintStart_toEndOf="@+id/textView22"
-            app:layout_constraintTop_toTopOf="@+id/textView22" />
+            app:layout_constraintHorizontal_bias="0.860"
+            app:layout_constraintStart_toEndOf="@+id/registerLabel"
+            app:layout_constraintTop_toTopOf="@+id/registerLabel" />
 
         <Switch
             android:id="@+id/privateProfile"
@@ -86,7 +86,7 @@
             app:layout_constraintVertical_bias="0.025" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/privateProfilePrompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Turn on for private profile"
@@ -99,7 +99,7 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/notificationsLabel"
             android:layout_width="199dp"
             android:layout_height="33dp"
             android:text="Notifications"
@@ -111,12 +111,13 @@
             app:layout_constraintHorizontal_bias="0.047"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.247" />
+            app:layout_constraintVertical_bias="0.311" />
 
         <Switch
             android:id="@+id/enableNotifications"
             android:layout_width="347dp"
             android:layout_height="53dp"
+            android:layout_marginTop="60dp"
             android:backgroundTint="@color/teal_700"
             android:text="Notifications"
             app:layout_constraintBottom_toTopOf="@+id/locationServices"
@@ -127,7 +128,7 @@
             app:layout_constraintVertical_bias="0.834" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/notificationsPrompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Turn on for receiving notifications"
@@ -139,84 +140,92 @@
             app:layout_constraintTop_toTopOf="@+id/enableNotifications"
             app:layout_constraintVertical_bias="1.0" />
 
+        <!--Linear Layout with horizontal orientation
+         and other properties-->
+
+
         <TextView
             android:id="@+id/changeEmail"
-            android:layout_width="347dp"
-            android:layout_height="47dp"
-            android:text="Email"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:text="Change email"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.328"
+            app:layout_constraintHorizontal_bias="0.344"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/privateProfile"
-            app:layout_constraintVertical_bias="0.013" />
+            app:layout_constraintVertical_bias="0.028" />
 
-        <TextView
-            android:id="@+id/textView12"
+        <EditText
+            android:id="@+id/changeEmailPrompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change registered email"
+            android:hint="Change registered email"
             android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="20dp"
+            android:textSize="12sp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
             app:layout_constraintBottom_toBottomOf="@+id/changeEmail"
             app:layout_constraintEnd_toEndOf="@+id/changeEmail"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/changeEmail"
             app:layout_constraintTop_toBottomOf="@+id/privateProfile"
-            app:layout_constraintVertical_bias="0.714" />
-
-        <!--Linear Layout with horizontal orientation
-         and other properties-->
-
-
+            app:layout_constraintVertical_bias="0.82" />
 
         <TextView
-            android:id="@+id/textView15"
-            android:layout_width="347dp"
-            android:layout_height="47dp"
+            android:id="@+id/changePassword"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
             android:text="Password"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.328"
+            app:layout_constraintHorizontal_bias="0.344"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/changeEmail"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.018" />
 
-        <TextView
-            android:id="@+id/textView16"
+        <EditText
+            android:id="@+id/changePasswordPrompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Change password"
+            android:hint="Change password"
+            android:inputType="textPassword"
+            android:ems="10"
             android:textColor="@android:color/darker_gray"
-            app:layout_constraintEnd_toEndOf="@+id/textView15"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/changePassword"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView15"
-            app:layout_constraintTop_toBottomOf="@+id/changeEmail" />
+            app:layout_constraintStart_toStartOf="@+id/changePassword"
+            app:layout_constraintTop_toTopOf="@+id/changePassword" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/locationLabel"
             android:layout_width="199dp"
             android:layout_height="33dp"
+            android:layout_marginTop="120dp"
             android:text="Location Services"
             android:textColor="@color/purple_700"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            app:layout_constraintBottom_toBottomOf="@+id/company"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.047"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.529" />
+            app:layout_constraintVertical_bias="0.544" />
 
         <Switch
             android:id="@+id/locationServices"
             android:layout_width="347dp"
             android:layout_height="53dp"
+            android:layout_marginTop="100dp"
             android:backgroundTint="@color/teal_700"
-            android:text="Location"
             android:checked="true"
+            android:text="Location"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
@@ -225,7 +234,7 @@
             app:layout_constraintVertical_bias="0.389" />
 
         <TextView
-            android:id="@+id/textView20"
+            android:id="@+id/locationPrompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="49dp"
@@ -239,14 +248,14 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/textView21"
+            android:id="@+id/logoutLabel"
             android:layout_width="199dp"
             android:layout_height="33dp"
             android:text="Logout "
             android:textColor="@color/purple_700"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textView22"
+            app:layout_constraintBottom_toTopOf="@+id/registerLabel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.075"
             app:layout_constraintStart_toStartOf="parent"
@@ -254,10 +263,11 @@
             app:layout_constraintVertical_bias="0.954" />
 
         <TextView
-            android:id="@+id/textView22"
+            android:id="@+id/registerLabel"
             android:layout_width="199dp"
             android:layout_height="34dp"
-            android:text="Delete Account"
+            android:layout_marginTop="130dp"
+            android:text="Register"
             android:textColor="@color/purple_700"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -272,14 +282,42 @@
             android:id="@+id/textView23"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete your account forever"
+            android:text="Create an account"
             android:textColor="@android:color/darker_gray"
-            app:layout_constraintBottom_toBottomOf="@+id/textView22"
-            app:layout_constraintEnd_toEndOf="@+id/textView22"
+            app:layout_constraintBottom_toBottomOf="@+id/registerLabel"
+            app:layout_constraintEnd_toEndOf="@+id/registerLabel"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView22"
-            app:layout_constraintTop_toTopOf="@+id/textView22"
+            app:layout_constraintStart_toStartOf="@+id/registerLabel"
+            app:layout_constraintTop_toTopOf="@+id/registerLabel"
             app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/updateEmailBtn"
+            android:layout_width="88dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="12dp"
+            android:clickable="true"
+            android:text="UPDATE"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/changeEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/changeEmail"
+            app:layout_constraintVertical_bias="0.333" />
+
+        <Button
+            android:id="@+id/updatePasswordBtn"
+            android:layout_width="88dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="12dp"
+            android:clickable="true"
+            android:text="UPDATE"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/changePassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/changePassword"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
