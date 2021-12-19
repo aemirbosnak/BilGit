@@ -30,7 +30,7 @@ public class AuthViewModel extends AndroidViewModel {
     }
 
     public void register(String email , String pass, String username, String department){
-        authRepository.register(email, pass, username, department);
+        authRepository.checkUsernameFirst(email, pass, username, department);
     }
     public void signIn(String email , String pass){
         authRepository.login(email, pass);

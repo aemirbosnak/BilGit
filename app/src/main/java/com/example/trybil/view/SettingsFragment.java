@@ -16,17 +16,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.trybil.databinding.SettingsFragmentBinding;
 import com.example.trybil.model.LocationService;
 import com.example.trybil.viewmodel.AuthViewModel;
-import com.example.trybil.viewmodel.SettingsViewModel;
 
 public class SettingsFragment extends Fragment {
     private SettingsFragmentBinding settingsFragmentBinding;
-    private SettingsViewModel mViewModel;
     private AuthViewModel authViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProvider(getActivity()).get(SettingsViewModel.class);
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
 
         authViewModel.getLoggedStatus().observe(this, new Observer<Boolean>() {

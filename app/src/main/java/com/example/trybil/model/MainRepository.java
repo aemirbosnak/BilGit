@@ -65,6 +65,7 @@ public class MainRepository {
     }
 
     private MainRepository(Application application) {
+        mainRepositorySingleton = this;
         this.application = application;
         auth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
