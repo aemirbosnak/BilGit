@@ -34,10 +34,19 @@ public class FriendProfileFragment extends Fragment {
             public void onChanged(User user) {
                 friendProfileFragmentBinding.userName.setText(user.getUsername());
                 friendProfileFragmentBinding.department.setText(user.getDepartment());
-                if(mainViewModel.isFriend(user.getUsername()))
+
+            }
+        });
+
+        mainViewModel.getIsFriend().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean)
                 {
-                    friendProfileFragmentBinding.friendRequest.setBackgroundColor(Color.GRAY);
-                    friendProfileFragmentBinding.friendRequest.setClickable(false);
+                    friendProfileFragmentBinding.friendRequest.setText("Remove Friend");
+                }
+                else {
+                    friendProfileFragmentBinding.friendRequest.setText("Add Friend");
                 }
             }
         });

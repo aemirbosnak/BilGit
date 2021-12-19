@@ -37,11 +37,16 @@ public class SearchFragment extends Fragment {
                 searchFragmentBinding.cardv.setVisibility(View.VISIBLE);
                 searchFragmentBinding.txtUsername.setText(user.getUsername());
                 searchFragmentBinding.txtDepartment.setText(user.getDepartment());
+            }
+        });
 
-                if( mViewModel.isFriend(user.getUsername()) )
-                    searchFragmentBinding.txtFriend.setText( "Friends" );
+        mViewModel.getIsFriend().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean)
+                    searchFragmentBinding.txtFriend.setText( "You Are Friends" );
                 else
-                    searchFragmentBinding.txtFriend.setText( "Not Friends");
+                    searchFragmentBinding.txtFriend.setText( "You Are Not Friends");
             }
         });
 
