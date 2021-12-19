@@ -92,6 +92,8 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
+        //update the height of ScrollView widget according to number of friends
+        profileFragmentBinding.getRoot().setMinimumHeight(700 + 200 * userFriend.size());
     }
 
     @Override
