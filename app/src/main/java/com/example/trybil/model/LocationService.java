@@ -20,6 +20,7 @@ import com.google.firebase.FirebaseApp;
 
 public class LocationService extends Service {
     UserLocation userLocation;
+    PlaceManager placeManager;
 
     @Nullable
     @Override
@@ -35,8 +36,13 @@ public class LocationService extends Service {
         userLocation = new UserLocation( (LocationManager) getSystemService(LOCATION_SERVICE),
                 this);
 
-        Place za = new Place( "BCC", 5, 37.747971, 39.868728);
-        za.za();
+        //Create places in placeManager, object initialization
+        placeManager = new PlaceManager();
+        //Add places into database using putPlaceToDatabase method from Place class
+        for( int i = 0; i < placeManager.numPlaces(); i++ ) {
+            placeManager.getPlace(i).sendPlaceToDatabase();
+        }
+
         Toast.makeText(this, "service starting ",
                 Toast.LENGTH_SHORT).show();
     }
