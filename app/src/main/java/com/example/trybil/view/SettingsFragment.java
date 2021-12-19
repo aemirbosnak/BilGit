@@ -17,18 +17,25 @@ import com.example.trybil.databinding.SettingsFragmentBinding;
 import com.example.trybil.model.LocationService;
 import com.example.trybil.viewmodel.AuthViewModel;
 import com.example.trybil.viewmodel.SettingsViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SettingsFragment extends Fragment {
     private SettingsFragmentBinding settingsFragmentBinding;
     private SettingsViewModel mViewModel;
     private AuthViewModel authViewModel;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth auth;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(getActivity()).get(SettingsViewModel.class);
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        auth = FirebaseAuth.getInstance();
         authViewModel.getLoggedStatus().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
@@ -50,6 +57,25 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        settingsFragmentBinding.updateEmailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: email should be updated
+                String newEmail = settingsFragmentBinding.changeEmailPrompt.getText().toString();
+                auth.getCurrentUser().updateEmail(newEmail);
+            }
+        });
+
+        settingsFragmentBinding.updatePasswordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: password should be updated
+                //
+                String newPassword = settingsFragmentBinding.changePasswordPrompt.getText().toString();
+                auth.getCurrentUser().updatePassword(newPassword);
+            }
+        });
 
         settingsFragmentBinding.buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
