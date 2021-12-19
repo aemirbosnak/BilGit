@@ -34,6 +34,9 @@ public class HomeFragment extends Fragment {
             public void onChanged(ArrayList<String> strings) {
                 homeFragmentBinding.text1.setText(strings.get(0));
                 homeFragmentBinding.text2.setText(strings.get(1));
+                homeFragmentBinding.text3.setText(strings.get(2));
+                homeFragmentBinding.text4.setText(strings.get(3));
+                homeFragmentBinding.text5.setText(strings.get(4));
             }
         });
 
@@ -61,7 +64,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.placeFragment);
-                mainViewModel.changePlace("Break Cafe");
+                mainViewModel.changePlace("BCC Cafeteria");
             }
         });
 
@@ -69,7 +72,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.placeFragment);
-                //mainViewModel.changePlace("MozartCafe");
+                mainViewModel.changePlace("Break Cafe");
             }
         });
 
@@ -77,6 +80,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.placeFragment);
+                mainViewModel.changePlace("Cafe In");
             }
         });
 
@@ -84,6 +88,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.placeFragment);
+                mainViewModel.changePlace("Mozart Cafe");
             }
         });
 
@@ -91,6 +96,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.placeFragment);
+                mainViewModel.changePlace("Speed Cafe");
             }
         });
     }

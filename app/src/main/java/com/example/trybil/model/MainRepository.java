@@ -112,9 +112,11 @@ public class MainRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> pulledPlaces = new ArrayList<>();
+
                 for(DataSnapshot ds: snapshot.getChildren()) {
                     pulledPlaces.add(ds.child("placeName").getValue().toString());
                 }
+
                 places.postValue(pulledPlaces);
             }
 

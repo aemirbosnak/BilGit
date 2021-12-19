@@ -163,14 +163,15 @@
                 android:layout_height="180dp" />
 
             <TextView
+                android:id="@+id/text3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/place3"
                 android:textAlignment="center"
+                android:textColor="@color/peach_500"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/peach_500"/>
+                android:textStyle="bold" />
 
             <ProgressBar
                 android:id="@+id/simpleProgressBar3"
@@ -216,14 +217,15 @@
                 android:layout_height="180dp" />
 
             <TextView
+                android:id="@+id/text4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/place4"
                 android:textAlignment="center"
+                android:textColor="@color/peach_500"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/peach_500"/>
+                android:textStyle="bold" />
 
             <ProgressBar
                 android:id="@+id/simpleProgressBar4"
@@ -268,14 +270,15 @@
                 android:layout_height="180dp" />
 
             <TextView
+                android:id="@+id/text5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/place5"
                 android:textAlignment="center"
+                android:textColor="@color/peach_500"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/peach_500"/>
+                android:textStyle="bold" />
 
             <ProgressBar
                 android:id="@+id/simpleProgressBar5"
