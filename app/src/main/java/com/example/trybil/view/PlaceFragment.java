@@ -39,9 +39,14 @@ public class PlaceFragment extends Fragment {
             @Override
             public void onChanged(Place place) {
                 placeFragmentBinding.placeName.setText(place.getPlaceName());
+                String initialRate = String.format("%.2g%n", place.getTotalRating() / (float)(place.getVoteNumber()));
+                placeFragmentBinding.averageRateText.setText(initialRate);
+                placeFragmentBinding.averageRate.setRating(Float.parseFloat(initialRate));
                 placeFragmentBinding.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                     @Override
                     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                        final float[] newRate = new float[1];
+                        final float[] newVoteNumber = new float[1];
                         databaseReference.child("Places").child(place.getPlaceName()).child("totalRating")
                                 .runTransaction(new Transaction.Handler() {
                                     @NonNull
@@ -79,16 +84,14 @@ public class PlaceFragment extends Fragment {
                                     }
 
                                     @Override
-                                    public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
-
-                                    }
+                                    public void onComplete(@Nullable DatabaseError error, boolean committed,
+                                                           @Nullable DataSnapshot currentData) {}
                                 });
 
-                        databaseReference.child("Ratings").child(FirebaseAuth.getInstance().getCurrentUser()
-                                .getUid()).child(place.getPlaceName()).setValue(rating);
-
-                        placeFragmentBinding.ratingBar.setRating(3);
-                        placeFragmentBinding.averageRate.setRating(1.1f);
+                        String newText = String.format("%.2g%n", place.getTotalRating() / (float)(place.getVoteNumber()));
+                        placeFragmentBinding.ratingBar.setRating(rating);
+                        placeFragmentBinding.averageRate.setRating(Float.parseFloat(newText));
+                        placeFragmentBinding.averageRateText.setText(newText);
                     }
                 });
             }
