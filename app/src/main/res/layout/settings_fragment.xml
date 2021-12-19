@@ -44,19 +44,6 @@
             app:layout_constraintTop_toTopOf="@+id/logoutLabel"
             app:layout_constraintVertical_bias="0.533" />
 
-        <Button
-            android:id="@+id/registerButton"
-            android:text="Register"
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="88dp"
-            android:layout_height="48dp"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/registerLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.860"
-            app:layout_constraintStart_toEndOf="@+id/registerLabel"
-            app:layout_constraintTop_toTopOf="@+id/registerLabel" />
-
         <Switch
             android:id="@+id/privateProfile"
             android:layout_width="347dp"
@@ -255,41 +242,12 @@
             android:textColor="@color/purple_700"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/registerLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.075"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.954" />
-
-        <TextView
-            android:id="@+id/registerLabel"
-            android:layout_width="199dp"
-            android:layout_height="34dp"
-            android:layout_marginTop="130dp"
-            android:text="Register"
-            android:textColor="@color/purple_700"
-            android:textSize="16sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.075"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.561" />
-
-        <TextView
-            android:id="@+id/textView23"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Create an account"
-            android:textColor="@android:color/darker_gray"
-            app:layout_constraintBottom_toBottomOf="@+id/registerLabel"
-            app:layout_constraintEnd_toEndOf="@+id/registerLabel"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/registerLabel"
-            app:layout_constraintTop_toTopOf="@+id/registerLabel"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.55" />
 
         <Button
             android:id="@+id/updateEmailBtn"
