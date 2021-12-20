@@ -14,7 +14,6 @@ public class PlaceManager {
     Place bbcCafeteria = new Place("BCC Cafeteria", 30, 32.750278, 39.870556);
 
     public PlaceManager() {
-        //TODO: mutable data arraylist of all places
         places.add(mozartCafe);
         places.add(breakCafe);
         places.add(speedCafe);

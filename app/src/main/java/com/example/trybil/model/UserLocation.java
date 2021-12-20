@@ -18,6 +18,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 
+import com.example.trybil.view.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -77,9 +78,10 @@ public class UserLocation {
 
     public void compareLocationPlace()
     {
-        if(currentPlace == null)
+        if(currentPlace == null) {
             currentPlace = placeManager.checkInLoc(userLoc);
-        else {
+        }
+            else {
             if (Place.outPlaceCheck(userLoc, currentPlace))
                 currentPlace = null;
         }
