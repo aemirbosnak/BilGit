@@ -48,10 +48,11 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean){
-                    getActivity().finishActivity(1);
-                    Log.i("ACTIVITY", getActivity().getLocalClassName());
-                    startActivity(new Intent(getContext(), AuthActivity.class));
-                    Log.i("ACTIVITY", getActivity().getLocalClassName());
+                    Log.i("ACTIVITY", "a " + getActivity().getTaskId());
+                    Intent intent = new Intent(getContext(), AuthActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    Log.i("ACTIVITY", "a " + getActivity().getTaskId());
                 }
             }
         });

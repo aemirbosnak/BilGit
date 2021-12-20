@@ -24,14 +24,12 @@
         <activity
             android:name=".view.MainActivity"
             android:windowSoftInputMode="adjustPan"
-            android:exported="false"
-            android:launchMode="singleInstance">
+            android:exported="false">
         </activity>
 
         <activity
             android:name=".view.AuthActivity"
-            android:exported="true"
-            android:launchMode="singleInstance">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

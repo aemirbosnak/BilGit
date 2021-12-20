@@ -70,7 +70,6 @@ public class ProfileFragment extends Fragment {
                 }
                 else {
                     profileFragmentBinding.imageView.setImageDrawable(getResources().getDrawable(R.drawable.avatar));
-
                 }
             }
         });
