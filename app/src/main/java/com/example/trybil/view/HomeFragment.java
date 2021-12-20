@@ -49,6 +49,17 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
 
+        mainViewModel.getPlaces().observe(getViewLifecycleOwner(), new Observer<ArrayList<String>>() {
+            @Override
+            public void onChanged(ArrayList<String> strings) {
+                homeFragmentBinding.text1.setText(strings.get(0));
+                homeFragmentBinding.text2.setText(strings.get(1));
+                homeFragmentBinding.text3.setText(strings.get(2));
+                homeFragmentBinding.text4.setText(strings.get(3));
+                homeFragmentBinding.text5.setText(strings.get(4));
+            }
+        });
+
         mainViewModel.getPopulations().observe(getViewLifecycleOwner(), new Observer<ArrayList<Integer>>() {
             @Override
             public void onChanged(ArrayList<Integer> integers) {
