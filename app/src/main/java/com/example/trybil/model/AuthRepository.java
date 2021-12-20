@@ -7,10 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -40,16 +42,34 @@ public class AuthRepository {
     }
 
     private AuthRepository(Application application){
+        authRepositorySingleton = this;
         this.application = application;
         firebaseUserMutableLiveData = new MutableLiveData<>();
         userLoggedMutableLiveData = new MutableLiveData<>();
         auth = FirebaseAuth.getInstance();
         dbRef = FirebaseDatabase.getInstance().getReference();
-        //MainRepository.getInstance(application);
 
         if (auth.getCurrentUser() != null){
             firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
         }
+    }
+
+    public void checkUsernameFirst(String email , String pass, String username, String department) {
+        dbRef.child("Usernames").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                boolean match = false;
+
+                for(DataSnapshot ds: dataSnapshot.getChildren()) {
+                    if (ds.getKey().equals(username))
+                        match = true;
+                }
+                if (!match)
+                    register(email, pass, username, department);
+                else
+                    Toast.makeText(application, "Username already exists!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void register(String email , String pass, String username, String department){

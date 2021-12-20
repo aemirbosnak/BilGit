@@ -15,7 +15,6 @@ import androidx.navigation.Navigation;
 
 import com.example.trybil.R;
 import com.example.trybil.databinding.HomeFragmentBinding;
-import com.example.trybil.model.MyLocation;
 import com.example.trybil.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
@@ -24,13 +23,11 @@ public class HomeFragment extends Fragment {
     private HomeFragmentBinding homeFragmentBinding;
     private NavController navController;
     private MainViewModel mainViewModel;
-    private MyLocation userLocation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
-        userLocation = new MyLocation(getActivity());
 
         mainViewModel.getPlaces().observe(this, new Observer<ArrayList<String>>() {
             @Override
@@ -73,16 +70,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-
-        /*
-            It takes time to get location from FusedLocationProviderClient
-            The setText method gets called before we get a valid location,
-            and then getLat getLong throws nullpointerexception since there is
-            no valid location when the method is called.
-            Potential fix: implementing FusedLocationProviderClient inside the fragment class
-            and calling the setText method inside onSuccess of provider listener
-         */
-        //homeFragmentBinding.textDist1.setText("Lat: " + userLocation.getLatitude() + " Long: " + userLocation.getLongitude());
 
         homeFragmentBinding.cardView1.setOnClickListener(new View.OnClickListener() {
             @Override

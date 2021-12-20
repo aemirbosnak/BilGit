@@ -34,6 +34,12 @@ public class PlaceFragment extends Fragment {
         mViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
+        mViewModel.getRating().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                placeFragmentBinding.ratingBar.setRating(integer);
+            }
+        });
 
         mViewModel.getPlace().observe(this, new Observer<Place>() {
             @Override
@@ -42,9 +48,11 @@ public class PlaceFragment extends Fragment {
                 String initialRate = String.format("%.2g%n", place.getTotalRating() / (float)(place.getVoteNumber()));
                 placeFragmentBinding.averageRateText.setText(initialRate);
                 placeFragmentBinding.averageRate.setRating(Float.parseFloat(initialRate));
+
                 placeFragmentBinding.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                     @Override
                     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                        mViewModel.setRating((int) rating);
                         final float[] newRate = new float[1];
                         final float[] newVoteNumber = new float[1];
                         databaseReference.child("Places").child(place.getPlaceName()).child("totalRating")

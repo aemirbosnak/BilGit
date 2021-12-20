@@ -67,6 +67,7 @@ public class MainRepository {
     }
 
     private MainRepository(Application application) {
+        mainRepositorySingleton = this;
         this.application = application;
         auth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -116,9 +117,11 @@ public class MainRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> pulledPlaces = new ArrayList<>();
+
                 for(DataSnapshot ds: snapshot.getChildren()) {
                     pulledPlaces.add(ds.child("placeName").getValue().toString());
                 }
+
                 places.postValue(pulledPlaces);
             }
 
@@ -325,6 +328,12 @@ public class MainRepository {
         Toast.makeText(application, "FRIEND REQUEST SENT", Toast.LENGTH_SHORT).show();
     }
 
+    public void removeFriend() {
+        dbRef.child("Friends").child(searchedUid).child("friends").child(auth.getUid()).removeValue();
+        dbRef.child("Friends").child(auth.getUid()).child("friends").child(searchedUid).removeValue();
+        Toast.makeText(application, "friend is removed", Toast.LENGTH_SHORT).show();
+    }
+
     public void acceptReq(String username) {
         dbRef.child("Usernames").child(username).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
             @Override
@@ -367,10 +376,15 @@ public class MainRepository {
     }
 
     public void changePlace(String name) {
-        dbRef.child("Places").child(name).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+        dbRef.child("Places").child(name).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onSuccess(DataSnapshot dataSnapshot) {
-                place.postValue(dataSnapshot.getValue(Place.class));
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                place.postValue(snapshot.getValue(Place.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
@@ -390,6 +404,10 @@ public class MainRepository {
                 Toast.makeText(application, "ERROR_Rating: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void setRating(Integer rating) {
+        dbRef.child("Ratings").child(auth.getUid()).child(place.getValue().getPlaceName()).setValue(rating);
     }
 
     private void notifyUser(ArrayList<User> userRequest) {
