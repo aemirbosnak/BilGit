@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.trybil.databinding.ProfileFragmentBinding;
 import com.example.trybil.model.FriendAdapter;
@@ -78,6 +79,7 @@ public class ProfileFragment extends Fragment {
                 new ActivityResultCallback<Uri>() {
                     @Override
                     public void onActivityResult(Uri result) {
+                        Toast.makeText(getContext(), "dsqdsqfdsqqfdsqfdsqq", Toast.LENGTH_SHORT).show();
                         if (result != null) {
                             mainViewModel.uploadPic(result);
                         }
@@ -95,6 +97,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        profileFragmentBinding.btnUp.setOnClickListener(v -> pickImage.launch("image/"));
+        profileFragmentBinding.btnUp.setOnClickListener(v -> pickImage.launch("image/*"));
     }
 }
