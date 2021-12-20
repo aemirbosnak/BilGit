@@ -88,6 +88,15 @@
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/count1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="count1"
+                android:translationX="310dp"
+                android:translationY="100dp"
+                android:textAlignment="textEnd"/>
+
 
         </androidx.cardview.widget.CardView>
 
@@ -142,6 +151,14 @@
                 android:textColor="@color/bone_700"
                 android:textSize="15sp"
                 android:textStyle="bold" />
+            <TextView
+                android:id="@+id/count2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="count1"
+                android:translationX="310dp"
+                android:translationY="100dp"
+                android:textAlignment="textEnd"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -186,6 +203,7 @@
                 android:scaleY="4" />
 
             <TextView
+                android:id="@+id/textDist3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -196,6 +214,15 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/bone_700"/>
+
+            <TextView
+                android:id="@+id/count3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="count1"
+                android:translationX="320dp"
+                android:translationY="100dp"
+                android:textAlignment="textEnd"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -240,6 +267,7 @@
                 android:scaleY="4" />
 
             <TextView
+                android:id="@+id/textDist4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -250,6 +278,14 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/bone_700"/>
+            <TextView
+                android:id="@+id/count4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="count1"
+                android:translationX="320dp"
+                android:translationY="100dp"
+                android:textAlignment="textEnd"/>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -293,6 +329,7 @@
                 android:scaleY="4" />
 
             <TextView
+                android:id="@+id/textDist5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -303,6 +340,15 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/bone_700"/>
+
+            <TextView
+                android:id="@+id/count5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="count1"
+                android:textAlignment="viewEnd"
+                android:translationX="320dp"
+                android:translationY="100dp" />
 
         </androidx.cardview.widget.CardView>
 

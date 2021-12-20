@@ -55,9 +55,11 @@ public class MainRepository {
     private final MutableLiveData<ArrayList<User>> inPlaceFriends;
     private final MutableLiveData<ArrayList<String>> requests;
     private final MutableLiveData<Place> place;
+    private final MutableLiveData<ArrayList<Integer>> populations;
     private final DatabaseReference dbRef;
     private static MainRepository mainRepositorySingleton;
     private String searchedUid;
+    //private PlaceManager placeManager;
 
     public static MainRepository getInstance(Application application) {
         if(mainRepositorySingleton != null) {
@@ -87,14 +89,17 @@ public class MainRepository {
         friendsUid = new ArrayList<>();
         inPlaceFriends = new MutableLiveData<ArrayList<User>>();
         requests = new MutableLiveData<ArrayList<String>>();
+        populations = new MutableLiveData<ArrayList<Integer>>();
         place = new MutableLiveData<>();
+        //placeManager = new PlaceManager();
 
         pullPlaces();
         if(!auth.getCurrentUser().getEmail().isEmpty()) {
             pullUser();
             pullFriends();
             pullPic();
-            //pullLocations();
+            pullLocations();
+            pullPopulations();
         }
     }
 
@@ -129,6 +134,24 @@ public class MainRepository {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(application, "Error_Places: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void pullPopulations() {
+        dbRef.child("Places").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Integer> pulledPopulations = new ArrayList<>();
+                for(DataSnapshot ds: snapshot.getChildren()) {
+                    pulledPopulations.add(ds.child("peopleNumber").getValue(Integer.class));
+                }
+                populations.postValue(pulledPopulations);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
@@ -480,4 +503,8 @@ public class MainRepository {
     public MutableLiveData<ArrayList<String>> getRequests() { return requests; }
 
     public MutableLiveData<Integer> getRating() { return rating; }
+
+    public MutableLiveData<ArrayList<Integer>> getPopulations() { return populations; }
+
+    //public PlaceManager getPlaceManager() { return placeManager; }
 }

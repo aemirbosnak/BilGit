@@ -29,6 +29,7 @@ public class MainViewModel extends AndroidViewModel {
     MutableLiveData<ArrayList<String>> friends;
     MutableLiveData<ArrayList<User>> inPlaceFriends;
     MutableLiveData<ArrayList<String>> requests;
+    MutableLiveData<ArrayList<Integer>> populations;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -46,6 +47,7 @@ public class MainViewModel extends AndroidViewModel {
         friends = mainRepository.getFriends();
         inPlaceFriends = mainRepository.getInPlaceFriends();
         requests = mainRepository.getRequests();
+        populations = mainRepository.getPopulations();
     }
 
     public void searchUser(String username) {
@@ -125,4 +127,6 @@ public class MainViewModel extends AndroidViewModel {
     public MutableLiveData<ArrayList<String>> getRequests() {
         return requests;
     }
+
+    public MutableLiveData<ArrayList<Integer>> getPopulations() { return populations; }
 }

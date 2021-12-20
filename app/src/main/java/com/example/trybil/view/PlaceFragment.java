@@ -41,6 +41,7 @@ public class PlaceFragment extends Fragment {
         mViewModel.getRating().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
+
                 placeFragmentBinding.ratingBar.setRating(integer);
             }
         });
@@ -51,8 +52,14 @@ public class PlaceFragment extends Fragment {
                 mViewModel.pullInPlace();
                 placeFragmentBinding.placeName.setText(place.getPlaceName());
                 String initialRate = String.format("%.2g%n", place.getTotalRating() / (float)(place.getVoteNumber()));
-                placeFragmentBinding.averageRateText.setText(initialRate);
-                placeFragmentBinding.averageRate.setRating(Float.parseFloat(initialRate));
+                if(Float.parseFloat(initialRate) > 0) {
+                    placeFragmentBinding.averageRateText.setText(initialRate);
+                    placeFragmentBinding.averageRate.setRating(Float.parseFloat(initialRate));
+                }
+                else{
+                    placeFragmentBinding.averageRateText.setText("No rate");
+                    placeFragmentBinding.averageRate.setRating(0);
+                }
 
                 placeFragmentBinding.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                     @Override
