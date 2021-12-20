@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainRepository {
     private final Application application;
@@ -49,6 +51,8 @@ public class MainRepository {
     private final MutableLiveData<ArrayList<Integer>> location;
     private final MutableLiveData<Integer> rating;
     private final MutableLiveData<ArrayList<String>> friends;
+    private final ArrayList<String>  friendsUid;
+    private final MutableLiveData<ArrayList<User>> inPlaceFriends;
     private final MutableLiveData<ArrayList<String>> requests;
     private final MutableLiveData<Place> place;
     private final DatabaseReference dbRef;
@@ -80,6 +84,8 @@ public class MainRepository {
         location = new MutableLiveData<ArrayList<Integer>>();
         rating = new MutableLiveData<Integer>();
         friends = new MutableLiveData<ArrayList<String>>();
+        friendsUid = new ArrayList<>();
+        inPlaceFriends = new MutableLiveData<ArrayList<User>>();
         requests = new MutableLiveData<ArrayList<String>>();
         place = new MutableLiveData<>();
 
@@ -161,6 +167,7 @@ public class MainRepository {
 
                 for(DataSnapshot ds: snapshot.getChildren()) {
                     pulledFriends.add(ds.getValue().toString());
+                    friendsUid.add(ds.getKey());
                 }
 
                 friends.postValue(pulledFriends);
@@ -387,6 +394,36 @@ public class MainRepository {
         dbRef.child("Ratings").child(auth.getUid()).child(place.getValue().getPlaceName()).setValue(rating);
     }
 
+    public void pullInPlace() {
+        HashMap<String, String> hashMap = place.getValue().getUserInLocation();
+
+        ArrayList<String> friendsIn = new ArrayList<>();
+        ArrayList<User> friendsInUser = new ArrayList<>();
+
+        for(String friend: friendsUid) {
+            if (hashMap.get(friend) != null) {
+                friendsIn.add(hashMap.get(friend));
+            }
+        }
+
+        if (friendsIn.size() != 0) {
+            dbRef.child("Users").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                @Override
+                public void onSuccess(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        for (String friend : friendsIn) {
+                            if (friend.equals(ds.getKey())) {
+                                friendsInUser.add(ds.getValue(User.class));
+                            }
+                        }
+                    }
+
+                    inPlaceFriends.postValue(friendsInUser);
+                }
+            });
+        }
+    }
+
     private void notifyUser(ArrayList<User> userRequest) {
         String text = userRequest.size() > 1 ? "friend requests" : "friend request";
 
@@ -420,6 +457,10 @@ public class MainRepository {
 
     public MutableLiveData<Boolean> getIsFriend() {
         return isFriend;
+    }
+
+    public MutableLiveData<ArrayList<User>> getInPlaceFriends() {
+        return inPlaceFriends;
     }
 
     public MutableLiveData<ArrayList<User>> getUserRequest() { return userRequest; }

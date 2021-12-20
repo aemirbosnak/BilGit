@@ -14,6 +14,7 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Place {
 
@@ -24,7 +25,7 @@ public class Place {
     private int totalRating;
     private int voteNumber;
     private  int peopleNumber;
-    private ArrayList<String> userInLocation;
+    private HashMap<String, String> userInLocation;
 
     //for test use
     public Place(String placeName, double radius, double longitude, double latitude) {
@@ -35,7 +36,7 @@ public class Place {
         totalRating = 0;
         voteNumber = 0;
         peopleNumber = 0;
-        userInLocation = new ArrayList<>();
+        userInLocation = new HashMap<>();
     }
 
     public Place() {}
@@ -60,7 +61,7 @@ public class Place {
         return  peopleNumber;
     }
 
-    public ArrayList<String> getUserInLocation() {
+    public HashMap<String, String> getUserInLocation() {
         return userInLocation;
     }
 

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.trybil.databinding.PlaceFragmentBinding;
 import com.example.trybil.model.Place;
+import com.example.trybil.model.User;
 import com.example.trybil.viewmodel.MainViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+
+import java.util.ArrayList;
 
 
 public class PlaceFragment extends Fragment {
@@ -44,6 +48,7 @@ public class PlaceFragment extends Fragment {
         mViewModel.getPlace().observe(this, new Observer<Place>() {
             @Override
             public void onChanged(Place place) {
+                mViewModel.pullInPlace();
                 placeFragmentBinding.placeName.setText(place.getPlaceName());
                 String initialRate = String.format("%.2g%n", place.getTotalRating() / (float)(place.getVoteNumber()));
                 placeFragmentBinding.averageRateText.setText(initialRate);
@@ -102,6 +107,13 @@ public class PlaceFragment extends Fragment {
                         placeFragmentBinding.averageRateText.setText(newText);
                     }
                 });
+            }
+        });
+
+        mViewModel.getInPlaceFriends().observe(this, new Observer<ArrayList<User>>() {
+            @Override
+            public void onChanged(ArrayList<User> users) {
+                Toast.makeText(getContext(), "YARRAK:: " + users.size(), Toast.LENGTH_SHORT).show();
             }
         });
     }
