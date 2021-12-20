@@ -3,12 +3,10 @@ package com.example.trybil.model;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -70,7 +68,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtUsernameCard = itemView.findViewById(R.id.txtUsernameCard);
+            txtUsernameCard = itemView.findViewById(R.id.cardUsername);
             txtDepartmentCard = itemView.findViewById(R.id.txtDepartmentCard);
             btnAccept = itemView.findViewById(R.id.btnAccept);
             btnReject = itemView.findViewById(R.id.btnReject);

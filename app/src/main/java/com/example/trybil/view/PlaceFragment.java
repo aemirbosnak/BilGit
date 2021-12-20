@@ -12,8 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.trybil.databinding.PlaceFragmentBinding;
+import com.example.trybil.model.InPlaceAdapter;
 import com.example.trybil.model.Place;
 import com.example.trybil.model.User;
 import com.example.trybil.viewmodel.MainViewModel;
@@ -32,6 +34,8 @@ public class PlaceFragment extends Fragment {
     private PlaceFragmentBinding placeFragmentBinding;
     private MainViewModel mViewModel;
     private DatabaseReference databaseReference;
+    private InPlaceAdapter inPlaceAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +45,6 @@ public class PlaceFragment extends Fragment {
         mViewModel.getRating().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-
                 placeFragmentBinding.ratingBar.setRating(integer);
             }
         });
@@ -120,7 +123,10 @@ public class PlaceFragment extends Fragment {
         mViewModel.getInPlaceFriends().observe(this, new Observer<ArrayList<User>>() {
             @Override
             public void onChanged(ArrayList<User> users) {
-                Toast.makeText(getContext(), "YARRAK:: " + users.size(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "AAA:: " + users.size(), Toast.LENGTH_SHORT).show();
+                inPlaceAdapter = new InPlaceAdapter(getContext(), getActivity().getApplication(), users);
+                placeFragmentBinding.recylclerInPlace.setAdapter(inPlaceAdapter);
+                placeFragmentBinding.recylclerInPlace.setLayoutManager(new LinearLayoutManager(getContext()));
             }
         });
     }

@@ -31,8 +31,6 @@ public class ProfileFragment extends Fragment {
     private ProfileFragmentBinding profileFragmentBinding;
     private MainViewModel mainViewModel;
     ActivityResultLauncher<String> pickImage;
-    ArrayList<User> userFriend;
-    ArrayList<User> userRequest;
     FriendAdapter friendAdapter;
 
     @Override
