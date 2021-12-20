@@ -1,6 +1,7 @@
 package com.example.trybil.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,15 @@ import androidx.navigation.Navigation;
 
 import com.example.trybil.R;
 import com.example.trybil.databinding.HomeFragmentBinding;
+import com.example.trybil.model.Place;
 import com.example.trybil.viewmodel.MainViewModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -23,11 +32,53 @@ public class HomeFragment extends Fragment {
     private HomeFragmentBinding homeFragmentBinding;
     private NavController navController;
     private MainViewModel mainViewModel;
+    private DatabaseReference mDatabase;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                int newNumber = dataSnapshot.getValue(int.class);
+                // ..
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("this", "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+
+        mDatabase.child("Places").child("BCC").child("peopleNumber").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                homeFragmentBinding.simpleProgressBar1.setProgress(
+                mainViewModel.getPlace().getValue(snapshot.getValue(Place.class)));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        mainViewModel.getPlace().observe(this, new Observer<Place>() {
+            @Override
+            public void onChanged(Place place) {
+                homeFragmentBinding.simpleProgressBar1.setProgress(place.getPeopleNumber());
+                homeFragmentBinding.simpleProgressBar2.setProgress(place.getPeopleNumber());
+                homeFragmentBinding.simpleProgressBar3.setProgress(place.getPeopleNumber());
+                homeFragmentBinding.simpleProgressBar4.setProgress(place.getPeopleNumber());
+                homeFragmentBinding.simpleProgressBar5.setProgress(place.getPeopleNumber());
+            }
+        });
 
         mainViewModel.getPlaces().observe(this, new Observer<ArrayList<String>>() {
             @Override
@@ -37,8 +88,17 @@ public class HomeFragment extends Fragment {
                 homeFragmentBinding.text3.setText(strings.get(2));
                 homeFragmentBinding.text4.setText(strings.get(3));
                 homeFragmentBinding.text5.setText(strings.get(4));
+
+                /*
+                homeFragmentBinding.simpleProgressBar1.setProgress(place.getPeopleNumber());
+                homeFragmentBinding.simpleProgressBar2.setProgress(place.getPeopleNumber());
+                homeFragmentBinding.simpleProgressBar3.setProgress(place.getPeopleNumber());
+                homeFragmentBinding.simpleProgressBar4.setProgress(place.getPeopleNumber());
+                homeFragmentBinding.simpleProgressBar5.setProgress(place.getPeopleNumber());
+                 */
             }
         });
+
 
         mainViewModel.getLocation().observe(this, new Observer<ArrayList<Integer>>() {
             @Override

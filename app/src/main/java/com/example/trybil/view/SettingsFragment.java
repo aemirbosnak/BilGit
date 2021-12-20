@@ -68,7 +68,6 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //TODO: password should be updated
-                //
                 String newPassword = settingsFragmentBinding.changePasswordPrompt.getText().toString();
                 auth.getCurrentUser().updatePassword(newPassword);
             }
