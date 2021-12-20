@@ -79,10 +79,8 @@ public class ProfileFragment extends Fragment {
                 new ActivityResultCallback<Uri>() {
                     @Override
                     public void onActivityResult(Uri result) {
-                        Toast.makeText(getContext(), "dsqdsqfdsqqfdsqfdsqq", Toast.LENGTH_SHORT).show();
-                        if (result != null) {
+                        if (result != null)
                             mainViewModel.uploadPic(result);
-                        }
                     }
                 });
     }
@@ -97,6 +95,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        profileFragmentBinding.btnUp.setOnClickListener(v -> pickImage.launch("image/*"));
+        profileFragmentBinding.btnUp.setOnClickListener(v -> pickImage.launch("image/"));
     }
 }

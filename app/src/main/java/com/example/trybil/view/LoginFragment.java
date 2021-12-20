@@ -93,13 +93,6 @@ public class LoginFragment extends Fragment {
                 mViewModel.loginAnon();
             }
         });
-
-        loginFragmentBinding.textForgot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mViewModel.loginAnon();
-            }
-        });
     }
 
 

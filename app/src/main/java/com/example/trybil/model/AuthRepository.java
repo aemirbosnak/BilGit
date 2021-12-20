@@ -42,7 +42,6 @@ public class AuthRepository {
     }
 
     private AuthRepository(Application application){
-        authRepositorySingleton = this;
         this.application = application;
         firebaseUserMutableLiveData = new MutableLiveData<>();
         userLoggedMutableLiveData = new MutableLiveData<>();

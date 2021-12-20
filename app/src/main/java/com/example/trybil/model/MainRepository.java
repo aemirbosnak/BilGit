@@ -71,7 +71,7 @@ public class MainRepository {
     }
 
     private MainRepository(Application application) {
-        mainRepositorySingleton = this;
+        //mainRepositorySingleton = this;
         this.application = application;
         auth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -94,7 +94,7 @@ public class MainRepository {
         //placeManager = new PlaceManager();
 
         pullPlaces();
-        if(!auth.getCurrentUser().getEmail().isEmpty()) {
+        if(!auth.getCurrentUser().isAnonymous()) {
             pullUser();
             pullFriends();
             pullPic();
