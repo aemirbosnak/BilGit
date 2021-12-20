@@ -421,7 +421,12 @@ public class MainRepository {
     }
 
     public void pullInPlace() {
-        HashMap<String, String> hashMap = place.getValue().getUserInLocation();
+        HashMap<String, String> hashMap;
+
+        if (place.getValue().getUserInLocation() != null)
+            hashMap = place.getValue().getUserInLocation();
+        else
+            hashMap = new HashMap<>();
 
         ArrayList<String> friendsIn = new ArrayList<>();
         ArrayList<User> friendsInUser = new ArrayList<>();
@@ -432,22 +437,21 @@ public class MainRepository {
             }
         }
 
-        if (friendsIn.size() != 0) {
-            dbRef.child("Users").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
-                @Override
-                public void onSuccess(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        for (String friend : friendsIn) {
-                            if (friend.equals(ds.getKey())) {
-                                friendsInUser.add(ds.getValue(User.class));
-                            }
+
+        dbRef.child("Users").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    for (String friend : friendsIn) {
+                        if (friend.equals(ds.getKey())) {
+                            friendsInUser.add(ds.getValue(User.class));
                         }
                     }
-
-                    inPlaceFriends.postValue(friendsInUser);
                 }
-            });
-        }
+
+                inPlaceFriends.postValue(friendsInUser);
+            }
+        });
     }
 
     private void notifyUser(ArrayList<User> userRequest) {

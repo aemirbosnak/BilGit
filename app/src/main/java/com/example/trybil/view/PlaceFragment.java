@@ -123,10 +123,12 @@ public class PlaceFragment extends Fragment {
         mViewModel.getInPlaceFriends().observe(this, new Observer<ArrayList<User>>() {
             @Override
             public void onChanged(ArrayList<User> users) {
-                Toast.makeText(getContext(), "AAA:: " + users.size(), Toast.LENGTH_SHORT).show();
-                inPlaceAdapter = new InPlaceAdapter(getContext(), getActivity().getApplication(), users);
-                placeFragmentBinding.recylclerInPlace.setAdapter(inPlaceAdapter);
-                placeFragmentBinding.recylclerInPlace.setLayoutManager(new LinearLayoutManager(getContext()));
+                if (users != null) {
+                    Toast.makeText(getContext(), "AAA:: " + users.size(), Toast.LENGTH_SHORT).show();
+                    inPlaceAdapter = new InPlaceAdapter(getContext(), getActivity().getApplication(), users);
+                    placeFragmentBinding.recylclerInPlace.setAdapter(inPlaceAdapter);
+                    placeFragmentBinding.recylclerInPlace.setLayoutManager(new LinearLayoutManager(getContext()));
+                }
             }
         });
     }

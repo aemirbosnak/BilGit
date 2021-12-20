@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,8 +48,10 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean){
+                    getActivity().finishActivity(1);
+                    Log.i("ACTIVITY", getActivity().getLocalClassName());
                     startActivity(new Intent(getContext(), AuthActivity.class));
-                    getActivity().finish();
+                    Log.i("ACTIVITY", getActivity().getLocalClassName());
                 }
             }
         });
