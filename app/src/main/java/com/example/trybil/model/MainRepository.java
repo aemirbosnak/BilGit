@@ -162,6 +162,7 @@ public class MainRepository {
         dbRef.child("Locations").child(auth.getUid()).child("latitude").setValue(2222);
          */
 
+        /*
         dbRef.child("Locations").child(auth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -177,6 +178,8 @@ public class MainRepository {
                 Toast.makeText(application, "Error_Places: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+         */
     }
 
     private void pullFriends() {
