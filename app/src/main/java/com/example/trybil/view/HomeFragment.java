@@ -29,34 +29,6 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mainViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
 
-        mainViewModel.getPlaces().observe(this, new Observer<ArrayList<String>>() {
-            @Override
-            public void onChanged(ArrayList<String> strings) {
-                homeFragmentBinding.text1.setText(strings.get(0));
-                homeFragmentBinding.text2.setText(strings.get(1));
-                homeFragmentBinding.text3.setText(strings.get(2));
-                homeFragmentBinding.text4.setText(strings.get(3));
-                homeFragmentBinding.text5.setText(strings.get(4));
-            }
-        });
-
-        mainViewModel.getPopulations().observe(this, new Observer<ArrayList<Integer>>() {
-            @Override
-            public void onChanged(ArrayList<Integer> integers) {
-                homeFragmentBinding.count1.setText(integers.get(0).toString());
-                homeFragmentBinding.count2.setText(integers.get(1).toString());
-                homeFragmentBinding.count3.setText(integers.get(2).toString());
-                homeFragmentBinding.count4.setText(integers.get(3).toString());
-                homeFragmentBinding.count5.setText(integers.get(4).toString());
-
-                homeFragmentBinding.simpleProgressBar1.setProgress(integers.get(0));
-                homeFragmentBinding.simpleProgressBar2.setProgress(integers.get(1));
-                homeFragmentBinding.simpleProgressBar3.setProgress(integers.get(2));
-                homeFragmentBinding.simpleProgressBar4.setProgress(integers.get(3));
-                homeFragmentBinding.simpleProgressBar5.setProgress(integers.get(4));
-            }
-        });
-
         mainViewModel.getLocation().observe(this, new Observer<ArrayList<Integer>>() {
             @Override
             public void onChanged(ArrayList<Integer> location) {
