@@ -37,25 +37,23 @@ public class HomeFragment extends Fragment {
                 homeFragmentBinding.text3.setText(strings.get(2));
                 homeFragmentBinding.text4.setText(strings.get(3));
                 homeFragmentBinding.text5.setText(strings.get(4));
-
-                /*
-                homeFragmentBinding.simpleProgressBar1.setProgress(place.getPeopleNumber());
-                homeFragmentBinding.simpleProgressBar2.setProgress(place.getPeopleNumber());
-                homeFragmentBinding.simpleProgressBar3.setProgress(place.getPeopleNumber());
-                homeFragmentBinding.simpleProgressBar4.setProgress(place.getPeopleNumber());
-                homeFragmentBinding.simpleProgressBar5.setProgress(place.getPeopleNumber());
-                 */
             }
         });
 
         mainViewModel.getPopulations().observe(this, new Observer<ArrayList<Integer>>() {
             @Override
             public void onChanged(ArrayList<Integer> integers) {
-                homeFragmentBinding.textDist1.setText(integers.get(0).toString());
-                homeFragmentBinding.textDist2.setText(integers.get(1).toString());
-                homeFragmentBinding.textDist3.setText(integers.get(2).toString());
-                homeFragmentBinding.textDist4.setText(integers.get(3).toString());
-                homeFragmentBinding.textDist5.setText(integers.get(4).toString());
+                homeFragmentBinding.count1.setText(integers.get(0).toString());
+                homeFragmentBinding.count2.setText(integers.get(1).toString());
+                homeFragmentBinding.count3.setText(integers.get(2).toString());
+                homeFragmentBinding.count4.setText(integers.get(3).toString());
+                homeFragmentBinding.count5.setText(integers.get(4).toString());
+
+                homeFragmentBinding.simpleProgressBar1.setProgress(integers.get(0));
+                homeFragmentBinding.simpleProgressBar2.setProgress(integers.get(1));
+                homeFragmentBinding.simpleProgressBar3.setProgress(integers.get(2));
+                homeFragmentBinding.simpleProgressBar4.setProgress(integers.get(3));
+                homeFragmentBinding.simpleProgressBar5.setProgress(integers.get(4));
             }
         });
 
@@ -78,6 +76,23 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+
+        mainViewModel.getPopulations().observe(getViewLifecycleOwner(), new Observer<ArrayList<Integer>>() {
+            @Override
+            public void onChanged(ArrayList<Integer> integers) {
+                homeFragmentBinding.count1.setText(integers.get(0).toString());
+                homeFragmentBinding.count2.setText(integers.get(1).toString());
+                homeFragmentBinding.count3.setText(integers.get(2).toString());
+                homeFragmentBinding.count4.setText(integers.get(3).toString());
+                homeFragmentBinding.count5.setText(integers.get(4).toString());
+
+                homeFragmentBinding.simpleProgressBar1.setProgress(integers.get(0));
+                homeFragmentBinding.simpleProgressBar2.setProgress(integers.get(1));
+                homeFragmentBinding.simpleProgressBar3.setProgress(integers.get(2));
+                homeFragmentBinding.simpleProgressBar4.setProgress(integers.get(3));
+                homeFragmentBinding.simpleProgressBar5.setProgress(integers.get(4));
+            }
+        });
 
         homeFragmentBinding.cardView1.setOnClickListener(new View.OnClickListener() {
             @Override
