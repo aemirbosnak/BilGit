@@ -186,6 +186,7 @@
                 android:scaleY="4" />
 
             <TextView
+                android:id="@+id/textDist3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -240,6 +241,7 @@
                 android:scaleY="4" />
 
             <TextView
+                android:id="@+id/textDist4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -293,6 +295,7 @@
                 android:scaleY="4" />
 
             <TextView
+                android:id="@+id/textDist5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"

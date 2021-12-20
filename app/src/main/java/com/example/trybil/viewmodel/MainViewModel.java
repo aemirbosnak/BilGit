@@ -28,6 +28,7 @@ public class MainViewModel extends AndroidViewModel {
     MutableLiveData<Integer> rating;
     MutableLiveData<ArrayList<String>> friends;
     MutableLiveData<ArrayList<String>> requests;
+    MutableLiveData<ArrayList<Integer>> populations;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -44,6 +45,7 @@ public class MainViewModel extends AndroidViewModel {
         rating = mainRepository.getRating();
         friends = mainRepository.getFriends();
         requests = mainRepository.getRequests();
+        populations = mainRepository.getPopulations();
     }
 
     public void searchUser(String username) {
@@ -115,4 +117,6 @@ public class MainViewModel extends AndroidViewModel {
     public MutableLiveData<ArrayList<String>> getRequests() {
         return requests;
     }
+
+    public MutableLiveData<ArrayList<Integer>> getPopulations() { return populations; }
 }
