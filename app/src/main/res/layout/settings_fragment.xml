@@ -17,7 +17,7 @@
         tools:context=".view.PlaceFragment">
 
         <TextView
-            android:id="@+id/company"
+            android:id="@+id/ucuzYazılım"
             android:layout_width="99dp"
             android:layout_height="16dp"
             android:text="Ucuz Yazılım A.Ş. ®"
@@ -39,7 +39,7 @@
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/logoutLabel"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.860"
+            app:layout_constraintHorizontal_bias="0.868"
             app:layout_constraintStart_toEndOf="@+id/logoutLabel"
             app:layout_constraintTop_toTopOf="@+id/logoutLabel"
             app:layout_constraintVertical_bias="0.533" />
@@ -73,7 +73,7 @@
             app:layout_constraintVertical_bias="0.025" />
 
         <TextView
-            android:id="@+id/privateProfilePrompt"
+            android:id="@+id/privateProfileDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Turn on for private profile"
@@ -86,7 +86,7 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/notificationsLabel"
+            android:id="@+id/notificationLabel"
             android:layout_width="199dp"
             android:layout_height="33dp"
             android:text="Notifications"
@@ -98,13 +98,12 @@
             app:layout_constraintHorizontal_bias="0.047"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.311" />
+            app:layout_constraintVertical_bias="0.247" />
 
         <Switch
             android:id="@+id/enableNotifications"
             android:layout_width="347dp"
             android:layout_height="53dp"
-            android:layout_marginTop="60dp"
             android:backgroundTint="@color/teal_700"
             android:text="Notifications"
             app:layout_constraintBottom_toTopOf="@+id/locationServices"
@@ -115,7 +114,7 @@
             app:layout_constraintVertical_bias="0.834" />
 
         <TextView
-            android:id="@+id/notificationsPrompt"
+            android:id="@+id/notificationDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Turn on for receiving notifications"
@@ -127,89 +126,83 @@
             app:layout_constraintTop_toTopOf="@+id/enableNotifications"
             app:layout_constraintVertical_bias="1.0" />
 
-        <!--Linear Layout with horizontal orientation
-         and other properties-->
-
-
         <TextView
             android:id="@+id/changeEmail"
-            android:layout_width="350dp"
-            android:layout_height="60dp"
-            android:text="Change email"
-            android:textColor="@color/black"
+            android:layout_width="347dp"
+            android:layout_height="48dp"
+            android:clickable="true"
+            android:text="Email"
+            android:textColor="@color/teal_700"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.344"
+            app:layout_constraintHorizontal_bias="0.328"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/privateProfile"
-            app:layout_constraintVertical_bias="0.028" />
+            app:layout_constraintVertical_bias="0.013" />
 
-        <EditText
-            android:id="@+id/changeEmailPrompt"
+        <TextView
+            android:id="@+id/changeEmailDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Change registered email"
+            android:text="Click to change registered email"
             android:textColor="@android:color/darker_gray"
-            android:layout_marginTop="20dp"
-            android:textSize="12sp"
-            android:ems="10"
-            android:inputType="textEmailAddress"
             app:layout_constraintBottom_toBottomOf="@+id/changeEmail"
             app:layout_constraintEnd_toEndOf="@+id/changeEmail"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/changeEmail"
             app:layout_constraintTop_toBottomOf="@+id/privateProfile"
-            app:layout_constraintVertical_bias="0.82" />
+            app:layout_constraintVertical_bias="0.714" />
+
+        <!--Linear Layout with horizontal orientation
+         and other properties-->
+
 
         <TextView
             android:id="@+id/changePassword"
-            android:layout_width="350dp"
-            android:layout_height="60dp"
+            android:layout_width="347dp"
+            android:layout_height="48dp"
+            android:clickable="true"
             android:text="Password"
-            android:textColor="@color/black"
+            android:textColor="@color/teal_700"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.344"
+            app:layout_constraintHorizontal_bias="0.328"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/changeEmail"
-            app:layout_constraintVertical_bias="0.018" />
+            app:layout_constraintVertical_bias="0.013" />
 
-        <EditText
-            android:id="@+id/changePasswordPrompt"
+        <TextView
+            android:id="@+id/changePasswordDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:hint="Change password"
-            android:inputType="textPassword"
-            android:ems="10"
+            android:text="Click to change password"
             android:textColor="@android:color/darker_gray"
-            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/changePassword"
             app:layout_constraintEnd_toEndOf="@+id/changePassword"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/changePassword"
-            app:layout_constraintTop_toTopOf="@+id/changePassword" />
+            app:layout_constraintTop_toBottomOf="@+id/changeEmail"
+            app:layout_constraintVertical_bias="0.657" />
 
         <TextView
-            android:id="@+id/locationLabel"
+            android:id="@+id/locationServicesLabel"
             android:layout_width="199dp"
             android:layout_height="33dp"
-            android:layout_marginTop="120dp"
             android:text="Location Services"
             android:textColor="@color/purple_700"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/company"
+            app:layout_constraintBottom_toBottomOf="@+id/ucuzYazılım"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.047"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.544" />
+            app:layout_constraintVertical_bias="0.529" />
 
         <Switch
             android:id="@+id/locationServices"
             android:layout_width="347dp"
             android:layout_height="53dp"
-            android:layout_marginTop="100dp"
             android:backgroundTint="@color/teal_700"
             android:checked="true"
             android:text="Location"
@@ -221,7 +214,7 @@
             app:layout_constraintVertical_bias="0.389" />
 
         <TextView
-            android:id="@+id/locationPrompt"
+            android:id="@+id/locationServicesDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="49dp"
@@ -244,38 +237,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.075"
+            app:layout_constraintHorizontal_bias="0.047"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.55" />
-
-        <Button
-            android:id="@+id/updateEmailBtn"
-            android:layout_width="88dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="12dp"
-            android:clickable="true"
-            android:text="UPDATE"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/changeEmail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/changeEmail"
-            app:layout_constraintVertical_bias="0.333" />
-
-        <Button
-            android:id="@+id/updatePasswordBtn"
-            android:layout_width="88dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="12dp"
-            android:clickable="true"
-            android:text="UPDATE"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/changePassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/changePassword"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.469" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
