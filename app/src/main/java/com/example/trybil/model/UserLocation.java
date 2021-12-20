@@ -8,6 +8,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.util.Log;
 import android.widget.Toast;
 
 
@@ -144,6 +145,7 @@ public class UserLocation {
         @Override
         public void onLocationChanged(@NonNull Location location)
         {
+            Log.i("PİPİ", "POPO");
             setLocation();
             compareLocationPlace();
         }

@@ -59,7 +59,7 @@ public class MainRepository {
     private final DatabaseReference dbRef;
     private static MainRepository mainRepositorySingleton;
     private String searchedUid;
-    //private PlaceManager placeManager;
+    private PlaceManager placeManager;
 
     public static MainRepository getInstance(Application application) {
         if(mainRepositorySingleton != null) {
