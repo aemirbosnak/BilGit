@@ -19,7 +19,6 @@ import com.example.trybil.model.InPlaceAdapter;
 import com.example.trybil.model.Place;
 import com.example.trybil.model.User;
 import com.example.trybil.viewmodel.MainViewModel;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -81,11 +80,10 @@ public class PlaceFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         placeFragmentBinding.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            int currentRate = (int) placeFragmentBinding.ratingBar.getRating();
-
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-
+                if(rating<1.0f)
+                    ratingBar.setRating(1.0f);
             }
         });
 
@@ -105,7 +103,7 @@ public class PlaceFragment extends Fragment {
             public void onClick(View v) {
                 int rating = (int) placeFragmentBinding.ratingBar.getRating();
                 Place place = mViewModel.getPlace().getValue();
-                if(oldRating != null) {
+                if(oldRating != 0) {
                     databaseReference.child("Places").child(place.getPlaceName()).child("voteNumber")
                             .runTransaction(new Transaction.Handler() {
                                 @NonNull
