@@ -53,29 +53,17 @@
             android:textColor="@color/bone_700"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.284"
+            app:layout_constraintHorizontal_bias="0.26"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/placeName"
-            app:layout_constraintVertical_bias="0.212" />
-
-        <TextView
-            android:id="@+id/rateText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Rate this place"
-            android:textColor="@color/ultramarine_200"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.517"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/openOrClosed" />
+            app:layout_constraintVertical_bias="0.143" />
 
         <RatingBar
             android:id="@+id/ratingBar"
             style="@style/Widget.AppCompat.RatingBar.Indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="536dp"
             android:contentDescription="Rate Bar"
             android:foregroundTint="@color/purple_200"
             android:isIndicator="false"
@@ -84,7 +72,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rateText" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <RatingBar
             android:id="@+id/averageRate"
@@ -139,6 +127,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+        <Button
+            android:id="@+id/btnRate"
+            android:layout_width="177dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="6dp"
+            android:text="Rate"
+            app:layout_constraintBottom_toTopOf="@+id/ratingBar"
+            app:layout_constraintEnd_toEndOf="@+id/ratingBar"
+            app:layout_constraintStart_toStartOf="@+id/ratingBar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 

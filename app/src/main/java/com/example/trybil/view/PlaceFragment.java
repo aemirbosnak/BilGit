@@ -36,6 +36,7 @@ public class PlaceFragment extends Fragment {
     private MainViewModel mViewModel;
     private DatabaseReference databaseReference;
     private InPlaceAdapter inPlaceAdapter;
+    private int oldRating;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class PlaceFragment extends Fragment {
             @Override
             public void onChanged(Integer integer) {
                 placeFragmentBinding.ratingBar.setRating(integer);
+                oldRating = integer;
             }
         });
 
@@ -65,80 +67,7 @@ public class PlaceFragment extends Fragment {
                     placeFragmentBinding.averageRate.setRating(0);
                 }
 
-                placeFragmentBinding.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                    int currentRate = (int)placeFragmentBinding.ratingBar.getRating();
 
-                    @Override
-                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                        mViewModel.setRating((int) rating);
-
-                        if( currentRate != 0) {
-                            databaseReference.child("Places").child(place.getPlaceName()).child("voteNumber")
-                                    .runTransaction(new Transaction.Handler() {
-                                        @NonNull
-                                        @Override
-                                        public Transaction.Result doTransaction(@NonNull MutableData currentData) {
-                                            Integer vote = currentData.getValue(Integer.class);
-
-                                            currentData.setValue(vote - 1);
-                                            return Transaction.success(currentData);
-                                        }
-
-                                        @Override
-                                        public void onComplete(@Nullable DatabaseError error, boolean committed,
-                                                               @Nullable DataSnapshot currentData) {}
-                                    });
-                        }
-
-                        final float[] newRate = new float[1];
-                        final float[] newVoteNumber = new float[1];
-                        databaseReference.child("Places").child(place.getPlaceName()).child("totalRating")
-                                .runTransaction(new Transaction.Handler() {
-                                    @NonNull
-                                    @Override
-                                    public Transaction.Result doTransaction(@NonNull MutableData currentData) {
-                                        Integer totalRating = currentData.getValue(Integer.class);
-                                        if(totalRating == null){
-                                            currentData.setValue(rating);
-                                        }
-                                        else{
-                                            currentData.setValue(totalRating - currentRate + rating);
-                                        }
-                                        return Transaction.success(currentData);
-                                    }
-
-                                    @Override
-                                    public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
-
-                                    }
-                                });
-
-                        databaseReference.child("Places").child(place.getPlaceName()).child("voteNumber")
-                                .runTransaction(new Transaction.Handler() {
-                                    @NonNull
-                                    @Override
-                                    public Transaction.Result doTransaction(@NonNull MutableData currentData) {
-                                        Integer vote = currentData.getValue(Integer.class);
-                                        if(vote == null){
-                                            currentData.setValue(1);
-                                        }
-                                        else{
-                                            currentData.setValue(vote + 1);
-                                        }
-                                        return Transaction.success(currentData);
-                                    }
-
-                                    @Override
-                                    public void onComplete(@Nullable DatabaseError error, boolean committed,
-                                                           @Nullable DataSnapshot currentData) {}
-                                });
-
-                        String newText = String.format("%.2g%n", place.getTotalRating() / (float)(place.getVoteNumber()));
-                        placeFragmentBinding.ratingBar.setRating(rating);
-                        placeFragmentBinding.averageRate.setRating(Float.parseFloat(newText));
-                        placeFragmentBinding.averageRateText.setText(newText);
-                    }
-                });
             }
         });
     }
@@ -155,6 +84,8 @@ public class PlaceFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         placeFragmentBinding.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            int currentRate = (int) placeFragmentBinding.ratingBar.getRating();
+
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 
@@ -169,6 +100,81 @@ public class PlaceFragment extends Fragment {
             public void onChanged(ArrayList<User> users) {
                 inPlaceAdapter.setFriends(users);
                 inPlaceAdapter.notifyDataSetChanged();
+            }
+        });
+
+        placeFragmentBinding.btnRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int rating = (int) placeFragmentBinding.ratingBar.getRating();
+                Place place = mViewModel.getPlace().getValue();
+                if( oldRating != 0) {
+                    databaseReference.child("Places").child(place.getPlaceName()).child("voteNumber")
+                            .runTransaction(new Transaction.Handler() {
+                                @NonNull
+                                @Override
+                                public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                                    Integer vote = currentData.getValue(Integer.class);
+
+                                    currentData.setValue(vote - 1);
+                                    return Transaction.success(currentData);
+                                }
+
+                                @Override
+                                public void onComplete(@Nullable DatabaseError error, boolean committed,
+                                                       @Nullable DataSnapshot currentData) {}
+                            });
+                }
+
+                final float[] newRate = new float[1];
+                final float[] newVoteNumber = new float[1];
+                databaseReference.child("Places").child(place.getPlaceName()).child("totalRating")
+                        .runTransaction(new Transaction.Handler() {
+                            @NonNull
+                            @Override
+                            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                                Integer totalRating = currentData.getValue(Integer.class);
+                                if(totalRating == null){
+                                    currentData.setValue(rating);
+                                }
+                                else{
+                                    currentData.setValue(totalRating - oldRating + rating);
+                                }
+                                return Transaction.success(currentData);
+                            }
+
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+
+                            }
+                        });
+
+                databaseReference.child("Places").child(place.getPlaceName()).child("voteNumber")
+                        .runTransaction(new Transaction.Handler() {
+                            @NonNull
+                            @Override
+                            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                                Integer vote = currentData.getValue(Integer.class);
+                                if(vote == null){
+                                    currentData.setValue(1);
+                                }
+                                else{
+                                    currentData.setValue(vote + 1);
+                                }
+                                return Transaction.success(currentData);
+                            }
+
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, boolean committed,
+                                                   @Nullable DataSnapshot currentData) {}
+                        });
+
+                String newText = String.format("%.2g%n", place.getTotalRating() / (float)(place.getVoteNumber()));
+                placeFragmentBinding.ratingBar.setRating(rating);
+                placeFragmentBinding.averageRate.setRating(Float.parseFloat(newText));
+                placeFragmentBinding.averageRateText.setText(newText);
+
+                mViewModel.setRating((int) rating);
             }
         });
     }
