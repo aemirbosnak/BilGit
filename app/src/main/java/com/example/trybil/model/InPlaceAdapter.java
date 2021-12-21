@@ -14,7 +14,7 @@ import com.example.trybil.R;
 
 import java.util.ArrayList;
 
-public class InPlaceAdapter extends RecyclerView.Adapter<InPlaceAdapter.SecViewHolder>{
+public class InPlaceAdapter extends RecyclerView.Adapter<InPlaceAdapter.SecViewHolder> {
     ArrayList<User> users;
     Context context;
     MainRepository repository;

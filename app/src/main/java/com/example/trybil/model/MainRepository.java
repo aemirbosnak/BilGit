@@ -27,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
@@ -47,7 +48,7 @@ public class MainRepository {
     private final MutableLiveData<ArrayList<User>> userRequest;
     private final MutableLiveData<Bitmap> picture;
     private final MutableLiveData<Bitmap> searchPicture;
-    private final MutableLiveData<ArrayList<String>> places;
+    private final MutableLiveData<ArrayList<Place>> places;
     private final MutableLiveData<ArrayList<Integer>> location;
     private final MutableLiveData<Integer> rating;
     private final MutableLiveData<ArrayList<String>> friends;
@@ -55,7 +56,6 @@ public class MainRepository {
     private final MutableLiveData<ArrayList<User>> inPlaceFriends;
     private final MutableLiveData<ArrayList<String>> requests;
     private final MutableLiveData<Place> place;
-    private final MutableLiveData<ArrayList<Integer>> populations;
     private final MutableLiveData<Boolean> priv;
     private final DatabaseReference dbRef;
     private static MainRepository mainRepositorySingleton;
@@ -72,7 +72,6 @@ public class MainRepository {
     }
 
     private MainRepository(Application application) {
-        //mainRepositorySingleton = this;
         this.application = application;
         auth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -83,14 +82,13 @@ public class MainRepository {
         userRequest = new MutableLiveData<ArrayList<User>>();
         picture = new MutableLiveData<Bitmap>();
         searchPicture = new MutableLiveData<Bitmap>();
-        places = new MutableLiveData<ArrayList<String>>();
+        places = new MutableLiveData<ArrayList<Place>>();
         location = new MutableLiveData<ArrayList<Integer>>();
         rating = new MutableLiveData<Integer>();
         friends = new MutableLiveData<ArrayList<String>>();
         friendsUid = new ArrayList<>();
         inPlaceFriends = new MutableLiveData<ArrayList<User>>();
         requests = new MutableLiveData<ArrayList<String>>();
-        populations = new MutableLiveData<ArrayList<Integer>>();
         place = new MutableLiveData<>();
         priv = new MutableLiveData<>();
         //placeManager = new PlaceManager();
@@ -101,7 +99,6 @@ public class MainRepository {
             pullFriends();
             pullPic();
             pullLocations();
-            pullPopulations();
             pullPriv();
         }
     }
@@ -122,13 +119,15 @@ public class MainRepository {
     }
 
     private void pullPlaces() {
-        dbRef.child("Places").addListenerForSingleValueEvent(new ValueEventListener() {
+        Query query = dbRef.child("Places").orderByChild("peopleNumber");
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<String> pulledPlaces = new ArrayList<>();
+                ArrayList<Place> pulledPlaces = new ArrayList<>();
 
                 for(DataSnapshot ds: snapshot.getChildren()) {
-                    pulledPlaces.add(ds.child("placeName").getValue().toString());
+                    pulledPlaces.add(ds.getValue(Place.class));
                 }
 
                 places.postValue(pulledPlaces);
@@ -141,23 +140,6 @@ public class MainRepository {
         });
     }
 
-    private void pullPopulations() {
-        dbRef.child("Places").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<Integer> pulledPopulations = new ArrayList<>();
-                for(DataSnapshot ds: snapshot.getChildren()) {
-                    pulledPopulations.add(ds.child("peopleNumber").getValue(Integer.class));
-                }
-                populations.postValue(pulledPopulations);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
     private void pullLocations() {
         /*
@@ -186,9 +168,6 @@ public class MainRepository {
     }
 
     private void pullFriends() {
-        //dbRef.child("Friends").child(auth.getUid()).child("friends").child("5alEHG8cYQaml79o8gzMbGGD0aq2").setValue("5alEHG8cYQaml79o8gzMbGGD0aq2");
-        //dbRef.child("Friends").child(auth.getUid()).child("requests").child("YSojbv7dA1cDcP404uixMdwDeSq2").setValue("YSojbv7dA1cDcP404uixMdwDeSq2");
-
         dbRef.child("Friends").child(auth.getUid()).child("friends").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -533,7 +512,7 @@ public class MainRepository {
 
     public MutableLiveData<Bitmap> getSearchPicture() { return searchPicture; }
 
-    public MutableLiveData<ArrayList<String>> getPlaces() { return places; }
+    public MutableLiveData<ArrayList<Place>> getPlaces() { return places; }
 
     public MutableLiveData<Place> getPlace() { return place; }
 
@@ -544,8 +523,6 @@ public class MainRepository {
     public MutableLiveData<ArrayList<String>> getRequests() { return requests; }
 
     public MutableLiveData<Integer> getRating() { return rating; }
-
-    public MutableLiveData<ArrayList<Integer>> getPopulations() { return populations; }
 
     public MutableLiveData<Boolean> getPriv() {
         return priv;

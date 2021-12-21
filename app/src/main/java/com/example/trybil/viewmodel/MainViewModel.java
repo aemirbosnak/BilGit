@@ -22,14 +22,13 @@ public class MainViewModel extends AndroidViewModel {
     MutableLiveData<ArrayList<User>> userRequest;
     MutableLiveData<Bitmap> picture;
     MutableLiveData<Bitmap> searchPic;
-    MutableLiveData<ArrayList<String>> places;
+    MutableLiveData<ArrayList<Place>> places;
     MutableLiveData<Place> place;
     MutableLiveData<ArrayList<Integer>> location;
     MutableLiveData<Integer> rating;
     MutableLiveData<ArrayList<String>> friends;
     MutableLiveData<ArrayList<User>> inPlaceFriends;
     MutableLiveData<ArrayList<String>> requests;
-    MutableLiveData<ArrayList<Integer>> populations;
     MutableLiveData<Boolean> priv;
 
     public MainViewModel(@NonNull Application application) {
@@ -48,7 +47,6 @@ public class MainViewModel extends AndroidViewModel {
         friends = mainRepository.getFriends();
         inPlaceFriends = mainRepository.getInPlaceFriends();
         requests = mainRepository.getRequests();
-        populations = mainRepository.getPopulations();
         priv = mainRepository.getPriv();
     }
 
@@ -108,7 +106,7 @@ public class MainViewModel extends AndroidViewModel {
         return searchPic;
     }
 
-    public MutableLiveData<ArrayList<String>> getPlaces() {
+    public MutableLiveData<ArrayList<Place>> getPlaces() {
         return places;
     }
 
@@ -133,8 +131,6 @@ public class MainViewModel extends AndroidViewModel {
     public MutableLiveData<ArrayList<String>> getRequests() {
         return requests;
     }
-
-    public MutableLiveData<ArrayList<Integer>> getPopulations() { return populations; }
 
     public MutableLiveData<Boolean> getPriv() {
         return priv;
