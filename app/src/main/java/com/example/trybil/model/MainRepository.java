@@ -413,7 +413,8 @@ public class MainRepository {
     }
 
     public void setRating(Integer rating) {
-        dbRef.child("Ratings").child(auth.getUid()).child(place.getValue().getPlaceName()).setValue(rating);
+        if (rating != 0)
+            dbRef.child("Ratings").child(auth.getUid()).child(place.getValue().getPlaceName()).setValue(rating);
     }
 
     public void pullInPlace() {
