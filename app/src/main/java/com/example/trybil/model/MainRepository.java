@@ -406,7 +406,7 @@ public class MainRepository {
             }
         });
 
-        dbRef.child("Ratings").child(auth.getUid()).child(name).addListenerForSingleValueEvent(new ValueEventListener() {
+        dbRef.child("Ratings").child(auth.getUid()).child(name).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.getValue() != null) {
