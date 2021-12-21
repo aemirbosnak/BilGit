@@ -447,7 +447,6 @@ public class MainRepository {
                         }
                     }
                 }
-
                 inPlaceFriends.postValue(friendsInUser);
             }
         });
@@ -475,7 +474,7 @@ public class MainRepository {
                 .setSmallIcon(R.drawable.bilgit_logo)
                 .setContentTitle("BilGit")
                 .setContentText("You have " + userRequest.size() + " " + text)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setAutoCancel(true);
 
         Intent intent = new Intent(application.getApplicationContext(), MainActivity.class);
