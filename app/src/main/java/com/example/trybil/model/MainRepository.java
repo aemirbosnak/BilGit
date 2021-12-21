@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -380,11 +381,18 @@ public class MainRepository {
         dbRef.child("Friends").child(auth.getUid()).child("friends").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds : snapshot.getChildren() ) {
-                    if(ds.getKey().equals(searchedUid))
-                        isFriend.postValue(true);
-                    else
-                        isFriend.postValue(false);
+                boolean found = false;
+
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    if (ds.getKey().equals(searchedUid))
+                        found = true;
+                }
+
+                if (found) {
+                    isFriend.postValue(true);
+                }
+                else {
+                    isFriend.postValue(false);
                 }
             }
             @Override

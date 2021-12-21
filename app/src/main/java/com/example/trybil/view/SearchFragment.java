@@ -2,6 +2,7 @@ package com.example.trybil.view;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,10 +44,12 @@ public class SearchFragment extends Fragment {
         mViewModel.getIsFriend().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                if(aBoolean)
-                    searchFragmentBinding.txtFriend.setText( "You Are Friends" );
-                else
-                    searchFragmentBinding.txtFriend.setText( "You Are Not Friends");
+                if(aBoolean) {
+                    searchFragmentBinding.txtFriend.setText("You Are Friends");
+                }
+                else {
+                    searchFragmentBinding.txtFriend.setText("You Are Not Friends");
+                }
             }
         });
 
