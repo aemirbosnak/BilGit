@@ -52,6 +52,7 @@ public class MainRepository {
     private final MutableLiveData<ArrayList<Integer>> location;
     private final MutableLiveData<Integer> rating;
     private final MutableLiveData<ArrayList<String>> friends;
+    private final MutableLiveData<Integer> srcFriendCount;
     private final ArrayList<String>  friendsUid;
     private final MutableLiveData<ArrayList<User>> inPlaceFriends;
     private final MutableLiveData<ArrayList<String>> requests;
@@ -86,6 +87,7 @@ public class MainRepository {
         location = new MutableLiveData<ArrayList<Integer>>();
         rating = new MutableLiveData<Integer>();
         friends = new MutableLiveData<ArrayList<String>>();
+        srcFriendCount = new MutableLiveData<Integer>();
         friendsUid = new ArrayList<>();
         inPlaceFriends = new MutableLiveData<ArrayList<User>>();
         requests = new MutableLiveData<ArrayList<String>>();
@@ -121,7 +123,7 @@ public class MainRepository {
     private void pullPlaces() {
         Query query = dbRef.child("Places").orderByChild("peopleNumber");
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<Place> pulledPlaces = new ArrayList<>();
@@ -246,6 +248,7 @@ public class MainRepository {
                             pullSearchPic(dataSnapshot.getKey());
                             searchedUid = (dataSnapshot.getKey());
                             isFriend();
+                            srcFriendCount();
                         }
                     });
                 }
@@ -331,6 +334,15 @@ public class MainRepository {
         dbRef.child("Friends").child(searchedUid).child("friends").child(auth.getUid()).removeValue();
         dbRef.child("Friends").child(auth.getUid()).child("friends").child(searchedUid).removeValue();
         Toast.makeText(application, "friend is removed", Toast.LENGTH_SHORT).show();
+    }
+
+    public void srcFriendCount() {
+        dbRef.child("Friends").child(searchedUid).child("friends").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                srcFriendCount.postValue((int) dataSnapshot.getChildrenCount());
+            }
+        });
     }
 
     public void acceptReq(String username) {
@@ -519,6 +531,10 @@ public class MainRepository {
     public MutableLiveData<ArrayList<Integer>> getLocation() { return location; }
 
     public MutableLiveData<ArrayList<String>> getFriends() { return friends; }
+
+    public MutableLiveData<Integer> getSrcFriendCount() {
+        return srcFriendCount;
+    }
 
     public MutableLiveData<ArrayList<String>> getRequests() { return requests; }
 

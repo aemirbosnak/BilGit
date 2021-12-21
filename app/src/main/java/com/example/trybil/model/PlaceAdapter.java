@@ -24,7 +24,16 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
     MainRepository repository;
     MainViewModel mainViewModel;
     NavController navController;
-    private PlaceAdapter adapter;
+    private static PlaceAdapter adapter;
+
+    public static PlaceAdapter getAdapter(Context context, Application application, ArrayList<Place> places, MainViewModel viewModel, NavController navController) {
+        if (adapter == null)
+            return new PlaceAdapter(context, application, places, viewModel, navController);
+        else {
+            adapter.setPlaces(places);
+            return adapter;
+        }
+    }
 
     public PlaceAdapter(Context context, Application application, ArrayList<Place> places, MainViewModel viewModel, NavController navController) {
         this.context = context;
@@ -32,6 +41,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         this.mainViewModel = viewModel;
         this.navController = navController;
         repository = MainRepository.getInstance(application);
+    }
+
+    public void setPlaces(ArrayList<Place> places) {
+        this.places = places;
     }
 
     @NonNull

@@ -1,6 +1,7 @@
 package com.example.trybil.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,18 +120,6 @@ public class PlaceFragment extends Fragment {
                 });
             }
         });
-
-        mViewModel.getInPlaceFriends().observe(this, new Observer<ArrayList<User>>() {
-            @Override
-            public void onChanged(ArrayList<User> users) {
-                if (users != null) {
-                    Toast.makeText(getContext(), "AAA:: " + users.size(), Toast.LENGTH_SHORT).show();
-                    inPlaceAdapter = new InPlaceAdapter(getContext(), getActivity().getApplication(), users);
-                    placeFragmentBinding.recylclerInPlace.setAdapter(inPlaceAdapter);
-                    placeFragmentBinding.recylclerInPlace.setLayoutManager(new LinearLayoutManager(getContext()));
-                }
-            }
-        });
     }
 
     @Override
@@ -148,6 +137,17 @@ public class PlaceFragment extends Fragment {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 
+            }
+        });
+
+        inPlaceAdapter = new InPlaceAdapter(getContext(), getActivity().getApplication(), new ArrayList<User>());
+        placeFragmentBinding.recylclerInPlace.setAdapter(inPlaceAdapter);
+        placeFragmentBinding.recylclerInPlace.setLayoutManager(new LinearLayoutManager(getContext()));
+        mViewModel.getInPlaceFriends().observe(getViewLifecycleOwner(), new Observer<ArrayList<User>>() {
+            @Override
+            public void onChanged(ArrayList<User> users) {
+                inPlaceAdapter.setFriends(users);
+                inPlaceAdapter.notifyDataSetChanged();
             }
         });
     }

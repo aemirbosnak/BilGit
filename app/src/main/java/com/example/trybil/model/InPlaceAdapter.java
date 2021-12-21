@@ -15,14 +15,14 @@ import com.example.trybil.R;
 import java.util.ArrayList;
 
 public class InPlaceAdapter extends RecyclerView.Adapter<InPlaceAdapter.SecViewHolder> {
-    ArrayList<User> users;
+    ArrayList<User> friends;
     Context context;
     MainRepository repository;
     private InPlaceAdapter adapter;
 
     public InPlaceAdapter(Context context, Application application, ArrayList<User> friends) {
         this.context = context;
-        this.users = friends;
+        this.friends = friends;
         repository = MainRepository.getInstance(application);
     }
 
@@ -36,12 +36,16 @@ public class InPlaceAdapter extends RecyclerView.Adapter<InPlaceAdapter.SecViewH
 
     @Override
     public void onBindViewHolder(@NonNull SecViewHolder holder, int position) {
-        holder.cardUsername.setText(users.get(position).getUsername());
+        holder.cardUsername.setText(friends.get(position).getUsername());
+    }
+
+    public void setFriends(ArrayList<User> friends) {
+        this.friends = friends;
     }
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return friends.size();
     }
 
     public class SecViewHolder extends RecyclerView.ViewHolder {

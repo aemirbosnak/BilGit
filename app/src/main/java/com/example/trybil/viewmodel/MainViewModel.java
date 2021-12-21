@@ -27,6 +27,7 @@ public class MainViewModel extends AndroidViewModel {
     MutableLiveData<ArrayList<Integer>> location;
     MutableLiveData<Integer> rating;
     MutableLiveData<ArrayList<String>> friends;
+    MutableLiveData<Integer> srcFriendCount;
     MutableLiveData<ArrayList<User>> inPlaceFriends;
     MutableLiveData<ArrayList<String>> requests;
     MutableLiveData<Boolean> priv;
@@ -45,6 +46,7 @@ public class MainViewModel extends AndroidViewModel {
         location = mainRepository.getLocation();
         rating = mainRepository.getRating();
         friends = mainRepository.getFriends();
+        srcFriendCount = mainRepository.getSrcFriendCount();
         inPlaceFriends = mainRepository.getInPlaceFriends();
         requests = mainRepository.getRequests();
         priv = mainRepository.getPriv();
@@ -122,6 +124,10 @@ public class MainViewModel extends AndroidViewModel {
 
     public MutableLiveData<ArrayList<String>> getFriends() {
         return friends;
+    }
+
+    public MutableLiveData<Integer> getSrcFriendCount() {
+        return srcFriendCount;
     }
 
     public MutableLiveData<ArrayList<User>> getInPlaceFriends() {
