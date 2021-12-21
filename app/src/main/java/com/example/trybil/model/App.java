@@ -32,7 +32,7 @@ public class App extends Application {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID1, "Friend Request Notification Channel",
-                    NotificationManager.IMPORTANCE_HIGH);
+                    NotificationManager.IMPORTANCE_LOW);
             channel.setDescription("This is notification channel for friend requests");
 
             NotificationManager manager = getSystemService(NotificationManager.class);
