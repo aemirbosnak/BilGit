@@ -1,6 +1,7 @@
 package com.example.trybil.view;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,15 @@ public class FriendProfileFragment extends Fragment {
             public void onChanged(User user) {
                 friendProfileFragmentBinding.userName.setText(user.getUsername());
                 friendProfileFragmentBinding.department.setText(user.getDepartment());
+
+                if (user.getPriv()) {
+                    friendProfileFragmentBinding.privacy.setText("Private Profile");
+                    friendProfileFragmentBinding.privacy.setTextColor(Color.RED);
+                }
+                else {
+                    friendProfileFragmentBinding.privacy.setText("Public Profile");
+                    friendProfileFragmentBinding.privacy.setTextColor(Color.GREEN);
+                }
             }
         });
 
