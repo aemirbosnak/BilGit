@@ -34,6 +34,8 @@ public class LocationService extends Service {
         FirebaseApp.initializeApp(getApplicationContext());
         userLocation = new UserLocation( (LocationManager) getSystemService(LOCATION_SERVICE),
                 this);
+
+        userLocation.updateLocation();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -53,9 +55,6 @@ public class LocationService extends Service {
                         .build();
 
         startForeground(1, notification);
-
-
-        userLocation.updateLocation();
 
         return START_NOT_STICKY;
     }

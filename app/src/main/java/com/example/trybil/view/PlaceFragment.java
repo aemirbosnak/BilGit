@@ -105,7 +105,7 @@ public class PlaceFragment extends Fragment {
             public void onClick(View v) {
                 int rating = (int) placeFragmentBinding.ratingBar.getRating();
                 Place place = mViewModel.getPlace().getValue();
-                if( oldRating != null) {
+                if(oldRating != null) {
                     databaseReference.child("Places").child(place.getPlaceName()).child("voteNumber")
                             .runTransaction(new Transaction.Handler() {
                                 @NonNull
