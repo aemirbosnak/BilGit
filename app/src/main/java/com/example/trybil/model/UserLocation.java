@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -25,6 +26,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -81,9 +84,42 @@ public class UserLocation {
         if(currentPlace == null) {
             currentPlace = placeManager.checkInLoc(userLoc);
         }
-            else {
+        else {
             if (Place.outPlaceCheck(userLoc, currentPlace))
                 currentPlace = null;
+        }
+    }
+
+    public void close() {
+        if(currentPlace != null) {
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+
+            ref.child("Places").child(currentPlace.getPlaceName())
+                    .child("peopleNumber").runTransaction(new Transaction.Handler() {
+                @NonNull
+                @Override
+                public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                    Integer current = currentData.getValue(Integer.class);
+                    if(current == null || current == 0) {
+                        currentData.setValue(0);
+                    }
+                    else {
+                        currentData.setValue(current - 1);
+                    }
+
+                    return Transaction.success(currentData);
+                }
+
+                @Override
+                public void onComplete(@Nullable DatabaseError error, boolean committed,
+                                       @Nullable DataSnapshot currentData) {
+                }
+            });
+
+            ref.child("Places").child(currentPlace.getPlaceName()).child("userInLocation").child(user.getUid())
+                    .removeValue();
+
+            userPlace.setValue("none");
         }
     }
 
