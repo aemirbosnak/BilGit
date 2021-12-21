@@ -1,5 +1,6 @@
 package com.example.trybil.view;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,7 +9,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +75,12 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         settingsFragmentBinding = SettingsFragmentBinding.inflate(inflater, container, false);
+
+        if (isRunning(LocationService.class))
+            settingsFragmentBinding.locationServices.setChecked(true);
+        else
+            settingsFragmentBinding.locationServices.setChecked(false);
+
         return settingsFragmentBinding.getRoot();
     }
 
@@ -179,7 +185,6 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-
         settingsFragmentBinding.locationServices.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // stop location service, the isChecked will be
@@ -251,6 +256,16 @@ public class SettingsFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private boolean isRunning(Class<?> serviceClass)  {
+        ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(serviceInfo.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
