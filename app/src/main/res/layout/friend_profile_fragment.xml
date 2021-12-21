@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="145dp"
-        android:layout_height="163dp"
+        android:layout_height="145dp"
         android:scaleType="fitXY"
         android:translationX="50dp"
         android:translationY="50dp"
@@ -68,13 +68,11 @@
         android:id="@+id/privacy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="30dp"
         android:text="@string/profile"
         android:translationX="225dp"
         android:translationY="180dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/friendCount"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button

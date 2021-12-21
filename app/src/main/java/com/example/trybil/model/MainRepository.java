@@ -425,8 +425,7 @@ public class MainRepository {
     }
 
     public void setRating(Integer rating) {
-        if (rating != 0)
-            dbRef.child("Ratings").child(auth.getUid()).child(place.getValue().getPlaceName()).setValue(rating);
+        dbRef.child("Ratings").child(auth.getUid()).child(place.getValue().getPlaceName()).setValue(rating);
     }
 
     public void pullInPlace() {
@@ -438,7 +437,6 @@ public class MainRepository {
             hashMap = new HashMap<>();
 
         ArrayList<String> friendsIn = new ArrayList<>();
-        ArrayList<User> friendsInUser = new ArrayList<>();
 
         for(String friend: friendsUid) {
             if (hashMap.get(friend) != null) {
@@ -450,17 +448,18 @@ public class MainRepository {
         dbRef.child("Users").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
+                ArrayList<User> tmpFriends = new ArrayList<>();
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     User tmpUser = ds.getValue(User.class);
                     if (!tmpUser.getPriv()) {
                         for (String friend : friendsIn) {
                             if (friend.equals(ds.getKey())) {
-                                friendsInUser.add(ds.getValue(User.class));
+                                tmpFriends.add(ds.getValue(User.class));
                             }
                         }
                     }
                 }
-                inPlaceFriends.postValue(friendsInUser);
+                inPlaceFriends.postValue(tmpFriends);
             }
         });
     }
