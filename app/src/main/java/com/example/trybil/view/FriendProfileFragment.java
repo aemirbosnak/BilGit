@@ -56,12 +56,10 @@ public class FriendProfileFragment extends Fragment {
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean)
                 {
-                    Toast.makeText(getContext(), "FR:TRUE", Toast.LENGTH_SHORT).show();
                     friendProfileFragmentBinding.friendRequest.setText("Remove Friend");
                     friendProfileFragmentBinding.friendRequest.setOnClickListener(removeListener);
                 }
                 else {
-                    Toast.makeText(getContext(), "FR:FALSE", Toast.LENGTH_SHORT).show();
                     friendProfileFragmentBinding.friendRequest.setText("Add Friend");
                     friendProfileFragmentBinding.friendRequest.setOnClickListener(addListener);
                 }

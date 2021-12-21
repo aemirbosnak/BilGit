@@ -183,7 +183,6 @@ public class UserLocation {
         @Override
         public void onLocationChanged(@NonNull Location location)
         {
-            Log.i("PİPİ", "POPO");
             setLocation();
             compareLocationPlace();
         }

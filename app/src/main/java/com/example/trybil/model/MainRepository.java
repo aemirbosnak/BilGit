@@ -109,7 +109,6 @@ public class MainRepository {
         dbRef.child("Users").child(auth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Toast.makeText(application, "USER PULLED: " + snapshot.getValue(User.class).getUsername(), Toast.LENGTH_SHORT).show();
                 user.postValue(snapshot.getValue(User.class));
             }
 
@@ -181,7 +180,6 @@ public class MainRepository {
                 }
 
                 friends.postValue(pulledFriends);
-                Toast.makeText(application, "SUCCESS_Friends: ", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -203,7 +201,6 @@ public class MainRepository {
 
                 requests.postValue(pulledRequests);
                 reqUserArray(uids);
-                Toast.makeText(application, "SUCCESS_Requests: ", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -268,7 +265,6 @@ public class MainRepository {
         storage.getReference("images/" + auth.getUid()).putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(application, "IMAGE UPLOADED", Toast.LENGTH_SHORT).show();
                 pullPic();
             }
         });
@@ -288,7 +284,6 @@ public class MainRepository {
             storage.getReference("images/" + auth.getUid()).getFile(tmpFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(application, "IMAGE PULLED", Toast.LENGTH_SHORT).show();
                     Bitmap bitmap = BitmapFactory.decodeFile(tmpFile.getAbsolutePath());
                     picture.postValue(bitmap);
                 }
@@ -310,7 +305,6 @@ public class MainRepository {
             storage.getReference("images/" + uid).getFile(tmpFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(application, "IMAGE PULLED", Toast.LENGTH_SHORT).show();
                     Bitmap bitmap = BitmapFactory.decodeFile(tmpFile.getAbsolutePath());
                     searchPicture.postValue(bitmap);
                 }
@@ -333,7 +327,6 @@ public class MainRepository {
     public void removeFriend() {
         dbRef.child("Friends").child(searchedUid).child("friends").child(auth.getUid()).removeValue();
         dbRef.child("Friends").child(auth.getUid()).child("friends").child(searchedUid).removeValue();
-        Toast.makeText(application, "friend is removed", Toast.LENGTH_SHORT).show();
     }
 
     public void srcFriendCount() {

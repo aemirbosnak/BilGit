@@ -41,6 +41,7 @@ public class SettingsFragment extends Fragment {
     private AuthViewModel authViewModel;
     private MainViewModel mainViewModel;
     private FirebaseUser user;
+    private boolean serviceRunning;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

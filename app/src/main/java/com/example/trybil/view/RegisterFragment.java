@@ -32,15 +32,6 @@ public class RegisterFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-
-        mViewModel.getUserData().observe(this, new Observer<FirebaseUser>() {
-            @Override
-            public void onChanged(FirebaseUser firebaseUser) {
-                if (firebaseUser != null){
-                    Toast.makeText(getContext(), "So:" + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     @Override

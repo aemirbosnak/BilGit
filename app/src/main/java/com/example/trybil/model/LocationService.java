@@ -20,7 +20,6 @@ import com.google.firebase.FirebaseApp;
 
 public class LocationService extends Service {
     UserLocation userLocation;
-    PlaceManager placeManager;
 
     @Nullable
     @Override
@@ -35,9 +34,6 @@ public class LocationService extends Service {
         FirebaseApp.initializeApp(getApplicationContext());
         userLocation = new UserLocation( (LocationManager) getSystemService(LOCATION_SERVICE),
                 this);
-
-        Toast.makeText(this, "service starting ",
-                Toast.LENGTH_SHORT).show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -67,6 +63,5 @@ public class LocationService extends Service {
     @Override
     public void onDestroy() {
         userLocation.close();
-        Toast.makeText(this, "service stopping", Toast.LENGTH_SHORT).show();
     }
 }
