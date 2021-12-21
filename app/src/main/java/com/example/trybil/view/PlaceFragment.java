@@ -66,9 +66,30 @@ public class PlaceFragment extends Fragment {
                 }
 
                 placeFragmentBinding.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                    int currentRate = (int)placeFragmentBinding.ratingBar.getRating();
+
                     @Override
                     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                         mViewModel.setRating((int) rating);
+
+                        if( currentRate != 0) {
+                            databaseReference.child("Places").child(place.getPlaceName()).child("voteNumber")
+                                    .runTransaction(new Transaction.Handler() {
+                                        @NonNull
+                                        @Override
+                                        public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                                            Integer vote = currentData.getValue(Integer.class);
+
+                                            currentData.setValue(vote - 1);
+                                            return Transaction.success(currentData);
+                                        }
+
+                                        @Override
+                                        public void onComplete(@Nullable DatabaseError error, boolean committed,
+                                                               @Nullable DataSnapshot currentData) {}
+                                    });
+                        }
+
                         final float[] newRate = new float[1];
                         final float[] newVoteNumber = new float[1];
                         databaseReference.child("Places").child(place.getPlaceName()).child("totalRating")
@@ -81,7 +102,7 @@ public class PlaceFragment extends Fragment {
                                             currentData.setValue(rating);
                                         }
                                         else{
-                                            currentData.setValue(totalRating + rating);
+                                            currentData.setValue(totalRating - currentRate + rating);
                                         }
                                         return Transaction.success(currentData);
                                     }

@@ -100,31 +100,32 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.247" />
 
-        <Switch
-            android:id="@+id/enableNotifications"
+        <TextView
+            android:id="@+id/notificationSettings"
             android:layout_width="347dp"
             android:layout_height="53dp"
-            android:backgroundTint="@color/teal_700"
-            android:text="Notifications"
+            android:textColor="@color/teal_700"
+            android:clickable="true"
+            android:text="Enable/Disable notifications"
             app:layout_constraintBottom_toTopOf="@+id/locationServices"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.328"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.834" />
+            app:layout_constraintVertical_bias="0.851" />
 
         <TextView
             android:id="@+id/notificationDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Turn on for receiving notifications"
+            android:text="Click for opening settings"
             android:textColor="@android:color/darker_gray"
-            app:layout_constraintBottom_toBottomOf="@+id/enableNotifications"
-            app:layout_constraintEnd_toEndOf="@+id/enableNotifications"
+            app:layout_constraintBottom_toBottomOf="@+id/notificationSettings"
+            app:layout_constraintEnd_toEndOf="@+id/notificationSettings"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/enableNotifications"
-            app:layout_constraintTop_toTopOf="@+id/enableNotifications"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintStart_toStartOf="@+id/notificationSettings"
+            app:layout_constraintTop_toTopOf="@+id/notificationSettings"
+            app:layout_constraintVertical_bias="0.588" />
 
         <TextView
             android:id="@+id/changeEmail"

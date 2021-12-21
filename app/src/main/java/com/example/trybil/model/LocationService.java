@@ -36,14 +36,6 @@ public class LocationService extends Service {
         userLocation = new UserLocation( (LocationManager) getSystemService(LOCATION_SERVICE),
                 this);
 
-        /*
-        //Create places in placeManager, object initialization
-        placeManager = new PlaceManager();
-        //Add places into database using putPlaceToDatabase method from Place class
-        for( int i = 0; i < placeManager.numPlaces(); i++ ) {
-            placeManager.getPlace(i).sendPlaceToDatabase();
-        }*/
-
         Toast.makeText(this, "service starting ",
                 Toast.LENGTH_SHORT).show();
     }
@@ -74,6 +66,7 @@ public class LocationService extends Service {
 
     @Override
     public void onDestroy() {
+        userLocation.close();
         Toast.makeText(this, "service stopping", Toast.LENGTH_SHORT).show();
     }
 }
