@@ -33,13 +33,6 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
-
-        mainViewModel.getLocation().observe(this, new Observer<ArrayList<Integer>>() {
-            @Override
-            public void onChanged(ArrayList<Integer> location) {
-                //homeFragmentBinding.textDist1.setText("Longitude: " + location.get(0) + "size: " + location.size());
-            }
-        });
     }
 
     @Override
@@ -53,16 +46,16 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
+        ArrayList<Place> tmpPlaces = new ArrayList<>();
+        placeAdapter = new PlaceAdapter(getContext(), getActivity().getApplication(), tmpPlaces, mainViewModel, navController);
+        homeFragmentBinding.recylclerPlace.setAdapter(placeAdapter);
+        homeFragmentBinding.recylclerPlace.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mainViewModel.getPlaces().observe(getViewLifecycleOwner(), new Observer<ArrayList<Place>>() {
             @Override
             public void onChanged(ArrayList<Place> places) {
-                Log.i("PLACES", "  :  "+ places.size());
-
-                placeAdapter = new PlaceAdapter(getContext(), getActivity().getApplication(), places, mainViewModel, navController);
-                homeFragmentBinding.recylclerPlace.setAdapter(placeAdapter);
-                homeFragmentBinding.recylclerPlace.setLayoutManager(new LinearLayoutManager(getContext()));
-
+                placeAdapter.setPlaces(places);
+                placeAdapter.notifyDataSetChanged();
             }
         });
 

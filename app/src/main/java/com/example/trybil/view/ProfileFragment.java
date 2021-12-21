@@ -46,15 +46,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        mainViewModel.getUserRequest().observe(this, new Observer<ArrayList<User>>() {
-            @Override
-            public void onChanged(ArrayList<User> users) {
-                friendAdapter = new FriendAdapter(getContext(), getActivity().getApplication(), users);
-                profileFragmentBinding.recylclerFriends.setAdapter(friendAdapter);
-                profileFragmentBinding.recylclerFriends.setLayoutManager(new LinearLayoutManager(getContext()));
-            }
-        });
-
         mainViewModel.getUser().observe(this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
@@ -96,5 +87,16 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         profileFragmentBinding.btnUp.setOnClickListener(v -> pickImage.launch("image/"));
+
+        friendAdapter = new FriendAdapter(getContext(), getActivity().getApplication(), new ArrayList<User>());
+        profileFragmentBinding.recylclerFriends.setAdapter(friendAdapter);
+        profileFragmentBinding.recylclerFriends.setLayoutManager(new LinearLayoutManager(getContext()));
+        mainViewModel.getUserRequest().observe(getViewLifecycleOwner(), new Observer<ArrayList<User>>() {
+            @Override
+            public void onChanged(ArrayList<User> users) {
+                friendAdapter.setUsers(users);
+                friendAdapter.notifyDataSetChanged();
+            }
+        });
     }
 }

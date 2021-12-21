@@ -36,6 +36,10 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
         return new MyViewHolder(view);
     }
 
+    public void setUsers(ArrayList<User> users) {
+        this.users = users;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.txtUsernameCard.setText(users.get(position).getUsername());

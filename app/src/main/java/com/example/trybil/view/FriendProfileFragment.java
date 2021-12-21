@@ -80,10 +80,10 @@ public class FriendProfileFragment extends Fragment {
             }
         });
 
-        mainViewModel.getFriends().observe(this, new Observer<ArrayList<String>>() {
+        mainViewModel.getSrcFriendCount().observe(this, new Observer<Integer>() {
             @Override
-            public void onChanged(ArrayList<String> friends) {
-                friendProfileFragmentBinding.friendCount.setText("Friends: " + friends.size());
+            public void onChanged(Integer integer) {
+                friendProfileFragmentBinding.friendCount.setText("Friends: " + integer);
             }
         });
     }
@@ -102,7 +102,6 @@ public class FriendProfileFragment extends Fragment {
     class AddListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Toast.makeText(getContext(), "ZAAAAAAAA", Toast.LENGTH_SHORT).show();
             mainViewModel.addFriend();
         }
     }
@@ -110,7 +109,7 @@ public class FriendProfileFragment extends Fragment {
     class RemoveListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Toast.makeText(getContext(), "removed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Friend Removed", Toast.LENGTH_SHORT).show();
             mainViewModel.removeFriend();
         }
     }

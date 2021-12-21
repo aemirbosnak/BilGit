@@ -67,4 +67,10 @@ public class MainActivity extends AppCompatActivity {
         navController.navigate(R.id.homeFragment);
         activityMainBinding.bottomNavigation.setSelectedItemId(R.id.menuItemHome);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //this.stopService(new Intent(this, LocationService.class));
+    }
 }
