@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
@@ -88,6 +89,14 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        settingsFragmentBinding.notificationSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
 
         settingsFragmentBinding.changeEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,7 +157,6 @@ public class SettingsFragment extends Fragment {
                 lay.addView(oldPass);
                 lay.addView(newPText);
                 lay.addView(newPass);
-
                 AlertDialog.Builder changePass = new AlertDialog.Builder(v.getContext())
                         .setTitle("Change Password")
                         .setView(lay)
@@ -244,8 +252,6 @@ public class SettingsFragment extends Fragment {
             }
         });
     }
-
-
 
     @Override
     public void onDestroy() {
