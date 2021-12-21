@@ -47,6 +47,7 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
+
     }
 
     @Override
@@ -100,5 +101,6 @@ public class LoginFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         loginFragmentBinding = null;
+        onDestroy();
     }
 }

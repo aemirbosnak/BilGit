@@ -1,16 +1,16 @@
 package com.example.trybil.model;
 
-import java.util.ArrayList;
-
 public class User {
     private String email;
     private String username;
     private String department;
+    private boolean priv;
 
-    public User(String email, String username, String department) {
+    public User(String email, String username, String department, boolean priv) {
         this.email = email;
         this.username = username;
         this.department = department;
+        this.priv = priv;
     }
 
     public User() {
@@ -28,15 +28,8 @@ public class User {
         return department;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public boolean getPriv() {
+        return priv;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
 }

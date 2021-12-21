@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -56,6 +55,7 @@ public class MainRepository {
     private final MutableLiveData<ArrayList<String>> requests;
     private final MutableLiveData<Place> place;
     private final MutableLiveData<ArrayList<Integer>> populations;
+    private final MutableLiveData<Boolean> priv;
     private final DatabaseReference dbRef;
     private static MainRepository mainRepositorySingleton;
     private String searchedUid;
@@ -91,6 +91,7 @@ public class MainRepository {
         requests = new MutableLiveData<ArrayList<String>>();
         populations = new MutableLiveData<ArrayList<Integer>>();
         place = new MutableLiveData<>();
+        priv = new MutableLiveData<>();
         //placeManager = new PlaceManager();
 
         pullPlaces();
@@ -100,6 +101,7 @@ public class MainRepository {
             pullPic();
             pullLocations();
             pullPopulations();
+            pullPriv();
         }
     }
 
@@ -289,6 +291,13 @@ public class MainRepository {
         });
     }
 
+    public void changePriv(boolean priv) {
+        if (priv)
+            dbRef.child("Users").child(auth.getUid()).child("priv").setValue(true);
+        else
+            dbRef.child("Users").child(auth.getUid()).child("priv").setValue(false);
+    }
+
     public void pullPic() {
         try {
             final File tmpFile = File.createTempFile(auth.getUid(), "jpg");
@@ -442,14 +451,31 @@ public class MainRepository {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    for (String friend : friendsIn) {
-                        if (friend.equals(ds.getKey())) {
-                            friendsInUser.add(ds.getValue(User.class));
+                    User tmpUser = ds.getValue(User.class);
+                    if (!tmpUser.getPriv()) {
+                        for (String friend : friendsIn) {
+                            if (friend.equals(ds.getKey())) {
+                                friendsInUser.add(ds.getValue(User.class));
+                            }
                         }
                     }
                 }
 
                 inPlaceFriends.postValue(friendsInUser);
+            }
+        });
+    }
+
+    public void pullPriv() {
+        dbRef.child("Users").child(auth.getUid()).child("priv").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                priv.postValue(snapshot.getValue(Boolean.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(application, "ERROR_Private: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -513,5 +539,8 @@ public class MainRepository {
 
     public MutableLiveData<ArrayList<Integer>> getPopulations() { return populations; }
 
+    public MutableLiveData<Boolean> getPriv() {
+        return priv;
+    }
     //public PlaceManager getPlaceManager() { return placeManager; }
 }

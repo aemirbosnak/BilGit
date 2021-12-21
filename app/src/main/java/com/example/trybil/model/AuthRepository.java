@@ -77,7 +77,7 @@ public class AuthRepository {
             public void onComplete(@NonNull  Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
-                    User user = new User(email, username, department);
+                    User user = new User(email, username, department, false);
 
                     // Add user to realtime database
                     dbRef.child("Users").child(auth.getCurrentUser().getUid()).setValue(user);

@@ -27,6 +27,7 @@ import com.example.trybil.R;
 import com.example.trybil.databinding.SettingsFragmentBinding;
 import com.example.trybil.model.LocationService;
 import com.example.trybil.viewmodel.AuthViewModel;
+import com.example.trybil.viewmodel.MainViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -37,23 +38,34 @@ import com.google.firebase.auth.FirebaseUser;
 public class SettingsFragment extends Fragment {
     private SettingsFragmentBinding settingsFragmentBinding;
     private AuthViewModel authViewModel;
+    private MainViewModel mainViewModel;
     private FirebaseUser user;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        authViewModel = new ViewModelProvider(getActivity()).get(AuthViewModel.class);
+        mainViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         authViewModel.getLoggedStatus().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean){
-                    Log.i("ACTIVITY", "a " + getActivity().getTaskId());
                     Intent intent = new Intent(getContext(), AuthActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                    Log.i("ACTIVITY", "a " + getActivity().getTaskId());
                 }
+            }
+        });
+
+        mainViewModel.getPriv().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean)
+                    settingsFragmentBinding.privateProfile.setChecked(true);
+                else
+                    settingsFragmentBinding.privateProfile.setChecked(false);
             }
         });
     }
@@ -159,6 +171,7 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+
         settingsFragmentBinding.locationServices.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // stop location service, the isChecked will be
@@ -167,6 +180,13 @@ public class SettingsFragment extends Fragment {
                     getActivity().stopService(new Intent(getActivity(), LocationService.class));
                 else
                     getActivity().startService(new Intent(getActivity(), LocationService.class));
+            }
+        });
+
+        settingsFragmentBinding.privateProfile.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mainViewModel.changePriv(isChecked);
             }
         });
     }
@@ -224,6 +244,8 @@ public class SettingsFragment extends Fragment {
             }
         });
     }
+
+
 
     @Override
     public void onDestroy() {

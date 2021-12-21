@@ -116,5 +116,12 @@ public class HomeFragment extends Fragment {
                 mainViewModel.changePlace("Speed Cafe");
             }
         });
+
+        homeFragmentBinding.titleView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 }
