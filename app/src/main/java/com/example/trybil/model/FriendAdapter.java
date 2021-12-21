@@ -20,7 +20,6 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
     ArrayList<User> users;
     Context context;
     MainRepository repository;
-    private FriendAdapter adapter;
 
     public FriendAdapter(Context context, Application application, ArrayList<User> friends) {
         this.context = context;

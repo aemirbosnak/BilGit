@@ -3,21 +3,35 @@
         <string-array name="departments_array">
             <item>CS</item>
             <item>EE</item>
-            <item>ARCH</item>
-            <item>LAUD</item>
+            <item>ME</item>
+            <item>IE</item>
             <item>AMER</item>
             <item>ELIT</item>
             <item>FA</item>
-            <item>IE</item>
-            <item>1</item>
-            <item>2</item>
-            <item>3</item>
-            <item>4</item>
-            <item>5</item>
-            <item>6</item>
-            <item>7</item>
-            <item>8</item>
-            <item>9</item>
-            <item>10</item>
+            <item>CTIS</item>
+            <item>ARCH</item>
+            <item>LAUD</item>
+            <item>THM</item>
+            <item>COMD</item>
+            <item>GRA</item>
+            <item>IAED</item>
+            <item>ADA</item>
+            <item>MAN</item>
+            <item>ECON</item>
+            <item>HIST</item>
+            <item>IR</item>
+            <item>POLS</item>
+            <item>PSYC</item>
+            <item>HART</item>
+            <item>FRP</item>
+            <item>PHIL</item>
+            <item>EDEB</item>
+            <item>LAW</item>
+            <item>MSC</item>
+            <item>THR</item>
+            <item>CHEM</item>
+            <item>MATH</item>
+            <item>MBG</item>
+            <item>PHYS</item>
         </string-array>
 </resources>

@@ -81,13 +81,6 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        loginFragmentBinding.textForgot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_loginFragment_to_resetFragment);
-            }
-        });
-
         loginFragmentBinding.buttonLoginAnon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

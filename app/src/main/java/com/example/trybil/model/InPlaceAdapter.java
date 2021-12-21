@@ -18,7 +18,6 @@ public class InPlaceAdapter extends RecyclerView.Adapter<InPlaceAdapter.SecViewH
     ArrayList<User> friends;
     Context context;
     MainRepository repository;
-    private InPlaceAdapter adapter;
 
     public InPlaceAdapter(Context context, Application application, ArrayList<User> friends) {
         this.context = context;

@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_resetFragment"
-            app:destination="@id/resetFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -24,15 +21,6 @@
         tools:layout="@layout/register_fragment" >
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/resetFragment"
-        android:name="com.example.trybil.view.ResetFragment"
-        android:label="fragment_reset"
-        tools:layout="@layout/reset_fragment" >
-        <action
-            android:id="@+id/action_resetFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
 </navigation>

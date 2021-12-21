@@ -35,7 +35,7 @@ public class PlaceFragment extends Fragment {
     private MainViewModel mViewModel;
     private DatabaseReference databaseReference;
     private InPlaceAdapter inPlaceAdapter;
-    private int oldRating;
+    private Integer oldRating;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,7 +105,7 @@ public class PlaceFragment extends Fragment {
             public void onClick(View v) {
                 int rating = (int) placeFragmentBinding.ratingBar.getRating();
                 Place place = mViewModel.getPlace().getValue();
-                if( oldRating != 0) {
+                if( oldRating != null) {
                     databaseReference.child("Places").child(place.getPlaceName()).child("voteNumber")
                             .runTransaction(new Transaction.Handler() {
                                 @NonNull
