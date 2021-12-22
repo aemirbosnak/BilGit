@@ -36,7 +36,7 @@
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_marginHorizontal="30dp"
         android:fitsSystemWindows="false"
-        android:max="100"
+        android:max="60"
         android:minHeight="32dp"
         android:progress="50"
         android:progressTint="@color/ultramarine_200"
