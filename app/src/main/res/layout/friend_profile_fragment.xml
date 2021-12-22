@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ProfileFragment"
-    android:background="@color/white_100">
+    android:background="@color/white_100"
+    tools:context=".view.ProfileFragment">
 
     <ImageView
         android:id="@+id/imageView"
@@ -29,12 +29,12 @@
         android:textStyle="bold"
         android:translationX="225dp"
         android:translationY="110dp"
-        tools:layout_editor_absoluteX="229dp"
-        tools:layout_editor_absoluteY="76dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="229dp"
+        tools:layout_editor_absoluteY="76dp" />
 
     <TextView
         android:id="@+id/department"
@@ -43,12 +43,12 @@
         android:text="department"
         android:translationX="225dp"
         android:translationY="150dp"
-        tools:layout_editor_absoluteX="231dp"
-        tools:layout_editor_absoluteY="113dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="231dp"
+        tools:layout_editor_absoluteY="113dp" />
 
     <TextView
         android:id="@+id/friendCount"
@@ -57,23 +57,23 @@
         android:text="Friends:"
         android:translationX="225dp"
         android:translationY="180dp"
-        tools:layout_editor_absoluteX="231dp"
-        tools:layout_editor_absoluteY="113dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="231dp"
+        tools:layout_editor_absoluteY="113dp" />
 
     <TextView
         android:id="@+id/privacy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="20dp"
         android:text="@string/profile"
         android:translationX="225dp"
         android:translationY="180dp"
-        app:layout_constraintStart_toEndOf="@+id/friendCount"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/friendCount"
+        app:layout_constraintStart_toEndOf="@+id/friendCount" />
 
     <Button
         android:id="@+id/friendRequest"
