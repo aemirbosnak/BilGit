@@ -92,6 +92,7 @@ public class SettingsFragment extends Fragment {
         settingsFragmentBinding.buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getActivity().stopService(new Intent(getActivity(), LocationService.class));
                 authViewModel.signOut();
             }
         });
