@@ -53,7 +53,7 @@ public class MainRepository {
     private final MutableLiveData<Integer> rating;
     private final MutableLiveData<ArrayList<String>> friends;
     private final MutableLiveData<Integer> srcFriendCount;
-    private final ArrayList<String>  friendsUid;
+    private ArrayList<String>  friendsUid;
     private final MutableLiveData<ArrayList<User>> inPlaceFriends;
     private final MutableLiveData<ArrayList<String>> requests;
     private final MutableLiveData<Place> place;
@@ -173,6 +173,7 @@ public class MainRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> pulledFriends = new ArrayList<>();
+                friendsUid = new ArrayList<String>();
 
                 for(DataSnapshot ds: snapshot.getChildren()) {
                     pulledFriends.add(ds.getValue().toString());
@@ -442,12 +443,13 @@ public class MainRepository {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
                 ArrayList<User> tmpFriends = new ArrayList<>();
+                Log.i("ARRAYS", friendsUid.size() +  ":::" +friendsIn.size() + "::" + hashMap.size());
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     User tmpUser = ds.getValue(User.class);
                     if (!tmpUser.getPriv()) {
                         for (String friend : friendsIn) {
-                            if (friend.equals(ds.getKey()) && !tmpFriends.contains(ds.getValue(User.class))) {
+                            if (friend.equals(ds.getKey())) {
 
                                 tmpFriends.add(ds.getValue(User.class));
                             }
