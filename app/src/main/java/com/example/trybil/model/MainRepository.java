@@ -442,11 +442,13 @@ public class MainRepository {
             @Override
             public void onSuccess(DataSnapshot dataSnapshot) {
                 ArrayList<User> tmpFriends = new ArrayList<>();
+
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     User tmpUser = ds.getValue(User.class);
                     if (!tmpUser.getPriv()) {
                         for (String friend : friendsIn) {
-                            if (friend.equals(ds.getKey())) {
+                            if (friend.equals(ds.getKey()) && !tmpFriends.contains(ds.getValue(User.class))) {
+
                                 tmpFriends.add(ds.getValue(User.class));
                             }
                         }
