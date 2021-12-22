@@ -39,9 +39,7 @@ public class LoginFragment extends Fragment {
                     if(firebaseUser.getEmail() == null || firebaseUser.getEmail().isEmpty()) {
                         Toast.makeText(getContext(), "Logged in Anonymously", Toast.LENGTH_SHORT).show();
                     }
-                    else {
-                        Toast.makeText(getContext(), "Welcome ", Toast.LENGTH_SHORT).show();
-                    }
+
                     startActivity(new Intent(getContext(), MainActivity.class));
                     getActivity().finish();
                 }

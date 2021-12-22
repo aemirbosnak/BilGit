@@ -82,6 +82,7 @@ public class AuthRepository {
                     // Add user to realtime database
                     dbRef.child("Users").child(auth.getCurrentUser().getUid()).setValue(user);
                     dbRef.child("Usernames").child(username).setValue(auth.getUid());
+                    Toast.makeText(application, "Successful Login", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     Toast.makeText(application, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
