@@ -19,7 +19,7 @@ Run the code <br />
 If you don't have an account (most probably you don't), create an account <br />
 Then come back to the login page and enter your informations <br />
 Congratulations! You are in the app :) <br />
-If you're using an AVD, we recommend you to close your location services before turning down your AVD
+If you're using an AVD, we recommend you to close your location services from the settings tab before turning down your AVD
 
 ### Dependencies
 ``'com.google.firebase:firebase-auth'``  
