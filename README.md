@@ -21,14 +21,14 @@ Then come back to the login page and enter your informations <br />
 Congratulations! You are in the app :)  
 
 ### Dependencies
-``'com.google.firebase:firebase-auth'``
-``'com.google.firebase:firebase-database'``
-``'com.google.firebase:firebase-storage'``
-``'com.google.android.gms:play-services-location:19.0.0'``
+``'com.google.firebase:firebase-auth'``  
+``'com.google.firebase:firebase-database'``  
+``'com.google.firebase:firebase-storage'``  
+``'com.google.android.gms:play-services-location:19.0.0'``  
 
 ### Permissions
-``"android.permission.ACCESS_GPS" ``
-``"android.permission.ACCESS_COARSE_LOCATION" ``
-``"android.permission.ACCESS_FINE_LOCATION"``
-``"android.permission.FOREGROUND_SERVICE"``
-``"android.permission.INTERNET"``
+``"android.permission.ACCESS_GPS" ``  
+``"android.permission.ACCESS_COARSE_LOCATION" ``  
+``"android.permission.ACCESS_FINE_LOCATION"``  
+``"android.permission.FOREGROUND_SERVICE"``  
+``"android.permission.INTERNET"``  
